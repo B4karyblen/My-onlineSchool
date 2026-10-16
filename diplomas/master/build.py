@@ -190,7 +190,6 @@ def frame_svg():
 
 
 MICRO_MEDALLION = "ERPIE · DIPLÔME AUTHENTIQUE · AUTHENTIC ACADEMIC CREDENTIAL · "
-MICRO_SEAL = "SCEAU OFFICIEL · ERPIE · OFFICIAL SEAL · "
 
 
 def ring_text(pid, cx, cy, r, text, size, repeat):
@@ -256,32 +255,6 @@ def background_svg(emblem_href):
     )
 
 
-def seal_svg():
-    c = 15
-    rose = "".join(
-        f'<path d="{polar(c, c, lambda t, k=k: 8.1 + 1.15 * math.sin(16 * t + k * math.pi / 8), 0, 2 * math.pi, 320)}"/>'
-        for k in range(4)
-    )
-    return (
-        '<svg class="seal-placeholder" viewBox="0 0 30 30" aria-hidden="true">'
-        '<g fill="none" stroke="var(--engrave)">'
-        f'<circle cx="{c}" cy="{c}" r="14.5" stroke-width=".35"/>'
-        f'<circle cx="{c}" cy="{c}" r="13.75" stroke-width=".1"/>'
-        f'<circle cx="{c}" cy="{c}" r="10.75" stroke-width=".22"/>'
-        f'<circle cx="{c}" cy="{c}" r="10.25" stroke-width=".08"/>'
-        f'<circle cx="{c}" cy="{c}" r="6.2" stroke-width=".2"/>'
-        f'<circle cx="{c}" cy="{c}" r="5.8" stroke-width=".08"/>'
-        "</g>"
-        f'<g fill="none" stroke="var(--green)" stroke-width=".07">{rose}</g>'
-        f'<circle cx="{c}" cy="{c}" r="5.75" fill="var(--paper)"/>'
-        + ring_text("mtSeal", c, c, 12.05, MICRO_SEAL, 1.32, 3)
-        + f'<text x="{c}" y="14.35" class="seal-label" text-anchor="middle">SCEAU</text>'
-        f'<text x="{c}" y="16.55" class="seal-label" text-anchor="middle">OFFICIEL</text>'
-        f'<path d="M{c} 17.6l.55.55-.55.55-.55-.55z" fill="var(--red)"/>'
-        "</svg>"
-    )
-
-
 def rule_svg(width, flip=False):
     """Hairline ending in a lozenge, used either side of the recipient name."""
     t = ' transform="scale(-1 1)" transform-origin="center"' if flip else ""
@@ -331,15 +304,13 @@ SAMPLE = {
     "ACADEMIC_OFFICIAL_NAME": "[Nom et prénom]",
     "AUTHORIZED_SIGNATORY_TITLE": "Le Directeur Général",
     "AUTHORIZED_SIGNATORY_NAME": "[Nom et prénom]",
-    "SEAL": "",
-    "QR_CODE": "",
     "VERIFICATION_URL": "erpie.example/v/ERP-2026-7F3K-9Q2M",
     "CREDENTIAL_ID": "ERP-2026-7F3K-9Q2M",
     "SECURITY_CODE": "X7Q4-K2M9",
 }
-IMAGE_FIELDS = {"SCHOOL_LOGO", "SEAL", "QR_CODE"}
+IMAGE_FIELDS = {"SCHOOL_LOGO"}
 OPTIONAL = {"AUTHORITY", "ACCREDITATION", "SERIAL_NUMBER", "RECIPIENT_HONORIFIC", "DISTINCTION",
-            "SECURITY_CODE", "SEAL", "PROGRAM_REFERENCE"}
+            "SECURITY_CODE", "PROGRAM_REFERENCE"}
 
 
 def t(key):
@@ -406,11 +377,6 @@ def diploma_markup(emblem_href):
 
 <p class="z z-place">Fait à {t("ISSUE_CITY")}, le {t("ISSUE_DATE")}</p>
 
-<div class="z z-qr">
-  <div class="qr-frame"><img data-field="QR_CODE" src="{{{{QR_CODE}}}}" alt="QR code de vérification"></div>
-  <div class="qr-caption">Vérifier l’authenticité</div>
-</div>
-
 <section class="z z-sigs">
 {"".join(f'''  <div class="sig">
     <div class="sig-role">{t(role)}</div>
@@ -419,11 +385,6 @@ def diploma_markup(emblem_href):
     <div class="sig-name">{t(name)}</div>
   </div>
 ''' for role, name in sigs)}</section>
-
-<div class="z z-seal">
-  <img class="seal-img" data-field="SEAL" src="{{{{SEAL}}}}" alt="Sceau officiel" hidden>
-  {seal_svg()}
-</div>
 
 <footer class="z z-verify">
   <div class="microline" aria-hidden="true">{micro}</div>
@@ -515,23 +476,12 @@ DIPLOMA_CSS = """
 
 .z-place { left: 48.5mm; width: 200mm; top: 146.6mm; text-align: center; font-style: italic; font-size: 3.05mm; color: var(--ink-soft); }
 
-.z-qr { left: 28mm; top: 153mm; width: 22mm; text-align: center; }
-.qr-frame { width: 20mm; height: 20mm; margin: 0 auto; padding: .9mm; background: #fff; border: .15mm solid rgba(12,85,48,.5); outline: .1mm solid rgba(12,85,48,.25); outline-offset: .7mm; }
-.qr-frame img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
-.qr-caption { margin-top: 1.6mm; font-family: var(--f-meta); font-size: 1.45mm; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
-
 .z-sigs { left: 62.5mm; width: 172mm; top: 154mm; display: grid; grid-template-columns: repeat(3, 54mm); column-gap: 5mm; }
 .sig { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; }
 .sig-role { font-family: var(--f-meta); font-size: 1.8mm; letter-spacing: .18em; text-transform: uppercase; color: var(--engrave); line-height: 1.3; min-height: 2.4mm; }
 .sig-space { height: 12.5mm; }
 .sig-line { width: 42mm; border-top: .18mm solid var(--ink-soft); }
 .sig-name { margin-top: 1.1mm; font-family: var(--f-body); font-size: 2.8mm; font-variant: small-caps; letter-spacing: .06em; color: var(--ink); white-space: nowrap; }
-
-.z-seal { left: 244mm; top: 150mm; width: 29mm; height: 29mm; }
-.z-seal .seal-placeholder, .z-seal .seal-img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: contain; }
-.z-seal .seal-img[hidden] { display: none; }
-.seal-placeholder { opacity: .82; }
-.seal-label { font-family: var(--f-meta); font-weight: 500; font-size: 1.32px; letter-spacing: .16px; fill: var(--engrave); }
 
 .z-verify { left: 30mm; width: 237mm; top: 182.6mm; text-align: center; }
 .z-verify .microline { margin-bottom: .9mm; }
@@ -558,10 +508,7 @@ FILL_JS = r"""
       var key = node.getAttribute('data-field'), v = data[key];
       if (v === undefined) return;
       if (node.tagName === 'IMG') {
-        if (v) { node.src = v; node.hidden = false; } else if (node.classList.contains('seal-img')) { node.hidden = true; }
-        if (node.classList.contains('seal-img')) {
-          var ph = root.querySelector('.seal-placeholder'); if (ph) ph.style.display = v ? 'none' : '';
-        }
+        if (v) node.src = v;
       } else { node.textContent = v; }
     });
     root.querySelectorAll('[data-optional]').forEach(function (node) {
@@ -597,7 +544,7 @@ html, body {{ margin: 0; padding: 0; background: #e9ece6; }}
 <body>
 <!--
   Fields: replace every {{{{FIELD}}}} token server-side, or call ERPIE_DIPLOMA.fill(data) in the page.
-  Image fields (SCHOOL_LOGO, QR_CODE, SEAL) take a URL or data: URI. Leave SEAL empty to keep the engraved placeholder.
+  SCHOOL_LOGO takes a URL or data: URI.
   Optional fields hide their row when set to "": {", ".join(sorted(OPTIONAL))}.
   See README.md and sample-data.json.
 -->
@@ -610,15 +557,6 @@ html, body {{ margin: 0; padding: 0; background: #e9ece6; }}
 
 def data_uri(path, mime):
     return f"data:{mime};base64,{base64.b64encode(path.read_bytes()).decode()}"
-
-
-def sample_qr(url):
-    import segno
-    qr = segno.make(f"https://{url}", error="m")
-    import io
-    buf = io.BytesIO()
-    qr.save(buf, kind="svg", border=0, dark="#0c3b22", xmldecl=False, svgns=True, nl=False)
-    return "data:image/svg+xml;base64," + base64.b64encode(buf.getvalue()).decode()
 
 
 PREVIEW_CSS = """
@@ -649,10 +587,8 @@ summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 /* variable mode: outline every live field */
 .show-vars [data-field], .show-vars [data-optional] { outline: .25mm dashed rgba(165,23,27,.75); outline-offset: .3mm; }
 .show-vars img[data-field] { background: rgba(165,23,27,.06); }
-.show-vars .z-seal::after, .show-vars .z-qr::before, .show-vars .z-logo::after { position: absolute; left: 50%; transform: translateX(-50%); font: 500 1.6mm/1 ui-monospace, Menlo, monospace; color: #a5171b; background: #fff; padding: .4mm .8mm; white-space: nowrap; }
+.show-vars .z-logo::after { position: absolute; left: 50%; transform: translateX(-50%); font: 500 1.6mm/1 ui-monospace, Menlo, monospace; color: #a5171b; background: #fff; padding: .4mm .8mm; white-space: nowrap; }
 .show-vars .z-logo::after { content: "{{SCHOOL_LOGO}}"; bottom: -2.6mm; left: 25mm; }
-.show-vars .z-qr::before { content: "{{QR_CODE}}"; top: -3mm; }
-.show-vars .z-seal::after { content: "{{SEAL}}"; bottom: -2.6mm; }
 .show-grid .grid-overlay { display: block; }
 .grid-overlay { display: none; position: absolute; inset: 0; width: 297mm; height: 210mm; pointer-events: none; }
 @media (prefers-reduced-motion: no-preference) { .sheet { transition: width .25s ease, height .25s ease; } }
@@ -667,7 +603,6 @@ GRID_OVERLAY = (
     '<rect x="28.5" y="99" width="240" height="13"/><rect x="48.5" y="114" width="200" height="17"/>'
     '<rect x="46.5" y="133" width="204" height="12"/><rect x="62.5" y="154" width="54" height="23"/>'
     '<rect x="121.5" y="154" width="54" height="23"/><rect x="180.5" y="154" width="54" height="23"/>'
-    '<rect x="28" y="153" width="22" height="24"/><circle cx="258.5" cy="164.5" r="14.5"/>'
     '<rect x="30" y="182.6" width="237" height="6"/></g></svg>'
 )
 
@@ -677,11 +612,8 @@ def preview_html():
     emblem = data_uri(assets / "erpie-emblem.webp", "image/webp")
     sample = dict(SAMPLE)
     sample["SCHOOL_LOGO"] = data_uri(assets / "erpie-logo.webp", "image/webp")
-    sample["QR_CODE"] = sample_qr(SAMPLE["VERIFICATION_URL"])
     markup = (diploma_markup(emblem).replace("</article>", GRID_OVERLAY + "</article>", 1)
-              .replace('src="{{SCHOOL_LOGO}}"', f'src="{sample["SCHOOL_LOGO"]}"')
-              .replace('src="{{QR_CODE}}"', f'src="{sample["QR_CODE"]}"')
-              .replace('src="{{SEAL}}"', 'src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="'))
+              .replace('src="{{SCHOOL_LOGO}}"', f'src="{sample["SCHOOL_LOGO"]}"'))
     rows = "".join(
         f'<tr><td><code>{{{{{k}}}}}</code>{" <span class=opt>optionnel</span>" if k in OPTIONAL else ""}</td>'
         f'<td>{"image (URL ou data:)" if k in IMAGE_FIELDS else (v or "—")}</td></tr>'
@@ -724,7 +656,7 @@ def preview_html():
   var SAMPLE = {json.dumps(sample, ensure_ascii=False)};
   var root = document.getElementById('diploma'), sheet = document.getElementById('sheet'), vp = document.getElementById('viewport');
   var MM = 96 / 25.4, DW = 297 * MM, DH = 210 * MM, zoom = 'fit';
-  var VARS = {{}}; Object.keys(SAMPLE).forEach(function (k) {{ VARS[k] = k === 'SCHOOL_LOGO' || k === 'QR_CODE' ? SAMPLE[k] : (k === 'SEAL' ? '' : '{{{{' + k + '}}}}'); }});
+  var VARS = {{}}; Object.keys(SAMPLE).forEach(function (k) {{ VARS[k] = k === 'SCHOOL_LOGO' ? SAMPLE[k] : '{{{{' + k + '}}}}'; }});
   function layout() {{
     var pad = parseFloat(getComputedStyle(vp).paddingLeft) * 2;
     var s = zoom === 'fit' ? Math.min(1.6, (vp.clientWidth - pad) / DW) : zoom;
