@@ -282,14 +282,19 @@ SAMPLE = {
     "SCHOOL_LOGO": "assets/erpie-logo.webp",
     "SCHOOL_NAME": "ERPIE",
     "COUNTRY": "République du Mali",
-    "AUTHORITY": "[Autorité de tutelle — optionnel]",
-    "ACCREDITATION": "[Autorisation / accréditation n° — optionnel]",
+    "AUTHORITY": "Ministère de l’Enseignement Supérieur et de la Recherche Scientifique",
+    "ACCREDITATION": "",
+    "DECREE_CREATION": "N° 2018-0001575/MESRS-SG du 3 septembre 2018",
+    "DECREE_OPENING": "N° 2022-4383/MESRS-SG du 21 septembre 2022",
+    "DECREE_HABILITATION": "N° 2024-3794/MESRS-SG du 8 octobre 2024",
     "CERTIFICATE_NUMBER": "00000001",
     "SERIAL_NUMBER": "A-2026",
     "DOCUMENT_TITLE": "Diplôme",
     "QUALIFICATION": "de Master Professionnel",
     "RECIPIENT_HONORIFIC": "Mme",
     "RECIPIENT_NAME": "Aïssata Diarra",
+    "RECIPIENT_BIRTH_DATE": "12 mars 2001",
+    "RECIPIENT_BIRTH_PLACE": "Bamako",
     "PROGRAM_NAME": "Master en Management de Projets Digitaux",
     "DISTINCTION": "Très Bien",
     "SPECIALIZATION": "Transformation numérique",
@@ -355,8 +360,12 @@ def diploma_markup(emblem_href):
 </section>
 
 <section class="z z-decl">
-  <p class="decl-body">Vu les dispositions et règlements applicables à la formation ; vu la validation des enseignements,
-  évaluations et exigences du programme ; vu les résultats obtenus par le/la candidat(e) ;</p>
+  <p class="decl-body">Vu la décision de création <span class="ref">{t("DECREE_CREATION")}</span> ;
+  vu l’arrêté d’ouverture <span class="ref">{t("DECREE_OPENING")}</span> ;<br>
+  vu l’arrêté d’habilitation <span class="ref">{t("DECREE_HABILITATION")}</span> ;
+  vu les pièces justificatives produites par l’intéressé(e) ;<br>
+  vu les <span class="nb">procès-verbaux</span> du jury attestant que l’intéressé(e) a satisfait au contrôle des connaissances
+  et des aptitudes prévu par les textes réglementaires ;</p>
   <p class="decl-lead">le présent diplôme est délivré à</p>
 </section>
 
@@ -365,9 +374,10 @@ def diploma_markup(emblem_href):
   <div class="recipient" id="recipient"><span class="honorific"{opt("RECIPIENT_HONORIFIC")}>{t("RECIPIENT_HONORIFIC")}</span> <span class="recipient-name">{t("RECIPIENT_NAME")}</span></div>
   {rule_svg(30)}
 </section>
+<p class="z z-birth">né(e) le {t("RECIPIENT_BIRTH_DATE")} à {t("RECIPIENT_BIRTH_PLACE")}</p>
 
 <section class="z z-award">
-  <p class="award-stmt">est officiellement reconnu(e) pour avoir satisfait aux exigences du programme</p>
+  <p class="award-stmt">au titre de l’année universitaire {t("ACADEMIC_YEAR")}, pour la formation</p>
   <p class="program">{t("PROGRAM_NAME")}</p>
   <p class="mention"{opt("DISTINCTION")}><span class="mention-label">Mention</span> {t("DISTINCTION")}</p>
 </section>
@@ -441,27 +451,30 @@ DIPLOMA_CSS = """
 .z-inst { left: 207mm; top: 33mm; width: 64mm; text-align: center; display: flex; flex-direction: column; align-items: center; gap: .9mm; }
 .inst-country { font-family: var(--f-display); font-weight: 600; font-size: 3.7mm; letter-spacing: .12em; line-height: 1.1; color: var(--ink); }
 .inst-rule { width: 22mm; height: 1.8mm; display: block; }
-.inst-authority { font-family: var(--f-serif); font-style: italic; font-size: 3mm; line-height: 1.2; color: var(--ink-soft); }
+.inst-authority { font-family: var(--f-serif); font-style: italic; font-size: 3mm; line-height: 1.2; text-wrap: balance; color: var(--ink-soft); }
 .inst-accred { font-family: var(--f-meta); font-size: 1.55mm; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
 .inst-school { font-family: var(--f-display); font-weight: 600; font-size: 3.1mm; letter-spacing: .32em; margin-right: -.32em; color: var(--engrave); margin-top: .4mm; }
 
-.z-title { left: 48.5mm; width: 200mm; top: 54.5mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
-.doc-title { font-family: var(--f-display); font-weight: 600; font-size: 15.5mm; line-height: .95; letter-spacing: .17em; margin-right: -.17em;
+.z-title { left: 48.5mm; width: 200mm; top: 51mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.doc-title { font-family: var(--f-display); font-weight: 600; font-size: 14mm; line-height: .95; letter-spacing: .17em; margin-right: -.17em;
   color: var(--engrave); }
-.title-rule { width: 64mm; height: 3.2mm; display: block; margin: 1.6mm 0 1.2mm; }
-.qualification { font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: 6.2mm; line-height: 1.1; color: var(--green); }
+.title-rule { width: 60mm; height: 3mm; display: block; margin: 1.4mm 0 1mm; }
+.qualification { font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: 5.8mm; line-height: 1.1; color: var(--green); }
 
-.z-decl { left: 71.5mm; width: 154mm; top: 84.6mm; text-align: center; color: var(--ink-soft); }
-.decl-body { font-style: italic; font-size: 2.95mm; line-height: 1.4; text-align: center; text-wrap: balance; hyphens: none; }
-.decl-lead { margin-top: 1.2mm !important; font-family: var(--f-meta); font-size: 1.85mm; letter-spacing: .28em; text-transform: uppercase; color: var(--engrave); }
+.z-decl { left: 51.5mm; width: 194mm; top: 78.2mm; text-align: center; color: var(--ink-soft); }
+.decl-body { font-style: italic; font-size: 2.62mm; line-height: 1.45; text-align: center; text-wrap: pretty; hyphens: none; }
+.decl-body .nb { white-space: nowrap; }
+.decl-body .ref { font-style: normal; font-weight: 500; color: var(--ink); white-space: nowrap; font-variant-numeric: lining-nums; }
+.decl-lead { margin-top: 1mm !important; font-family: var(--f-meta); font-size: 1.85mm; letter-spacing: .28em; text-transform: uppercase; color: var(--engrave); }
 
-.z-name { left: 28.5mm; width: 240mm; top: 99mm; height: 13mm; display: flex; align-items: center; justify-content: center; gap: 4mm; }
+.z-name { left: 28.5mm; width: 240mm; top: 94.6mm; height: 13mm; display: flex; align-items: center; justify-content: center; gap: 4mm; }
 .name-rule { width: 30mm; height: 4mm; flex: none; display: block; }
 .recipient { max-width: 168mm; white-space: nowrap; text-align: center; color: var(--ink); line-height: 1; }
 .honorific { font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: 5.6mm; color: var(--green); margin-right: 1.2mm; }
 .recipient-name { font-family: var(--f-display); font-weight: 600; font-size: 9.6mm; letter-spacing: .07em; }
 
-.z-award { left: 48.5mm; width: 200mm; top: 114mm; text-align: center; }
+.z-birth { left: 48.5mm; width: 200mm; top: 108.2mm; text-align: center; font-style: italic; font-size: 2.95mm; color: var(--ink-soft); }
+.z-award { left: 48.5mm; width: 200mm; top: 114.6mm; text-align: center; }
 .award-stmt { font-style: italic; font-size: 3.05mm; color: var(--ink-soft); }
 .program { font-family: var(--f-serif); font-weight: 600; font-size: 5.6mm; line-height: 1.2; color: var(--engrave); margin-top: .8mm !important; }
 .mention { margin-top: 1.1mm !important; font-family: var(--f-meta); font-size: 2.2mm; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--red); }
@@ -599,8 +612,9 @@ GRID_OVERLAY = (
     '<path d="M148.5 17.5V192.5" stroke-dasharray="1 1"/><path d="M17.5 104H279.5" stroke-dasharray="1 1"/>'
     '<rect x="28" y="22" width="241" height="166" stroke-dasharray="2 1"/>'
     '<rect x="33" y="29.5" width="50" height="22.7"/><rect x="207" y="33" width="64" height="20"/>'
-    '<rect x="48.5" y="54.5" width="200" height="28"/><rect x="71.5" y="84.6" width="154" height="13.4"/>'
-    '<rect x="28.5" y="99" width="240" height="13"/><rect x="48.5" y="114" width="200" height="17"/>'
+    '<rect x="48.5" y="51" width="200" height="24"/><rect x="51.5" y="78.2" width="194" height="15"/>'
+    '<rect x="28.5" y="94.6" width="240" height="13"/><rect x="48.5" y="108.2" width="200" height="4.6"/>'
+    '<rect x="48.5" y="114.6" width="200" height="16"/>'
     '<rect x="46.5" y="133" width="204" height="12"/><rect x="62.5" y="154" width="54" height="23"/>'
     '<rect x="121.5" y="154" width="54" height="23"/><rect x="180.5" y="154" width="54" height="23"/>'
     '<rect x="30" y="182.6" width="237" height="6"/></g></svg>'

@@ -36,19 +36,24 @@ await page.pdf({ width: '297mm', height: '210mm', printBackground: true });
 | `SCHOOL_LOGO` | Image URL or `data:` URI |
 | `SCHOOL_NAME` | Shown at the bottom of the institutional header |
 | `COUNTRY` | Country / jurisdiction |
-| `AUTHORITY` | *Optional.* Supervising education authority. Fill only with a real, verifiable authority. |
-| `ACCREDITATION` | *Optional.* Authorisation or accreditation number. Real values only. |
+| `AUTHORITY` | *Optional.* Supervising ministry, e.g. Ministère de l’Enseignement Supérieur et de la Recherche Scientifique |
+| `ACCREDITATION` | *Optional.* Extra line under the ministry. Empty by default because the decrees are in the body. |
+| `DECREE_CREATION` | Creation decision, e.g. `N° 2018-0001575/MESRS-SG du 3 septembre 2018` |
+| `DECREE_OPENING` | Opening order (arrêté d’ouverture) |
+| `DECREE_HABILITATION` | Habilitation order (also covers the Master level) |
 | `CERTIFICATE_NUMBER` | e.g. `00000001` |
 | `SERIAL_NUMBER` | *Optional* |
 | `DOCUMENT_TITLE` | `Diplôme` / `Certificat` |
 | `QUALIFICATION` | e.g. `de Master Professionnel` |
 | `RECIPIENT_HONORIFIC` | *Optional.* `M.` / `Mme` |
 | `RECIPIENT_NAME` | Rendered in small caps |
+| `RECIPIENT_BIRTH_DATE` | e.g. `12 mars 2001` |
+| `RECIPIENT_BIRTH_PLACE` | e.g. `Bamako` |
 | `PROGRAM_NAME` | |
 | `DISTINCTION` | *Optional.* Mention |
 | `SPECIALIZATION` | Domaine |
 | `PROGRAM_DURATION` | |
-| `ACADEMIC_YEAR` | |
+| `ACADEMIC_YEAR` | Shown in the award line and the details row |
 | `ISSUE_DATE` | |
 | `ISSUE_CITY` | |
 | `PROGRAM_REFERENCE` | *Optional* |
