@@ -255,7 +255,7 @@ def background_svg(emblem_href):
         f'<g fill="none" stroke="var(--green)" stroke-width=".08">{outer}</g>'
         + ring_text("mtMed", cx, cy, 62.15, MICRO_MEDALLION, 1.25, 7)
         + f'<image href="{emblem_href}" x="{f(cx - 13)}" y="{f(cy - 9.8)}" width="26" height="19.6" opacity=".14"/>'
-        "</g>" + laurel_svg(cx, cy - 1, 39) + "</g></svg>"
+        "</g>" + laurel_svg(cx, 113, 33) + "</g></svg>"
     )
 
 
@@ -270,7 +270,7 @@ def laurel_svg(cx, cy, r):
         a = math.radians(102 + i * (252 - 102) / (n - 1))
         px, py = cx + r * math.cos(a), cy + r * math.sin(a)
         tan = math.degrees(math.atan2(math.cos(a), -math.sin(a)))
-        k = 1.5 - .7 * i / (n - 1)
+        k = 1.3 - .6 * i / (n - 1)
         for off, d in ((30, 1.7), (-30, -1.7)):
             ox, oy = px + d * math.cos(a), py + d * math.sin(a)
             leaves.append(f'<use href="#leaf" transform="translate({f(ox)} {f(oy)}) rotate({f(tan + off)}) scale({f(k)})"/>')
@@ -284,7 +284,7 @@ def laurel_svg(cx, cy, r):
     bow = (
         f'<path stroke-width=".22" d="M{f(cx)} {f(by)}c-2.2 -2.6 -6.2 -2.2 -5.2 .2c.8 1.8 3.6 .9 5.2 -.2'
         f'c2.2 -2.6 6.2 -2.2 5.2 .2c-.8 1.8 -3.6 .9 -5.2 -.2"/>'
-        f'<path stroke-width=".22" d="M{f(cx - .3)} {f(by + .3)}l-3.4 6.2l1.6 -.4l.6 1.4M{f(cx + .3)} {f(by + .3)}l3.4 6.2l-1.6 -.4l-.6 1.4"/>'
+        f'<path stroke-width=".22" d="M{f(cx - .3)} {f(by + .3)}l-2.6 4.2l1.3 -.3l.5 1.1M{f(cx + .3)} {f(by + .3)}l2.6 4.2l-1.3 -.3l-.5 1.1"/>'
         f'<circle cx="{f(cx)}" cy="{f(by)}" r=".9" stroke-width=".22"/>'
     )
     return (
@@ -452,7 +452,7 @@ DIPLOMA_CSS = """
 .diploma .layer { position: absolute; inset: 0; width: 297mm; height: 210mm; }
 .diploma .micro { font-family: var(--f-meta); font-weight: 500; fill: var(--engrave); letter-spacing: .02em; }
 .diploma .medallion { opacity: .11; }
-.diploma .laurel { opacity: .27; }
+.diploma .laurel { opacity: .2; }
 .diploma .z { position: absolute; }
 .diploma [data-hidden] { display: none !important; }
 
@@ -471,39 +471,39 @@ DIPLOMA_CSS = """
 .inst-school { font-family: var(--f-meta); font-size: 2.1mm; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: .3mm; }
 .inst-name { font-weight: 500; color: var(--engrave); letter-spacing: .28em; }
 
-.z-title { left: 48.5mm; width: 200mm; top: 41.5mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
-.doc-title { font-family: var(--f-display); font-weight: 600; font-size: 13.5mm; line-height: .95; letter-spacing: .16em; margin-right: -.16em;
+.z-title { left: 48.5mm; width: 200mm; top: 41mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.doc-title { font-family: var(--f-display); font-weight: 600; font-size: 12.5mm; line-height: .95; letter-spacing: .16em; margin-right: -.16em;
   color: var(--engrave); }
-.title-rule { width: 58mm; height: 3mm; display: block; margin: 1.2mm 0 .8mm; }
-.qualification { font-family: var(--f-serif); font-style: italic; font-weight: 600; font-size: 6.4mm; line-height: 1.1; color: var(--green); }
+.title-rule { width: 58mm; height: 3mm; display: block; margin: 1.1mm 0 .6mm; }
+.qualification { font-family: var(--f-serif); font-style: italic; font-weight: 600; font-size: 8mm; line-height: 1.1; color: var(--green); }
 
-.z-visas { left: 23.5mm; width: 250mm; top: 70mm; display: flex; justify-content: center; }
-.visas { list-style: none; margin: 0; padding: 0; font-style: italic; font-size: 3.1mm; line-height: 1.5; color: var(--ink-soft); text-align: left; }
-.visas .ref { font-style: normal; font-weight: 500; color: var(--ink); white-space: nowrap; font-variant-numeric: lining-nums; }
+.z-visas { left: 18.5mm; width: 260mm; top: 70mm; display: flex; justify-content: center; }
+.visas { list-style: none; margin: 0; padding: 0; font-size: 3.45mm; line-height: 1.42; color: var(--ink-soft); text-align: left; }
+.visas .ref { font-weight: 500; color: var(--ink); white-space: nowrap; font-variant-numeric: lining-nums; }
 .visas .sc { font-variant: small-caps; letter-spacing: .03em; }
 
-.z-deliver { left: 23.5mm; width: 250mm; top: 96.5mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
-.deliver-lead { font-size: 3.7mm; line-height: 1.3; color: var(--ink); }
-.deliver-lead b { font-family: var(--f-serif); font-weight: 700; font-size: 4.6mm; color: var(--engrave); letter-spacing: .01em; }
-.name-row { width: 100%; height: 15mm; display: flex; align-items: center; justify-content: center; gap: 4mm; margin-top: .6mm; }
+.z-deliver { left: 23.5mm; width: 250mm; top: 97.4mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.deliver-lead { font-size: 4.5mm; line-height: 1.3; color: var(--ink); }
+.deliver-lead b { font-family: var(--f-serif); font-weight: 700; font-size: 5.6mm; color: var(--engrave); letter-spacing: .01em; }
+.name-row { width: 100%; height: 16mm; display: flex; align-items: center; justify-content: center; gap: 4mm; margin-top: .4mm; }
 .name-rule { width: 30mm; height: 4mm; flex: none; display: block; }
 .recipient { max-width: 178mm; white-space: nowrap; text-align: center; color: var(--ink); line-height: 1; }
-.honorific { font-family: var(--f-serif); font-style: italic; font-weight: 600; font-size: 6.2mm; color: var(--green); margin-right: 1.4mm; }
-.recipient-name { font-family: var(--f-display); font-weight: 600; font-size: 10.6mm; letter-spacing: .06em; }
-.deliver-year { font-size: 3.6mm; color: var(--ink); margin-top: .6mm !important; }
-.mention { margin-top: 1.6mm !important; font-family: var(--f-meta); font-size: 2.8mm; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--red); }
+.honorific { font-family: var(--f-serif); font-style: italic; font-weight: 600; font-size: 6.6mm; color: var(--green); margin-right: 1.4mm; }
+.recipient-name { font-family: var(--f-display); font-weight: 600; font-size: 11mm; letter-spacing: .06em; }
+.deliver-year { font-size: 4.1mm; color: var(--ink); margin-top: .4mm !important; }
+.mention { margin-top: 1.4mm !important; font-family: var(--f-meta); font-size: 3.2mm; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--red); }
 .mention-label { color: var(--ink-soft); font-weight: 500; margin-right: 1.2mm; }
 .mention-label::after { content: " ·"; color: var(--red); }
-.deliver-close { margin-top: 1.6mm !important; font-style: italic; font-size: 3.4mm; color: var(--ink-soft); }
+.deliver-close { margin-top: 1.4mm !important; font-style: italic; font-size: 3.9mm; color: var(--ink-soft); }
 
-.z-place { left: 48.5mm; width: 200mm; top: 148mm; text-align: center; font-style: italic; font-size: 3.5mm; color: var(--ink-soft); }
+.z-place { right: 55.5mm; top: 141.6mm; text-align: right; font-style: italic; font-size: 3.9mm; color: var(--ink-soft); white-space: nowrap; }
 
-.z-sigs { left: 55.5mm; width: 186mm; top: 156mm; display: grid; grid-template-columns: repeat(3, 58mm); column-gap: 6mm; }
+.z-sigs { left: 55.5mm; width: 186mm; top: 151.5mm; display: grid; grid-template-columns: repeat(3, 58mm); column-gap: 6mm; }
 .sig { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; }
-.sig-role { font-family: var(--f-meta); font-weight: 500; font-size: 2.3mm; letter-spacing: .14em; text-transform: uppercase; color: var(--engrave); line-height: 1.3; min-height: 3mm; }
-.sig-space { height: 15.5mm; }
-.sig-line { width: 46mm; border-top: .2mm solid var(--ink-soft); }
-.sig-name { margin-top: 1.2mm; font-family: var(--f-body); font-size: 3.4mm; font-variant: small-caps; letter-spacing: .05em; color: var(--ink); white-space: nowrap; }
+.sig-role { font-family: var(--f-meta); font-weight: 500; font-size: 2.8mm; letter-spacing: .12em; text-transform: uppercase; color: var(--engrave); line-height: 1.3; min-height: 3.6mm; }
+.sig-space { height: 17mm; }
+.sig-line { width: 48mm; border-top: .2mm solid var(--ink-soft); }
+.sig-name { margin-top: 1.3mm; font-family: var(--f-body); font-weight: 500; font-size: 3.9mm; letter-spacing: .02em; color: var(--ink); white-space: nowrap; }
 """
 
 FILL_JS = r"""
@@ -613,10 +613,10 @@ GRID_OVERLAY = (
     '<svg class="grid-overlay" viewBox="0 0 297 210" aria-hidden="true"><g fill="none" stroke="#e0218a" stroke-width=".2">'
     '<path d="M148.5 14.4V195.6" stroke-dasharray="1 1"/><path d="M14.4 104H282.6" stroke-dasharray="1 1"/>'
     '<rect x="26" y="21.5" width="46" height="20.9"/><rect x="68.5" y="21" width="160" height="18"/>'
-    '<rect x="48.5" y="41.5" width="200" height="25"/><rect x="23.5" y="70" width="250" height="23"/>'
-    '<rect x="23.5" y="96.5" width="250" height="40"/><rect x="48.5" y="148" width="200" height="5"/>'
-    '<rect x="55.5" y="156" width="58" height="26"/><rect x="119.5" y="156" width="58" height="26"/>'
-    '<rect x="183.5" y="156" width="58" height="26"/></g></svg>'
+    '<rect x="48.5" y="41" width="200" height="26"/><rect x="18.5" y="70" width="260" height="25"/>'
+    '<rect x="23.5" y="97.4" width="250" height="41"/><rect x="171.5" y="141.6" width="70" height="5"/>'
+    '<rect x="55.5" y="151.5" width="58" height="26"/><rect x="119.5" y="151.5" width="58" height="26"/>'
+    '<rect x="183.5" y="151.5" width="58" height="26"/></g></svg>'
 )
 
 
