@@ -1,6 +1,6 @@
 # ERPIE — Relevé de notes (transcript)
 
-An A4 portrait transcript in the same family as the master diploma. It's monochrome: only the logo and the cachet are in colour.
+An A4 portrait transcript with a plain administrative layout: Arial-style font, a spreadsheet grid and grey heading rows. Only the logo and the cachet are in colour. It's signed by the Director General, with the cachet.
 
 See `exports/releve-sample.pdf` for the sample.
 
@@ -17,7 +17,6 @@ See `exports/releve-sample.pdf` for the sample.
 ## Generating a transcript
 
 ```sh
-pip install segno                                  # QR code
 python3 build.py student.json -o releve.html
 node ../tools/print-pdf.js releve.html releve.pdf  # needs the playwright package
 ```
@@ -27,7 +26,7 @@ node ../tools/print-pdf.js releve.html releve.pdf  # needs the playwright packag
 `build.py` calculates these from the grades, so they can never contradict the table:
 
 - the average for each level and the overall average, weighted by ECTS credits (LMD standard), rounded to two decimals;
-- the credits earned (a module counts once its grade is 10/20 or higher);
+- the credits earned and each module's result (Acquis once the grade is 10/20 or higher), and the jury decision (Admis when every credit is earned);
 - the mention: Très Bien ≥ 16, Bien ≥ 14, Assez Bien ≥ 12, Passable ≥ 10.
 
 Only the jury's honours line (`jury_honours`, e.g. "Avec les félicitations du jury") is typed in, because it is a jury decision.
