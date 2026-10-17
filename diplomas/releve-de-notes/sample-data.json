@@ -22,17 +22,17 @@
       "N° 2024-3794/MESRS-SG du 8 octobre 2024"
     ]
   ],
-  "document_number": "RN-2026-0042",
+  "document_number": "RN-2022-0001",
   "recipient_honorific": "M.",
   "recipient_name": "Aboubacar Togola",
   "recipient_born": "Né",
   "recipient_birth_date": "15 juillet 1997",
   "recipient_birth_place": "Bamako",
-  "student_id": "MS-GL-2026-0042",
+  "student_id": "ML-GL-2020-0001",
   "degree": "Master en Génie Logiciel",
   "specialization": "Transformation numérique",
   "total_credits": 120,
-  "academic_year": "2025 – 2026",
+  "academic_year": "2020 – 2022",
   "levels": [
     {
       "title": "Master 1 (M1)",
@@ -185,9 +185,10 @@
   ],
   "jury_honours": "Avec les félicitations du jury",
   "issue_city": "Bamako",
-  "issue_date": "16 octobre 2026",
+  "issue_date": "16 novembre 2024",
   "director_title": "Le Directeur des Études",
   "director_name": "Dr Sékou TANGARA",
   "signatory_title": "Le Directeur Général",
-  "signatory_name": "Ing. Lassana SISSOKO"
+  "signatory_name": "",
+  "bulletin": "récapitulatif"
 }

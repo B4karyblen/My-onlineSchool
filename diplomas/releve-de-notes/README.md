@@ -1,6 +1,6 @@
 # ERPIE — Relevé de notes (transcript)
 
-An A4 portrait transcript with a plain administrative layout: Arial-style font, a spreadsheet grid and grey heading rows. Only the logo and the cachet are in colour. It's signed by the Director General, with the cachet.
+An A4 portrait transcript with a plain administrative layout: Arial-style font, a spreadsheet grid and grey heading rows. Only the logo and the cachet are in colour. It is signed by the Director General (title only, unless `signatory_name` is set), with the cachet.
 
 See `exports/releve-sample.pdf` for the sample.
 

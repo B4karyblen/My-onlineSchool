@@ -61,12 +61,12 @@ CSS = """
 /* A4 portrait, plain administrative layout: Arial-metric font, spreadsheet grid, greys only.
    Colour comes only from the logo and the cachet. */
 .releve {
-  --paper: #ffffff; --ink: #111111; --ink-2: #444444; --muted: #6e6e6e; --grid: #a6a6a6;
+  --paper: #ffffff; --ink: #000000; --ink-2: #262626; --muted: #4d4d4d; --grid: #8c8c8c;
   --row-level: #bfbfbf; --row-head: #d9d9d9; --row-sum: #eeeeee; --box: #ececec;
   --f: 'Arimo', Arial, 'Liberation Sans', Helvetica, sans-serif;
   position: relative; width: 210mm; height: 297mm; overflow: hidden; box-sizing: border-box;
-  padding: 12mm 15mm 10mm; background: var(--paper); color: var(--ink);
-  font-family: var(--f); font-size: 2.7mm; line-height: 1.3;
+  padding: 10mm 15mm 8mm; background: var(--paper); color: var(--ink);
+  font-family: var(--f); font-size: 2.9mm; line-height: 1.3;
   -webkit-print-color-adjust: exact; print-color-adjust: exact;
   display: flex; flex-direction: column;
 }
@@ -75,30 +75,30 @@ CSS = """
 
 .hd { display: flex; justify-content: space-between; align-items: flex-start; }
 .hd-school img { display: block; width: 34mm; height: 15.5mm; object-fit: contain; object-position: left center; }
-.hd-school p { margin-top: 1.2mm; font-size: 2.3mm; font-weight: 700; max-width: 62mm; line-height: 1.25; }
+.hd-school p { margin-top: 1.2mm; font-size: 2.6mm; font-weight: 700; max-width: 62mm; line-height: 1.25; }
 .hd-school .meta { font-weight: 400; color: var(--ink-2); margin-top: .4mm; }
-.hd-state { text-align: right; font-size: 2.3mm; line-height: 1.35; }
-.hd-state b { font-size: 2.7mm; letter-spacing: .04em; }
+.hd-state { text-align: right; font-size: 2.6mm; line-height: 1.35; }
+.hd-state b { font-size: 3mm; letter-spacing: .04em; }
 .hd-state i { color: var(--ink-2); }
 
-.ttl { text-align: center; margin-top: 4.5mm; }
+.ttl { text-align: center; margin-top: 2.5mm; }
 .ttl h1 { font-size: 6.2mm; font-weight: 700; line-height: 1.1; }
-.ttl p { font-size: 3.6mm; margin-top: .9mm !important; }
-.ttl .small { font-size: 2.8mm; margin-top: .5mm !important; }
+.ttl p { font-size: 3.9mm; margin-top: .9mm !important; }
+.ttl .small { font-size: 3.1mm; margin-top: .5mm !important; }
 
-.id { margin-top: 4mm; background: var(--box); padding: 2.6mm 5mm; display: grid; grid-template-columns: 1fr 1fr; column-gap: 8mm; font-size: 2.8mm; line-height: 1.5; }
-.id .name { font-size: 3.4mm; font-weight: 700; }
+.id { margin-top: 3mm; background: var(--box); padding: 2mm 5mm; display: grid; grid-template-columns: 1fr 1fr; column-gap: 8mm; font-size: 3.1mm; line-height: 1.45; }
+.id .name { font-size: 3.7mm; font-weight: 700; }
 
-table.notes { margin-top: 4mm; width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 2.45mm; line-height: 1.22; }
-.notes th, .notes td { border: .12mm solid var(--grid); padding: .55mm 1.4mm; vertical-align: middle; }
-.notes thead th { background: var(--row-head); font-weight: 700; text-align: center; font-size: 2.3mm; }
-.notes .c-code { width: 12mm; }
-.notes .c-ects { width: 12mm; text-align: center; }
-.notes .c-note { width: 14mm; text-align: center; font-variant-numeric: tabular-nums; }
-.notes .c-res { width: 16mm; text-align: center; }
-.notes .c-app { width: 50mm; }
-.notes tbody td.c-app { color: var(--ink-2); font-style: italic; }
-.notes .sub { display: block; font-style: italic; color: var(--ink-2); font-size: 2.25mm; }
+table.notes { margin-top: 3mm; width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 2.62mm; line-height: 1.17; }
+.notes th, .notes td { border: .14mm solid var(--grid); padding: .5mm 1.4mm; vertical-align: middle; }
+.notes thead th { background: var(--row-head); font-weight: 700; text-align: center; font-size: 2.55mm; white-space: nowrap; }
+.notes .c-code { width: 14.5mm; white-space: nowrap; }
+.notes .c-ects { width: 10.5mm; text-align: center; }
+.notes .c-note { width: 15mm; text-align: center; font-variant-numeric: tabular-nums; }
+.notes .c-res { width: 15mm; text-align: center; }
+.notes .c-app { width: 54mm; }
+.notes tbody td.c-app { color: var(--ink-2); font-style: italic; font-size: 2.45mm; }
+.notes .sub { display: block; font-style: italic; color: var(--ink-2); font-size: 2.45mm; }
 .notes tr.level td { background: var(--row-level); font-weight: 700; }
 .notes tr.level td.c-app, .notes tr.avg td.c-app { font-style: normal; color: var(--ink); }
 .notes tr.level td:nth-child(2) { text-transform: uppercase; }
@@ -107,24 +107,24 @@ table.notes { margin-top: 4mm; width: 100%; border-collapse: collapse; table-lay
 
 table.sum { margin-top: 3mm; width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 2.7mm; }
 .sum th, .sum td { border: .12mm solid var(--grid); padding: .8mm 2mm; text-align: center; }
-.sum thead th { background: var(--row-level); font-weight: 700; font-size: 2.4mm; }
-.sum caption { caption-side: top; text-align: left; font-weight: 700; padding-bottom: 1mm; font-size: 2.8mm; }
-.sum td { font-size: 2.9mm; font-weight: 700; }
-.sum td small { font-weight: 400; font-size: 2.4mm; color: var(--ink-2); }
+.sum thead th { background: var(--row-level); font-weight: 700; font-size: 2.65mm; }
+.sum caption { caption-side: top; text-align: left; font-weight: 700; padding-bottom: 1mm; font-size: 3.1mm; }
+.sum td { font-size: 3.1mm; font-weight: 700; }
+.sum td small { font-weight: 400; font-size: 2.65mm; color: var(--ink-2); }
 
-.note { margin-top: 2.6mm; font-size: 2.3mm; color: var(--ink-2); line-height: 1.4; }
+.note { margin-top: 2mm; font-size: 2.55mm; color: var(--ink-2); line-height: 1.4; }
 .note i { color: var(--ink); }
 
 .ft { margin-top: 4mm; display: grid; grid-template-columns: 1fr 70mm; align-items: start; }
-.place { font-size: 2.8mm; padding-top: .3mm; }
-.sig { position: relative; text-align: center; font-size: 2.8mm; }
+.place { font-size: 3.1mm; padding-top: .3mm; }
+.sig { position: relative; text-align: center; font-size: 3.1mm; }
 .sig-role { font-weight: 700; }
 .sig-space { height: 17mm; }
 .sig-name { font-weight: 700; }
-.stamp { position: absolute; width: 28mm; height: 28mm; left: 38mm; top: -2mm; transform: rotate(-10deg); opacity: .93; pointer-events: none; }
+.stamp { position: absolute; width: 27mm; height: 27mm; left: 38mm; top: -2.5mm; transform: rotate(-10deg); opacity: .93; pointer-events: none; }
 .stamp img { width: 100%; height: 100%; display: block; }
 
-.bottom { margin-top: auto; padding-top: 4mm; text-align: center; font-size: 2.15mm; color: var(--ink-2); line-height: 1.45; }
+.bottom { margin-top: auto; padding-top: 3mm; text-align: center; font-size: 2.35mm; color: var(--ink-2); line-height: 1.45; }
 .bottom .legal { border-top: .12mm solid var(--grid); padding-top: 1.6mm; }
 .bottom .page { margin-top: 1.2mm !important; color: var(--ink); }
 """
@@ -138,12 +138,12 @@ def render_page(d, logo, stamp):
     for lv in levels:
         lv_ok = lv["acquired"] == lv["credits"]
         rows.append(f'<tr class="level"><td class="c-code"></td><td>{e(lv["title"])} — {e(lv["semesters"])}</td>'
-                    f'<td class="c-ects">{lv["acquired"]} / {lv["credits"]}</td><td class="c-note">{fr(lv["avg"])}</td>'
-                    f'<td class="c-res">{"Admis" if lv_ok else "Ajourné"}</td><td class="c-app">Mention {e(lv["mention"])}</td></tr>')
+                    f'<td class="c-ects">{lv["credits"]}</td><td class="c-note"></td>'
+                    f'<td class="c-res"></td><td class="c-app"></td></tr>')
         for code, title, sub, ects, note, app in lv["modules"]:
             ok = note >= 10
             rows.append(f'<tr><td class="c-code">{e(code)}</td><td>{e(title)}{f"<span class=sub>{e(sub)}</span>" if sub else ""}</td>'
-                        f'<td class="c-ects">{ects if ok else 0} / {ects}</td><td class="c-note">{fr(note)}</td>'
+                        f'<td class="c-ects">{ects if ok else 0}</td><td class="c-note">{fr(note)}</td>'
                         f'<td class="c-res">{"Acquis" if ok else "Non acquis"}</td><td class="c-app">{e(app)}</td></tr>')
         short = lv["title"].split("(")[-1].rstrip(")")
         rows.append(f'<tr class="avg"><td class="c-code"></td><td>Moyenne {e(short)} (pondérée par les crédits)</td>'
@@ -181,7 +181,7 @@ def render_page(d, logo, stamp):
   Mentions : Très Bien ≥ 16 · Bien ≥ 14 · Assez Bien ≥ 12 · Passable ≥ 10.<br><i>Ce document est à conserver. Il est délivré en un seul exemplaire ; toute rature ou surcharge l’annule.</i></p>
 <div class="ft">
   <p class="place">Fait à {e(d['issue_city'])}, le {e(d['issue_date'])}</p>
-  <div class="sig"><div class="sig-role">{e(d['signatory_title'])}</div><div class="sig-space"></div><div class="sig-name">{e(d['signatory_name'])}</div>
+  <div class="sig"><div class="sig-space"></div><div class="sig-role">{e(d['signatory_title'])}</div>{f'<div class="sig-name">{e(d["signatory_name"])}</div>' if d.get('signatory_name') else ''}
     {f'<div class="stamp"><img src="{e(stamp)}" alt="Cachet de l’établissement"></div>' if stamp else ''}</div>
 </div>
 <div class="bottom">

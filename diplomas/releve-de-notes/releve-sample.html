@@ -7,12 +7,12 @@
 /* A4 portrait, plain administrative layout: Arial-metric font, spreadsheet grid, greys only.
    Colour comes only from the logo and the cachet. */
 .releve {
-  --paper: #ffffff; --ink: #111111; --ink-2: #444444; --muted: #6e6e6e; --grid: #a6a6a6;
+  --paper: #ffffff; --ink: #000000; --ink-2: #262626; --muted: #4d4d4d; --grid: #8c8c8c;
   --row-level: #bfbfbf; --row-head: #d9d9d9; --row-sum: #eeeeee; --box: #ececec;
   --f: 'Arimo', Arial, 'Liberation Sans', Helvetica, sans-serif;
   position: relative; width: 210mm; height: 297mm; overflow: hidden; box-sizing: border-box;
-  padding: 12mm 15mm 10mm; background: var(--paper); color: var(--ink);
-  font-family: var(--f); font-size: 2.7mm; line-height: 1.3;
+  padding: 10mm 15mm 8mm; background: var(--paper); color: var(--ink);
+  font-family: var(--f); font-size: 2.9mm; line-height: 1.3;
   -webkit-print-color-adjust: exact; print-color-adjust: exact;
   display: flex; flex-direction: column;
 }
@@ -21,30 +21,30 @@
 
 .hd { display: flex; justify-content: space-between; align-items: flex-start; }
 .hd-school img { display: block; width: 34mm; height: 15.5mm; object-fit: contain; object-position: left center; }
-.hd-school p { margin-top: 1.2mm; font-size: 2.3mm; font-weight: 700; max-width: 62mm; line-height: 1.25; }
+.hd-school p { margin-top: 1.2mm; font-size: 2.6mm; font-weight: 700; max-width: 62mm; line-height: 1.25; }
 .hd-school .meta { font-weight: 400; color: var(--ink-2); margin-top: .4mm; }
-.hd-state { text-align: right; font-size: 2.3mm; line-height: 1.35; }
-.hd-state b { font-size: 2.7mm; letter-spacing: .04em; }
+.hd-state { text-align: right; font-size: 2.6mm; line-height: 1.35; }
+.hd-state b { font-size: 3mm; letter-spacing: .04em; }
 .hd-state i { color: var(--ink-2); }
 
-.ttl { text-align: center; margin-top: 4.5mm; }
+.ttl { text-align: center; margin-top: 2.5mm; }
 .ttl h1 { font-size: 6.2mm; font-weight: 700; line-height: 1.1; }
-.ttl p { font-size: 3.6mm; margin-top: .9mm !important; }
-.ttl .small { font-size: 2.8mm; margin-top: .5mm !important; }
+.ttl p { font-size: 3.9mm; margin-top: .9mm !important; }
+.ttl .small { font-size: 3.1mm; margin-top: .5mm !important; }
 
-.id { margin-top: 4mm; background: var(--box); padding: 2.6mm 5mm; display: grid; grid-template-columns: 1fr 1fr; column-gap: 8mm; font-size: 2.8mm; line-height: 1.5; }
-.id .name { font-size: 3.4mm; font-weight: 700; }
+.id { margin-top: 3mm; background: var(--box); padding: 2mm 5mm; display: grid; grid-template-columns: 1fr 1fr; column-gap: 8mm; font-size: 3.1mm; line-height: 1.45; }
+.id .name { font-size: 3.7mm; font-weight: 700; }
 
-table.notes { margin-top: 4mm; width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 2.45mm; line-height: 1.22; }
-.notes th, .notes td { border: .12mm solid var(--grid); padding: .55mm 1.4mm; vertical-align: middle; }
-.notes thead th { background: var(--row-head); font-weight: 700; text-align: center; font-size: 2.3mm; }
-.notes .c-code { width: 12mm; }
-.notes .c-ects { width: 12mm; text-align: center; }
-.notes .c-note { width: 14mm; text-align: center; font-variant-numeric: tabular-nums; }
-.notes .c-res { width: 16mm; text-align: center; }
-.notes .c-app { width: 50mm; }
-.notes tbody td.c-app { color: var(--ink-2); font-style: italic; }
-.notes .sub { display: block; font-style: italic; color: var(--ink-2); font-size: 2.25mm; }
+table.notes { margin-top: 3mm; width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 2.62mm; line-height: 1.17; }
+.notes th, .notes td { border: .14mm solid var(--grid); padding: .5mm 1.4mm; vertical-align: middle; }
+.notes thead th { background: var(--row-head); font-weight: 700; text-align: center; font-size: 2.55mm; white-space: nowrap; }
+.notes .c-code { width: 14.5mm; white-space: nowrap; }
+.notes .c-ects { width: 10.5mm; text-align: center; }
+.notes .c-note { width: 15mm; text-align: center; font-variant-numeric: tabular-nums; }
+.notes .c-res { width: 15mm; text-align: center; }
+.notes .c-app { width: 54mm; }
+.notes tbody td.c-app { color: var(--ink-2); font-style: italic; font-size: 2.45mm; }
+.notes .sub { display: block; font-style: italic; color: var(--ink-2); font-size: 2.45mm; }
 .notes tr.level td { background: var(--row-level); font-weight: 700; }
 .notes tr.level td.c-app, .notes tr.avg td.c-app { font-style: normal; color: var(--ink); }
 .notes tr.level td:nth-child(2) { text-transform: uppercase; }
@@ -53,24 +53,24 @@ table.notes { margin-top: 4mm; width: 100%; border-collapse: collapse; table-lay
 
 table.sum { margin-top: 3mm; width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 2.7mm; }
 .sum th, .sum td { border: .12mm solid var(--grid); padding: .8mm 2mm; text-align: center; }
-.sum thead th { background: var(--row-level); font-weight: 700; font-size: 2.4mm; }
-.sum caption { caption-side: top; text-align: left; font-weight: 700; padding-bottom: 1mm; font-size: 2.8mm; }
-.sum td { font-size: 2.9mm; font-weight: 700; }
-.sum td small { font-weight: 400; font-size: 2.4mm; color: var(--ink-2); }
+.sum thead th { background: var(--row-level); font-weight: 700; font-size: 2.65mm; }
+.sum caption { caption-side: top; text-align: left; font-weight: 700; padding-bottom: 1mm; font-size: 3.1mm; }
+.sum td { font-size: 3.1mm; font-weight: 700; }
+.sum td small { font-weight: 400; font-size: 2.65mm; color: var(--ink-2); }
 
-.note { margin-top: 2.6mm; font-size: 2.3mm; color: var(--ink-2); line-height: 1.4; }
+.note { margin-top: 2mm; font-size: 2.55mm; color: var(--ink-2); line-height: 1.4; }
 .note i { color: var(--ink); }
 
 .ft { margin-top: 4mm; display: grid; grid-template-columns: 1fr 70mm; align-items: start; }
-.place { font-size: 2.8mm; padding-top: .3mm; }
-.sig { position: relative; text-align: center; font-size: 2.8mm; }
+.place { font-size: 3.1mm; padding-top: .3mm; }
+.sig { position: relative; text-align: center; font-size: 3.1mm; }
 .sig-role { font-weight: 700; }
 .sig-space { height: 17mm; }
 .sig-name { font-weight: 700; }
-.stamp { position: absolute; width: 28mm; height: 28mm; left: 38mm; top: -2mm; transform: rotate(-10deg); opacity: .93; pointer-events: none; }
+.stamp { position: absolute; width: 27mm; height: 27mm; left: 38mm; top: -2.5mm; transform: rotate(-10deg); opacity: .93; pointer-events: none; }
 .stamp img { width: 100%; height: 100%; display: block; }
 
-.bottom { margin-top: auto; padding-top: 4mm; text-align: center; font-size: 2.15mm; color: var(--ink-2); line-height: 1.45; }
+.bottom { margin-top: auto; padding-top: 3mm; text-align: center; font-size: 2.35mm; color: var(--ink-2); line-height: 1.45; }
 .bottom .legal { border-top: .12mm solid var(--grid); padding-top: 1.6mm; }
 .bottom .page { margin-top: 1.2mm !important; color: var(--ink); }
 </style></head>
@@ -83,17 +83,17 @@ table.sum { margin-top: 3mm; width: 100%; border-collapse: collapse; table-layou
 <div class="ttl">
   <h1>Relevé de notes</h1>
   <p>Master en Génie Logiciel — parcours Transformation numérique</p>
-  <p class="small">Bulletin annuel 2025 – 2026</p>
-  <p class="small">N° RN-2026-0042</p>
+  <p class="small">Bulletin récapitulatif 2020 – 2022</p>
+  <p class="small">N° RN-2022-0001</p>
 </div>
 <div class="id">
-  <div><span class="name">ABOUBACAR TOGOLA</span><br>Matricule : MS-GL-2026-0042<br>
+  <div><span class="name">ABOUBACAR TOGOLA</span><br>Matricule : ML-GL-2020-0001<br>
     Né le 15 juillet 1997 à Bamako</div>
-  <div>Programme : Master en Génie Logiciel<br>Crédits du programme : 120 ECTS<br>Année académique : 2025 – 2026</div>
+  <div>Programme : Master en Génie Logiciel<br>Crédits du programme : 120 ECTS<br>Année académique : 2020 – 2022</div>
 </div>
 <table class="notes">
   <thead><tr><th class="c-code">Code</th><th>Intitulé du module</th><th class="c-ects">ECTS</th><th class="c-note">Note / 20</th><th class="c-res">Résultat</th><th class="c-app">Appréciation</th></tr></thead>
-  <tbody><tr class="level"><td class="c-code"></td><td>Master 1 (M1) — Semestre 1 &amp; Semestre 2</td><td class="c-ects">60 / 60</td><td class="c-note">18,18</td><td class="c-res">Admis</td><td class="c-app">Mention Très Bien</td></tr><tr><td class="c-code">GL-401</td><td>Architecture Logicielle Avancée &amp; Design Patterns</td><td class="c-ects">6 / 6</td><td class="c-note">18,50</td><td class="c-res">Acquis</td><td class="c-app">Excellent sens de la conception modulaire</td></tr><tr><td class="c-code">GL-402</td><td>Bases de Données Avancées &amp; NoSQL</td><td class="c-ects">6 / 6</td><td class="c-note">17,50</td><td class="c-res">Acquis</td><td class="c-app">Très bonne maîtrise des bases distribuées</td></tr><tr><td class="c-code">GL-403</td><td>Algorithmique Avancée &amp; Complexité</td><td class="c-ects">6 / 6</td><td class="c-note">18,00</td><td class="c-res">Acquis</td><td class="c-app">Rigueur remarquable</td></tr><tr><td class="c-code">GL-404</td><td>Méthodologies Agiles &amp; DevOps (CI/CD)</td><td class="c-ects">6 / 6</td><td class="c-note">19,00</td><td class="c-res">Acquis</td><td class="c-app">Maîtrise parfaite des pipelines de déploiement</td></tr><tr><td class="c-code">GL-405</td><td>Développement Web Full-Stack (React, Node.js, Microservices)</td><td class="c-ects">6 / 6</td><td class="c-note">18,00</td><td class="c-res">Acquis</td><td class="c-app">Code propre et très bien documenté</td></tr><tr><td class="c-code">GL-406</td><td>Sécurité Logicielle &amp; Cryptographie Appliquée</td><td class="c-ects">6 / 6</td><td class="c-note">17,00</td><td class="c-res">Acquis</td><td class="c-app">Bonnes pratiques d’audit et de sécurisation</td></tr><tr><td class="c-code">GL-407</td><td>Génie Logiciel Orienté Objet &amp; Tests Unitaires (TDD)</td><td class="c-ects">6 / 6</td><td class="c-note">18,50</td><td class="c-res">Acquis</td><td class="c-app">Excellente couverture de tests</td></tr><tr><td class="c-code">GL-408</td><td>Cloud Computing &amp; Containerisation (Docker, Kubernetes)</td><td class="c-ects">6 / 6</td><td class="c-note">18,00</td><td class="c-res">Acquis</td><td class="c-app">Déploiement cloud irréprochable</td></tr><tr><td class="c-code">GL-409</td><td>Anglais Technique &amp; Communication Professionnelle</td><td class="c-ects">3 / 3</td><td class="c-note">17,50</td><td class="c-res">Acquis</td><td class="c-app">Très bonne aisance rédactionnelle et orale</td></tr><tr><td class="c-code">GL-410</td><td>Projet M1 : Conception &amp; Déploiement d’une Application SaaS</td><td class="c-ects">9 / 9</td><td class="c-note">19,00</td><td class="c-res">Acquis</td><td class="c-app">Projet exceptionnel, architecture très solide</td></tr><tr class="avg"><td class="c-code"></td><td>Moyenne M1 (pondérée par les crédits)</td><td class="c-ects">60</td><td class="c-note">18,18</td><td class="c-res">Validé</td><td class="c-app">Mention Très Bien</td></tr><tr class="level"><td class="c-code"></td><td>Master 2 (M2) — Semestre 3 &amp; Semestre 4</td><td class="c-ects">60 / 60</td><td class="c-note">18,25</td><td class="c-res">Admis</td><td class="c-app">Mention Très Bien</td></tr><tr><td class="c-code">GL-501</td><td>Microservices, API Gateway &amp; Event-Driven Architecture</td><td class="c-ects">6 / 6</td><td class="c-note">18,00</td><td class="c-res">Acquis</td><td class="c-app">Très bonne gestion de la montée en charge</td></tr><tr><td class="c-code">GL-502</td><td>Intelligence Artificielle &amp; Machine Learning pour Développeurs</td><td class="c-ects">6 / 6</td><td class="c-note">17,50</td><td class="c-res">Acquis</td><td class="c-app">Intégration efficace de modèles IA</td></tr><tr><td class="c-code">GL-503</td><td>Qualité du Code, Refactoring &amp; Infrastructure as Code (Terraform)</td><td class="c-ects">6 / 6</td><td class="c-note">18,50</td><td class="c-res">Acquis</td><td class="c-app">Code d’une très haute qualité opérationnelle</td></tr><tr><td class="c-code">GL-504</td><td>Management de Projets IT &amp; Gestion d’Équipes Techniques</td><td class="c-ects">6 / 6</td><td class="c-note">17,00</td><td class="c-res">Acquis</td><td class="c-app">Bonnes compétences en leadership technique</td></tr><tr><td class="c-code">GL-505</td><td>Systèmes Distribués &amp; Informatique en Nuage Avancée</td><td class="c-ects">6 / 6</td><td class="c-note">18,00</td><td class="c-res">Acquis</td><td class="c-app">Compréhension approfondie de la tolérance aux pannes</td></tr><tr><td class="c-code">GL-506</td><td>Projet Majeur de Fin d’Études (Capstone Project)<span class=sub>Conception d’une plateforme cloud distribuée avec IA intégrée</span></td><td class="c-ects">12 / 12</td><td class="c-note">19,00</td><td class="c-res">Acquis</td><td class="c-app">Travail de niveau professionnel, code prêt pour la production</td></tr><tr><td class="c-code">GL-507</td><td>Mémoire de Master &amp; Soutenance Finale<span class=sub>Sujet : « Optimisation des architectures microservices sous forte charge »</span></td><td class="c-ects">18 / 18</td><td class="c-note">18,50</td><td class="c-res">Acquis</td><td class="c-app">Remarquable présentation devant le jury</td></tr><tr class="avg"><td class="c-code"></td><td>Moyenne M2 (pondérée par les crédits)</td><td class="c-ects">60</td><td class="c-note">18,25</td><td class="c-res">Validé</td><td class="c-app">Mention Très Bien</td></tr></tbody>
+  <tbody><tr class="level"><td class="c-code"></td><td>Master 1 (M1) — Semestre 1 &amp; Semestre 2</td><td class="c-ects">60</td><td class="c-note"></td><td class="c-res"></td><td class="c-app"></td></tr><tr><td class="c-code">GL-401</td><td>Architecture Logicielle Avancée &amp; Design Patterns</td><td class="c-ects">6</td><td class="c-note">18,50</td><td class="c-res">Acquis</td><td class="c-app">Excellent sens de la conception modulaire</td></tr><tr><td class="c-code">GL-402</td><td>Bases de Données Avancées &amp; NoSQL</td><td class="c-ects">6</td><td class="c-note">17,50</td><td class="c-res">Acquis</td><td class="c-app">Très bonne maîtrise des bases distribuées</td></tr><tr><td class="c-code">GL-403</td><td>Algorithmique Avancée &amp; Complexité</td><td class="c-ects">6</td><td class="c-note">18,00</td><td class="c-res">Acquis</td><td class="c-app">Rigueur remarquable</td></tr><tr><td class="c-code">GL-404</td><td>Méthodologies Agiles &amp; DevOps (CI/CD)</td><td class="c-ects">6</td><td class="c-note">19,00</td><td class="c-res">Acquis</td><td class="c-app">Maîtrise parfaite des pipelines de déploiement</td></tr><tr><td class="c-code">GL-405</td><td>Développement Web Full-Stack (React, Node.js, Microservices)</td><td class="c-ects">6</td><td class="c-note">18,00</td><td class="c-res">Acquis</td><td class="c-app">Code propre et très bien documenté</td></tr><tr><td class="c-code">GL-406</td><td>Sécurité Logicielle &amp; Cryptographie Appliquée</td><td class="c-ects">6</td><td class="c-note">17,00</td><td class="c-res">Acquis</td><td class="c-app">Bonnes pratiques d’audit et de sécurisation</td></tr><tr><td class="c-code">GL-407</td><td>Génie Logiciel Orienté Objet &amp; Tests Unitaires (TDD)</td><td class="c-ects">6</td><td class="c-note">18,50</td><td class="c-res">Acquis</td><td class="c-app">Excellente couverture de tests</td></tr><tr><td class="c-code">GL-408</td><td>Cloud Computing &amp; Containerisation (Docker, Kubernetes)</td><td class="c-ects">6</td><td class="c-note">18,00</td><td class="c-res">Acquis</td><td class="c-app">Déploiement cloud irréprochable</td></tr><tr><td class="c-code">GL-409</td><td>Anglais Technique &amp; Communication Professionnelle</td><td class="c-ects">3</td><td class="c-note">17,50</td><td class="c-res">Acquis</td><td class="c-app">Très bonne aisance rédactionnelle et orale</td></tr><tr><td class="c-code">GL-410</td><td>Projet M1 : Conception &amp; Déploiement d’une Application SaaS</td><td class="c-ects">9</td><td class="c-note">19,00</td><td class="c-res">Acquis</td><td class="c-app">Projet exceptionnel, architecture très solide</td></tr><tr class="avg"><td class="c-code"></td><td>Moyenne M1 (pondérée par les crédits)</td><td class="c-ects">60</td><td class="c-note">18,18</td><td class="c-res">Validé</td><td class="c-app">Mention Très Bien</td></tr><tr class="level"><td class="c-code"></td><td>Master 2 (M2) — Semestre 3 &amp; Semestre 4</td><td class="c-ects">60</td><td class="c-note"></td><td class="c-res"></td><td class="c-app"></td></tr><tr><td class="c-code">GL-501</td><td>Microservices, API Gateway &amp; Event-Driven Architecture</td><td class="c-ects">6</td><td class="c-note">18,00</td><td class="c-res">Acquis</td><td class="c-app">Très bonne gestion de la montée en charge</td></tr><tr><td class="c-code">GL-502</td><td>Intelligence Artificielle &amp; Machine Learning pour Développeurs</td><td class="c-ects">6</td><td class="c-note">17,50</td><td class="c-res">Acquis</td><td class="c-app">Intégration efficace de modèles IA</td></tr><tr><td class="c-code">GL-503</td><td>Qualité du Code, Refactoring &amp; Infrastructure as Code (Terraform)</td><td class="c-ects">6</td><td class="c-note">18,50</td><td class="c-res">Acquis</td><td class="c-app">Code d’une très haute qualité opérationnelle</td></tr><tr><td class="c-code">GL-504</td><td>Management de Projets IT &amp; Gestion d’Équipes Techniques</td><td class="c-ects">6</td><td class="c-note">17,00</td><td class="c-res">Acquis</td><td class="c-app">Bonnes compétences en leadership technique</td></tr><tr><td class="c-code">GL-505</td><td>Systèmes Distribués &amp; Informatique en Nuage Avancée</td><td class="c-ects">6</td><td class="c-note">18,00</td><td class="c-res">Acquis</td><td class="c-app">Compréhension approfondie de la tolérance aux pannes</td></tr><tr><td class="c-code">GL-506</td><td>Projet Majeur de Fin d’Études (Capstone Project)<span class=sub>Conception d’une plateforme cloud distribuée avec IA intégrée</span></td><td class="c-ects">12</td><td class="c-note">19,00</td><td class="c-res">Acquis</td><td class="c-app">Travail de niveau professionnel, code prêt pour la production</td></tr><tr><td class="c-code">GL-507</td><td>Mémoire de Master &amp; Soutenance Finale<span class=sub>Sujet : « Optimisation des architectures microservices sous forte charge »</span></td><td class="c-ects">18</td><td class="c-note">18,50</td><td class="c-res">Acquis</td><td class="c-app">Remarquable présentation devant le jury</td></tr><tr class="avg"><td class="c-code"></td><td>Moyenne M2 (pondérée par les crédits)</td><td class="c-ects">60</td><td class="c-note">18,25</td><td class="c-res">Validé</td><td class="c-app">Mention Très Bien</td></tr></tbody>
 </table>
 <table class="sum">
   <caption>Bilan général du diplôme</caption>
@@ -104,8 +104,8 @@ table.sum { margin-top: 3mm; width: 100%; border-collapse: collapse; table-layou
 <p class="note">Moyennes pondérées par les crédits ECTS. Un module est acquis à partir de 10 / 20.
   Mentions : Très Bien ≥ 16 · Bien ≥ 14 · Assez Bien ≥ 12 · Passable ≥ 10.<br><i>Ce document est à conserver. Il est délivré en un seul exemplaire ; toute rature ou surcharge l’annule.</i></p>
 <div class="ft">
-  <p class="place">Fait à Bamako, le 16 octobre 2026</p>
-  <div class="sig"><div class="sig-role">Le Directeur Général</div><div class="sig-space"></div><div class="sig-name">Ing. Lassana SISSOKO</div>
+  <p class="place">Fait à Bamako, le 16 novembre 2024</p>
+  <div class="sig"><div class="sig-space"></div><div class="sig-role">Le Directeur Général</div>
     <div class="stamp"><img src="../master/assets/erpie-cachet.webp" alt="Cachet de l’établissement"></div></div>
 </div>
 <div class="bottom">
