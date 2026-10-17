@@ -255,7 +255,41 @@ def background_svg(emblem_href):
         f'<g fill="none" stroke="var(--green)" stroke-width=".08">{outer}</g>'
         + ring_text("mtMed", cx, cy, 62.15, MICRO_MEDALLION, 1.25, 7)
         + f'<image href="{emblem_href}" x="{f(cx - 13)}" y="{f(cy - 9.8)}" width="26" height="19.6" opacity=".14"/>'
-        "</g></g></svg>"
+        "</g>" + laurel_svg(cx, cy - 1, 39) + "</g></svg>"
+    )
+
+
+def laurel_svg(cx, cy, r):
+    """Engraved laurel wreath: two branches of paired leaves rising from a knot at the bottom."""
+    leaf = (
+        '<g id="leaf"><path d="M0 0C2.1 -1.75 5 -1.85 7 0C5 1.85 2.1 1.75 0 0Z"/>'
+        '<path d="M.4 0H6.2" stroke-width=".06"/></g>'
+    )
+    leaves, n = [], 17
+    for i in range(n):
+        a = math.radians(102 + i * (252 - 102) / (n - 1))
+        px, py = cx + r * math.cos(a), cy + r * math.sin(a)
+        tan = math.degrees(math.atan2(math.cos(a), -math.sin(a)))
+        k = 1.5 - .7 * i / (n - 1)
+        for off, d in ((30, 1.7), (-30, -1.7)):
+            ox, oy = px + d * math.cos(a), py + d * math.sin(a)
+            leaves.append(f'<use href="#leaf" transform="translate({f(ox)} {f(oy)}) rotate({f(tan + off)}) scale({f(k)})"/>')
+    tip_a = math.radians(255)
+    tx, ty = cx + r * math.cos(tip_a), cy + r * math.sin(tip_a)
+    leaves.append(f'<use href="#leaf" transform="translate({f(tx)} {f(ty)}) rotate({f(math.degrees(math.atan2(math.cos(tip_a), -math.sin(tip_a))))}) scale(.85)"/>')
+    stem = polyline((cx + r * math.cos(math.radians(t)), cy + r * math.sin(math.radians(t)))
+                    for t in [98 + j * 1.5 for j in range(104)])
+    branch = f'<g id="laurelBranch"><path d="{stem}" stroke-width=".5"/>{"".join(leaves)}</g>'
+    by = cy + r + .6
+    bow = (
+        f'<path stroke-width=".22" d="M{f(cx)} {f(by)}c-2.2 -2.6 -6.2 -2.2 -5.2 .2c.8 1.8 3.6 .9 5.2 -.2'
+        f'c2.2 -2.6 6.2 -2.2 5.2 .2c-.8 1.8 -3.6 .9 -5.2 -.2"/>'
+        f'<path stroke-width=".22" d="M{f(cx - .3)} {f(by + .3)}l-3.4 6.2l1.6 -.4l.6 1.4M{f(cx + .3)} {f(by + .3)}l3.4 6.2l-1.6 -.4l-.6 1.4"/>'
+        f'<circle cx="{f(cx)}" cy="{f(by)}" r=".9" stroke-width=".22"/>'
+    )
+    return (
+        f'<g class="laurel" fill="var(--green)" fill-opacity=".22" stroke="var(--engrave)" stroke-width=".16"><defs>{leaf}</defs>'
+        f'{branch}<use href="#laurelBranch" transform="translate({f(2 * cx)} 0) scale(-1 1)"/>{bow}</g>'
     )
 
 
@@ -284,39 +318,37 @@ TITLE_RULE = (
 # ── Fields ──────────────────────────────────────────────────────────
 SAMPLE = {
     "SCHOOL_LOGO": "assets/erpie-logo.webp",
-    "SCHOOL_NAME": "ERPIE",
     "COUNTRY": "République du Mali",
     "AUTHORITY": "Ministère de l’Enseignement Supérieur et de la Recherche Scientifique",
-    "ACCREDITATION": "",
-    "DECREE_CREATION": "N° 2018-0001575/MESRS-SG du 3 septembre 2018",
-    "DECREE_OPENING": "N° 2022-4383/MESRS-SG du 21 septembre 2022",
-    "DECREE_HABILITATION": "N° 2024-3794/MESRS-SG du 8 octobre 2024",
+    "SCHOOL_NAME": "ERPIE",
+    "SCHOOL_STATUS": "Établissement privé d’enseignement supérieur",
     "CERTIFICATE_NUMBER": "00000001",
     "SERIAL_NUMBER": "A-2026",
     "DOCUMENT_TITLE": "Diplôme",
-    "QUALIFICATION": "de Master Professionnel",
+    "QUALIFICATION": "de Master",
+    "DECREE_CREATION": "N° 2018-0001575/MESRS-SG du 3 septembre 2018",
+    "DECREE_OPENING": "N° 2022-4383/MESRS-SG du 21 septembre 2022",
+    "DECREE_HABILITATION": "N° 2024-3794/MESRS-SG du 8 octobre 2024",
     "RECIPIENT_HONORIFIC": "Mme",
     "RECIPIENT_NAME": "Aïssata Diarra",
+    "RECIPIENT_BORN": "née",
+    "RECIPIENT_REF": "l’intéressée",
     "RECIPIENT_BIRTH_DATE": "12 mars 2001",
     "RECIPIENT_BIRTH_PLACE": "Bamako",
-    "PROGRAM_NAME": "Master en Management de Projets Digitaux",
-    "DISTINCTION": "Très Bien",
+    "DEGREE": "Master",
+    "PROGRAM_NAME": "Génie Logiciel",
     "SPECIALIZATION": "Transformation numérique",
-    "PROGRAM_DURATION": "2 ans · 120 crédits",
     "ACADEMIC_YEAR": "2025 – 2026",
-    "ISSUE_DATE": "16 octobre 2026",
+    "DISTINCTION": "Très Bien",
     "ISSUE_CITY": "Bamako",
-    "PROGRAM_REFERENCE": "MPD-2026-07",
+    "ISSUE_DATE": "16 octobre 2026",
     "DIRECTOR_TITLE": "Le Directeur des Études",
     "DIRECTOR_NAME": "[Nom et prénom]",
-    "ACADEMIC_OFFICIAL_TITLE": "Le Président du Jury",
-    "ACADEMIC_OFFICIAL_NAME": "[Nom et prénom]",
     "AUTHORIZED_SIGNATORY_TITLE": "Le Directeur Général",
     "AUTHORIZED_SIGNATORY_NAME": "[Nom et prénom]",
 }
 IMAGE_FIELDS = {"SCHOOL_LOGO"}
-OPTIONAL = {"AUTHORITY", "ACCREDITATION", "SERIAL_NUMBER", "RECIPIENT_HONORIFIC", "DISTINCTION",
-            "PROGRAM_REFERENCE"}
+OPTIONAL = {"AUTHORITY", "SCHOOL_STATUS", "SERIAL_NUMBER", "RECIPIENT_HONORIFIC", "SPECIALIZATION", "DISTINCTION"}
 
 
 def t(key):
@@ -328,11 +360,7 @@ def opt(key):
 
 
 def diploma_markup(emblem_href):
-    meta = [("Programme", "PROGRAM_NAME"), ("Domaine", "SPECIALIZATION"), ("Durée", "PROGRAM_DURATION"),
-            ("Année académique", "ACADEMIC_YEAR"), ("Date d’obtention", "ISSUE_DATE"),
-            ("Référence", "PROGRAM_REFERENCE")]
-    sigs = [("DIRECTOR_TITLE", "DIRECTOR_NAME"), ("ACADEMIC_OFFICIAL_TITLE", "ACADEMIC_OFFICIAL_NAME"),
-            ("AUTHORIZED_SIGNATORY_TITLE", "AUTHORIZED_SIGNATORY_NAME")]
+    sigs = [("DIRECTOR_TITLE", "DIRECTOR_NAME"), ("AUTHORIZED_SIGNATORY_TITLE", "AUTHORIZED_SIGNATORY_NAME")]
     micro = ("ERPIE·AUTHENTIQUE·" * 40)
     return f"""<article class="diploma" id="diploma" lang="fr" aria-label="Diplôme">
 {background_svg(emblem_href)}
@@ -350,8 +378,7 @@ def diploma_markup(emblem_href):
   <div class="inst-country">{t("COUNTRY")}</div>
   <svg class="inst-rule" viewBox="0 0 24 2" aria-hidden="true"><path d="M0 1H10M14 1H24" stroke="var(--engrave)" stroke-width=".15"/><path d="M12 .2l.8.8-.8.8-.8-.8z" fill="var(--red)"/></svg>
   <div class="inst-authority"{opt("AUTHORITY")}>{t("AUTHORITY")}</div>
-  <div class="inst-accred"{opt("ACCREDITATION")}>{t("ACCREDITATION")}</div>
-  <div class="inst-school">{t("SCHOOL_NAME")}</div>
+  <div class="inst-school"><span class="inst-name">{t("SCHOOL_NAME")}</span><span class="inst-status"{opt("SCHOOL_STATUS")}> · {t("SCHOOL_STATUS")}</span></div>
 </header>
 
 <section class="z z-title">
@@ -360,35 +387,38 @@ def diploma_markup(emblem_href):
   <div class="qualification">{t("QUALIFICATION")}</div>
 </section>
 
-<section class="z z-decl">
-  <p class="decl-body">Vu la décision de création <span class="ref">{t("DECREE_CREATION")}</span> ;
-  vu l’arrêté d’ouverture <span class="ref">{t("DECREE_OPENING")}</span> ;<br>
-  vu l’arrêté d’habilitation <span class="ref">{t("DECREE_HABILITATION")}</span> ;
-  vu les pièces justificatives produites par l’intéressé(e) ;<br>
-  vu les <span class="nb">procès-verbaux</span> du jury attestant que l’intéressé(e) a satisfait au contrôle des connaissances
-  et des aptitudes prévu par les textes réglementaires ;</p>
-  <p class="decl-lead">le présent diplôme est délivré à</p>
+<section class="z z-visas">
+  <ul class="visas">
+    <li>Vu la décision de création <span class="ref">{t("DECREE_CREATION")}</span> ;</li>
+    <li>Vu l’arrêté d’ouverture <span class="ref">{t("DECREE_OPENING")}</span> ;</li>
+    <li>Vu l’arrêté d’habilitation <span class="ref">{t("DECREE_HABILITATION")}</span> ;</li>
+    <li>Vu les pièces justificatives produites par <span{opt("RECIPIENT_HONORIFIC")}>{t("RECIPIENT_HONORIFIC")} </span><span class="ref sc">{t("RECIPIENT_NAME")}</span>,
+      {t("RECIPIENT_BORN")} le <span class="ref">{t("RECIPIENT_BIRTH_DATE")}</span> à <span class="ref">{t("RECIPIENT_BIRTH_PLACE")}</span>, en vue de son inscription à la formation ;</li>
+    <li>Vu les procès-verbaux du jury attestant que {t("RECIPIENT_REF")} a satisfait au contrôle des connaissances et des aptitudes prévu par les textes réglementaires ;</li>
+  </ul>
 </section>
 
-<section class="z z-name">
-  {rule_svg(30, flip=True)}
-  <div class="recipient" id="recipient"><span class="honorific"{opt("RECIPIENT_HONORIFIC")}>{t("RECIPIENT_HONORIFIC")}</span> <span class="recipient-name">{t("RECIPIENT_NAME")}</span></div>
-  {rule_svg(30)}
-</section>
-<p class="z z-birth">né(e) le {t("RECIPIENT_BIRTH_DATE")} à {t("RECIPIENT_BIRTH_PLACE")}</p>
-
-<section class="z z-award">
-  <p class="award-stmt">au titre de l’année universitaire {t("ACADEMIC_YEAR")}, pour la formation</p>
-  <p class="program">{t("PROGRAM_NAME")}</p>
+<section class="z z-deliver">
+  <p class="deliver-lead">Le diplôme de <b>{t("DEGREE")}</b> en <b>{t("PROGRAM_NAME")}</b><span{opt("SPECIALIZATION")}>, parcours <b>{t("SPECIALIZATION")}</b></span>, est délivré à</p>
+  <div class="name-row">
+    {rule_svg(30, flip=True)}
+    <div class="recipient" id="recipient"><span class="honorific"{opt("RECIPIENT_HONORIFIC")}>{t("RECIPIENT_HONORIFIC")}</span> <span class="recipient-name">{t("RECIPIENT_NAME")}</span></div>
+    {rule_svg(30)}
+  </div>
+  <p class="deliver-year">au titre de l’année universitaire {t("ACADEMIC_YEAR")}</p>
   <p class="mention"{opt("DISTINCTION")}><span class="mention-label">Mention</span> {t("DISTINCTION")}</p>
+  <p class="deliver-close">pour en jouir avec les droits et prérogatives qui y sont attachés.</p>
 </section>
-
-<dl class="z z-meta">
-{"".join(f'  <div class="meta-item"{opt(k)}><dt>{label}</dt><dd>{t(k)}</dd></div>{chr(10)}' for label, k in meta)}</dl>
 
 <p class="z z-place">Fait à {t("ISSUE_CITY")}, le {t("ISSUE_DATE")}</p>
 
 <section class="z z-sigs">
+  <div class="sig">
+    <div class="sig-role">Le titulaire</div>
+    <div class="sig-space"></div>
+    <div class="sig-line"></div>
+    <div class="sig-name sig-name--holder">&nbsp;</div>
+  </div>
 {"".join(f'''  <div class="sig">
     <div class="sig-role">{t(role)}</div>
     <div class="sig-space"></div>
@@ -396,7 +426,6 @@ def diploma_markup(emblem_href):
     <div class="sig-name">{t(name)}</div>
   </div>
 ''' for role, name in sigs)}</section>
-
 </article>"""
 
 
@@ -425,10 +454,11 @@ DIPLOMA_CSS = """
 .diploma .layer { position: absolute; inset: 0; width: 297mm; height: 210mm; }
 .diploma .micro { font-family: var(--f-meta); font-weight: 500; fill: var(--engrave); letter-spacing: .02em; }
 .diploma .medallion { opacity: .11; }
+.diploma .laurel { opacity: .27; }
 .diploma .z { position: absolute; }
 .diploma [data-hidden] { display: none !important; }
 
-.z-logo { left: 28mm; top: 24.5mm; width: 54mm; height: 24.5mm; display: flex; align-items: center; }
+.z-logo { left: 26mm; top: 21.5mm; width: 46mm; height: 20.9mm; display: flex; align-items: center; }
 .z-logo img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: left center; }
 
 .z-number { right: 24mm; top: 21.3mm; text-align: right; font-family: var(--f-meta); color: var(--ink); }
@@ -439,51 +469,44 @@ DIPLOMA_CSS = """
   opacity: .6; white-space: nowrap; overflow: hidden; }
 .z-number .microline { width: 38mm; margin: .9mm 0 0 auto; }
 
-.z-inst { left: 199mm; top: 28mm; width: 74mm; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1mm; }
-.inst-country { font-family: var(--f-display); font-weight: 600; font-size: 4.4mm; letter-spacing: .1em; line-height: 1.1; color: var(--ink); }
-.inst-rule { width: 24mm; height: 2mm; display: block; }
-.inst-authority { font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: 3.6mm; line-height: 1.2; text-wrap: balance; color: var(--ink-soft); }
-.inst-accred { font-family: var(--f-meta); font-size: 1.9mm; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-.inst-school { font-family: var(--f-display); font-weight: 600; font-size: 3.8mm; letter-spacing: .3em; margin-right: -.3em; color: var(--engrave); margin-top: .4mm; }
+.z-inst { left: 68.5mm; width: 160mm; top: 21mm; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1mm; }
+.inst-country { font-family: var(--f-display); font-weight: 600; font-size: 4.8mm; letter-spacing: .2em; margin-right: -.2em; line-height: 1.1; color: var(--ink); }
+.inst-rule { width: 26mm; height: 2mm; display: block; }
+.inst-authority { font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: 3.7mm; line-height: 1.2; color: var(--ink-soft); }
+.inst-school { font-family: var(--f-meta); font-size: 2.1mm; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: .3mm; }
+.inst-name { font-weight: 500; color: var(--engrave); letter-spacing: .28em; }
 
-.z-title { left: 48.5mm; width: 200mm; top: 47mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
-.doc-title { font-family: var(--f-display); font-weight: 600; font-size: 15mm; line-height: .95; letter-spacing: .16em; margin-right: -.16em;
+.z-title { left: 48.5mm; width: 200mm; top: 41.5mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.doc-title { font-family: var(--f-display); font-weight: 600; font-size: 13.5mm; line-height: .95; letter-spacing: .16em; margin-right: -.16em;
   color: var(--engrave); }
-.title-rule { width: 62mm; height: 3mm; display: block; margin: 1.4mm 0 1mm; }
+.title-rule { width: 58mm; height: 3mm; display: block; margin: 1.2mm 0 .8mm; }
 .qualification { font-family: var(--f-serif); font-style: italic; font-weight: 600; font-size: 6.4mm; line-height: 1.1; color: var(--green); }
 
-.z-decl { left: 33.5mm; width: 230mm; top: 76.6mm; text-align: center; color: var(--ink-soft); }
-.decl-body { font-style: italic; font-size: 3.05mm; line-height: 1.42; text-align: center; hyphens: none; }
-.decl-body .nb { white-space: nowrap; }
-.decl-body .ref { font-style: normal; font-weight: 500; color: var(--ink); white-space: nowrap; font-variant-numeric: lining-nums; }
-.decl-lead { margin-top: 1.3mm !important; font-family: var(--f-meta); font-weight: 500; font-size: 2.3mm; letter-spacing: .26em; text-transform: uppercase; color: var(--engrave); }
+.z-visas { left: 23.5mm; width: 250mm; top: 70mm; display: flex; justify-content: center; }
+.visas { list-style: none; margin: 0; padding: 0; font-style: italic; font-size: 3.1mm; line-height: 1.5; color: var(--ink-soft); text-align: left; }
+.visas .ref { font-style: normal; font-weight: 500; color: var(--ink); white-space: nowrap; font-variant-numeric: lining-nums; }
+.visas .sc { font-variant: small-caps; letter-spacing: .03em; }
 
-.z-name { left: 23.5mm; width: 250mm; top: 95mm; height: 14mm; display: flex; align-items: center; justify-content: center; gap: 4mm; }
+.z-deliver { left: 23.5mm; width: 250mm; top: 96.5mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.deliver-lead { font-size: 3.7mm; line-height: 1.3; color: var(--ink); }
+.deliver-lead b { font-family: var(--f-serif); font-weight: 700; font-size: 4.6mm; color: var(--engrave); letter-spacing: .01em; }
+.name-row { width: 100%; height: 15mm; display: flex; align-items: center; justify-content: center; gap: 4mm; margin-top: .6mm; }
 .name-rule { width: 30mm; height: 4mm; flex: none; display: block; }
 .recipient { max-width: 178mm; white-space: nowrap; text-align: center; color: var(--ink); line-height: 1; }
 .honorific { font-family: var(--f-serif); font-style: italic; font-weight: 600; font-size: 6.2mm; color: var(--green); margin-right: 1.4mm; }
 .recipient-name { font-family: var(--f-display); font-weight: 600; font-size: 10.6mm; letter-spacing: .06em; }
-
-.z-birth { left: 48.5mm; width: 200mm; top: 109.6mm; text-align: center; font-style: italic; font-size: 3.4mm; color: var(--ink-soft); }
-.z-award { left: 38.5mm; width: 220mm; top: 116mm; text-align: center; }
-.award-stmt { font-style: italic; font-size: 3.4mm; color: var(--ink-soft); }
-.program { font-family: var(--f-serif); font-weight: 700; font-size: 6.3mm; line-height: 1.2; color: var(--engrave); margin-top: .8mm !important; }
-.mention { margin-top: 1.2mm !important; font-family: var(--f-meta); font-size: 2.7mm; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--red); }
+.deliver-year { font-size: 3.6mm; color: var(--ink); margin-top: .6mm !important; }
+.mention { margin-top: 1.6mm !important; font-family: var(--f-meta); font-size: 2.8mm; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--red); }
 .mention-label { color: var(--ink-soft); font-weight: 500; margin-right: 1.2mm; }
 .mention-label::after { content: " ·"; color: var(--red); }
+.deliver-close { margin-top: 1.6mm !important; font-style: italic; font-size: 3.4mm; color: var(--ink-soft); }
 
-.z-meta { left: 33.5mm; width: 230mm; top: 136mm; display: grid; grid-template-columns: repeat(3, 1fr); row-gap: 1.8mm; }
-.meta-item { text-align: center; padding: 0 2mm; border-left: .18mm solid rgba(12,85,48,.35); min-width: 0; }
-.meta-item:nth-child(3n+1) { border-left: 0; }
-.meta-item dt { font-family: var(--f-meta); font-weight: 500; font-size: 2mm; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); line-height: 1.3; }
-.meta-item dd { font-size: 3.35mm; line-height: 1.25; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: lining-nums; }
+.z-place { left: 48.5mm; width: 200mm; top: 148mm; text-align: center; font-style: italic; font-size: 3.5mm; color: var(--ink-soft); }
 
-.z-place { left: 48.5mm; width: 200mm; top: 152.6mm; text-align: center; font-style: italic; font-size: 3.4mm; color: var(--ink-soft); }
-
-.z-sigs { left: 55.5mm; width: 186mm; top: 160.5mm; display: grid; grid-template-columns: repeat(3, 58mm); column-gap: 6mm; }
+.z-sigs { left: 55.5mm; width: 186mm; top: 156mm; display: grid; grid-template-columns: repeat(3, 58mm); column-gap: 6mm; }
 .sig { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; }
 .sig-role { font-family: var(--f-meta); font-weight: 500; font-size: 2.3mm; letter-spacing: .14em; text-transform: uppercase; color: var(--engrave); line-height: 1.3; min-height: 3mm; }
-.sig-space { height: 14mm; }
+.sig-space { height: 15.5mm; }
 .sig-line { width: 46mm; border-top: .2mm solid var(--ink-soft); }
 .sig-name { margin-top: 1.2mm; font-family: var(--f-body); font-size: 3.4mm; font-variant: small-caps; letter-spacing: .05em; color: var(--ink); white-space: nowrap; }
 """
@@ -594,13 +617,11 @@ summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 GRID_OVERLAY = (
     '<svg class="grid-overlay" viewBox="0 0 297 210" aria-hidden="true"><g fill="none" stroke="#e0218a" stroke-width=".2">'
     '<path d="M148.5 14.4V195.6" stroke-dasharray="1 1"/><path d="M14.4 104H282.6" stroke-dasharray="1 1"/>'
-    '<rect x="23.5" y="20" width="250" height="168" stroke-dasharray="2 1"/>'
-    '<rect x="28" y="24.5" width="54" height="24.5"/><rect x="199" y="28" width="74" height="22"/>'
-    '<rect x="48.5" y="47" width="200" height="27"/><rect x="33.5" y="76.6" width="230" height="17"/>'
-    '<rect x="23.5" y="95" width="250" height="14"/><rect x="48.5" y="109.6" width="200" height="4.8"/>'
-    '<rect x="38.5" y="116" width="220" height="18"/><rect x="33.5" y="136" width="230" height="15"/>'
-    '<rect x="55.5" y="160.5" width="58" height="24"/><rect x="119.5" y="160.5" width="58" height="24"/>'
-    '<rect x="183.5" y="160.5" width="58" height="24"/></g></svg>'
+    '<rect x="26" y="21.5" width="46" height="20.9"/><rect x="68.5" y="21" width="160" height="18"/>'
+    '<rect x="48.5" y="41.5" width="200" height="25"/><rect x="23.5" y="70" width="250" height="23"/>'
+    '<rect x="23.5" y="96.5" width="250" height="40"/><rect x="48.5" y="148" width="200" height="5"/>'
+    '<rect x="55.5" y="156" width="58" height="26"/><rect x="119.5" y="156" width="58" height="26"/>'
+    '<rect x="183.5" y="156" width="58" height="26"/></g></svg>'
 )
 
 

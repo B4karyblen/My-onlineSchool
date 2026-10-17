@@ -31,37 +31,50 @@ PDF export with Playwright/Chromium:
 await page.pdf({ width: '297mm', height: '210mm', printBackground: true });
 ```
 
+## Structure
+
+The layout follows the French national diploma model:
+
+1. State header: country, ministry, then the school.
+2. Title.
+3. Visas, left-aligned with one per line: creation decision, opening order, habilitation order, supporting documents (with the student's birth details), and the jury minutes.
+4. Award sentence: "Le diplôme de Master en …, parcours …, est délivré à", then the name, academic year and mention, ending with "pour en jouir avec les droits et prérogatives qui y sont attachés."
+5. "Fait à …, le …"
+6. Signatures: the holder (*Le titulaire*), the Director of Studies, and the Director General.
+
 ## Fields
 
 | Field | Notes |
 |---|---|
 | `SCHOOL_LOGO` | Image URL or `data:` URI |
-| `SCHOOL_NAME` | Shown at the bottom of the institutional header |
-| `COUNTRY` | Country / jurisdiction |
-| `AUTHORITY` | *Optional.* Supervising ministry, e.g. Ministère de l’Enseignement Supérieur et de la Recherche Scientifique |
-| `ACCREDITATION` | *Optional.* Extra line under the ministry. Empty by default because the decrees are in the body. |
-| `DECREE_CREATION` | Creation decision, e.g. `N° 2018-0001575/MESRS-SG du 3 septembre 2018` |
-| `DECREE_OPENING` | Opening order (arrêté d’ouverture) |
-| `DECREE_HABILITATION` | Habilitation order (also covers the Master level) |
+| `COUNTRY` | `République du Mali` |
+| `AUTHORITY` | *Optional.* Supervising ministry |
+| `SCHOOL_NAME` | `ERPIE` |
+| `SCHOOL_STATUS` | *Optional.* e.g. `Établissement privé d’enseignement supérieur` |
 | `CERTIFICATE_NUMBER` | e.g. `00000001` |
 | `SERIAL_NUMBER` | *Optional* |
-| `DOCUMENT_TITLE` | `Diplôme` / `Certificat` |
-| `QUALIFICATION` | e.g. `de Master Professionnel` |
+| `DOCUMENT_TITLE` | `Diplôme` |
+| `QUALIFICATION` | `de Master` / `de Licence` |
+| `DECREE_CREATION` | `N° 2018-0001575/MESRS-SG du 3 septembre 2018` |
+| `DECREE_OPENING` | `N° 2022-4383/MESRS-SG du 21 septembre 2022` |
+| `DECREE_HABILITATION` | `N° 2024-3794/MESRS-SG du 8 octobre 2024` (covers Licence and Master) |
 | `RECIPIENT_HONORIFIC` | *Optional.* `M.` / `Mme` |
-| `RECIPIENT_NAME` | Rendered in small caps |
+| `RECIPIENT_NAME` | |
+| `RECIPIENT_BORN` | `né` / `née` |
+| `RECIPIENT_REF` | `l’intéressé` / `l’intéressée` |
 | `RECIPIENT_BIRTH_DATE` | e.g. `12 mars 2001` |
 | `RECIPIENT_BIRTH_PLACE` | e.g. `Bamako` |
-| `PROGRAM_NAME` | |
-| `DISTINCTION` | *Optional.* Mention |
-| `SPECIALIZATION` | Domaine |
-| `PROGRAM_DURATION` | |
-| `ACADEMIC_YEAR` | Shown in the award line and the details row |
-| `ISSUE_DATE` | |
+| `DEGREE` | `Master` / `Licence` |
+| `PROGRAM_NAME` | e.g. `Génie Logiciel` |
+| `SPECIALIZATION` | *Optional.* Track (parcours), e.g. `Transformation numérique` |
+| `ACADEMIC_YEAR` | e.g. `2025 – 2026` |
+| `DISTINCTION` | *Optional.* e.g. `Très Bien` |
 | `ISSUE_CITY` | |
-| `PROGRAM_REFERENCE` | *Optional* |
-| `DIRECTOR_TITLE`, `DIRECTOR_NAME` | Left signature |
-| `ACADEMIC_OFFICIAL_TITLE`, `ACADEMIC_OFFICIAL_NAME` | Centre signature |
+| `ISSUE_DATE` | |
+| `DIRECTOR_TITLE`, `DIRECTOR_NAME` | Centre signature |
 | `AUTHORIZED_SIGNATORY_TITLE`, `AUTHORIZED_SIGNATORY_NAME` | Right signature |
+
+The holder's signature block on the left is fixed and has no field.
 
 ## Rebuilding
 
