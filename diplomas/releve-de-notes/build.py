@@ -121,7 +121,7 @@ table.sum { margin-top: 3mm; width: 100%; border-collapse: collapse; table-layou
 .sig-role { font-weight: 700; }
 .sig-space { height: 17mm; }
 .sig-name { font-weight: 700; }
-.stamp { position: absolute; width: 27mm; height: 27mm; left: calc(50% - 13.5mm); top: -2.5mm; transform: rotate(-10deg); opacity: .93; pointer-events: none; }
+.stamp { position: absolute; width: 27mm; height: 27mm; left: calc(50% - 7mm); top: -2.5mm; transform: rotate(-10deg); opacity: .93; pointer-events: none; }
 .stamp img { width: 100%; height: 100%; display: block; }
 
 .bottom { margin-top: auto; padding-top: 3mm; text-align: center; font-size: 2.35mm; color: var(--ink-2); line-height: 1.45; }
