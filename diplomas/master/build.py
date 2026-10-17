@@ -220,11 +220,6 @@ def background_svg(emblem_href):
         "gOuter", cx, cy, 60,
         [lambda t, k=k: 69.1 + 1.25 * math.sin(60 * t + k * 2 * math.pi / 3) for k in range(3)], 24)
     defs = (
-        # engraved micro-line texture: one row drawn once, repeated (vector, never an SVG <pattern>)
-        f'<path id="waveRow" fill="none" stroke="var(--green)" stroke-width=".05" '
-        f'd="M{f(DECO)} .58C{f(DECO + 1.75)} -.02 {f(DECO + 1.75)} -.02 {f(DECO + 3.5)} .58'
-        + "".join(f"S{f(DECO + 3.5 * i + 1.75)} {'1.18' if i % 2 else '-.02'} {f(DECO + 3.5 * (i + 1))} .58" for i in range(1, 75))
-        + '"/>'
         f'<image id="emblemMark" href="{emblem_href}" width="8" height="6"/>'
         f'<clipPath id="contentClip"><path d="{concave_rect(DECO, DECO_R)}"/></clipPath>'
     )
@@ -234,9 +229,6 @@ def background_svg(emblem_href):
         f'<svg class="layer security" viewBox="0 0 {f(W)} {f(H)}" aria-hidden="true">'
         f"<defs>{defs}</defs>"
         f'<g clip-path="url(#contentClip)">'
-        f'<g opacity=".38">'
-        + "".join(f'<use href="#waveRow" y="{f(DECO + 1.15 * i)}"/>' for i in range(int(ch / 1.15) + 1))
-        + "</g>"
         f'<g opacity=".028">'
         + "".join(f'<use href="#emblemMark" x="{f(x)}" y="{f(y)}"/>'
                   for row in range(8) for col in range(9)
