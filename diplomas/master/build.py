@@ -20,12 +20,13 @@ W, H = 297.0, 210.0          # A4 landscape, 1 SVG user unit = 1 mm
 CX = W / 2
 
 # ── Frame geometry (mm from page edge) ──────────────────────────────
-OUTER = 5.0                  # hairline
-STRUCT = 6.3                 # structural line
-BAND0, BAND1 = 7.3, 15.3     # guilloche band
-INNER = 16.3                 # inner structural line
-CONTENT = 17.5               # inner hairline / content box
-DECO = 19.5                  # concave-cornered decorative line
+EDGE = 2.4                   # solid green border, printed to the trimmed edge
+OUTER = 3.0                  # hairline
+STRUCT = 3.8                 # structural line
+BAND0, BAND1 = 4.6, 12.6     # guilloche band
+INNER = 13.4                 # inner structural line
+CONTENT = 14.4               # inner hairline / content box
+DECO = 16.4                  # concave-cornered decorative line
 DECO_R = 6.0
 BAND_C = (BAND0 + BAND1) / 2
 MED_CY = 104.0               # centre of the security medallion (under the name)
@@ -166,6 +167,9 @@ def frame_svg():
     mirrors = ["", f"translate({f(W)} 0) scale(-1 1)", f"translate(0 {f(H)}) scale(1 -1)",
                f"translate({f(W)} {f(H)}) scale(-1 -1)"]
     body = [
+        f'<path fill="var(--engrave)" fill-rule="evenodd" d="M0 0H{f(W)}V{f(H)}H0Z'
+        f'M{f(EDGE)} {f(EDGE)}V{f(H - EDGE)}H{f(W - EDGE)}V{f(EDGE)}Z"/>'
+        f'<path fill="none" stroke="var(--green)" stroke-width=".12" d="M{f(EDGE / 2)} {f(EDGE / 2)}H{f(W - EDGE / 2)}V{f(H - EDGE / 2)}H{f(EDGE / 2)}Z" opacity=".8"/>'
         f'<g fill="none" stroke="var(--engrave)">'
         f'<g stroke-width=".18">{rect(OUTER)}</g>'
         f'<g stroke-width=".45">{rect(STRUCT)}{rect(INNER)}</g>'
@@ -230,7 +234,7 @@ def background_svg(emblem_href):
         f'<svg class="layer security" viewBox="0 0 {f(W)} {f(H)}" aria-hidden="true">'
         f"<defs>{defs}</defs>"
         f'<g clip-path="url(#contentClip)">'
-        f'<g opacity=".5">'
+        f'<g opacity=".38">'
         + "".join(f'<use href="#waveRow" y="{f(DECO + 1.15 * i)}"/>' for i in range(int(ch / 1.15) + 1))
         + "</g>"
         f'<g opacity=".028">'
@@ -309,13 +313,10 @@ SAMPLE = {
     "ACADEMIC_OFFICIAL_NAME": "[Nom et prénom]",
     "AUTHORIZED_SIGNATORY_TITLE": "Le Directeur Général",
     "AUTHORIZED_SIGNATORY_NAME": "[Nom et prénom]",
-    "VERIFICATION_URL": "erpie.example/v/ERP-2026-7F3K-9Q2M",
-    "CREDENTIAL_ID": "ERP-2026-7F3K-9Q2M",
-    "SECURITY_CODE": "X7Q4-K2M9",
 }
 IMAGE_FIELDS = {"SCHOOL_LOGO"}
 OPTIONAL = {"AUTHORITY", "ACCREDITATION", "SERIAL_NUMBER", "RECIPIENT_HONORIFIC", "DISTINCTION",
-            "SECURITY_CODE", "PROGRAM_REFERENCE"}
+            "PROGRAM_REFERENCE"}
 
 
 def t(key):
@@ -396,28 +397,18 @@ def diploma_markup(emblem_href):
   </div>
 ''' for role, name in sigs)}</section>
 
-<footer class="z z-verify">
-  <div class="microline" aria-hidden="true">{micro}</div>
-  <div class="verify-line">
-    <span><b>N°</b> {t("CERTIFICATE_NUMBER")}</span>
-    <span><b>ID</b> {t("CREDENTIAL_ID")}</span>
-    <span><b>Délivré le</b> {t("ISSUE_DATE")}</span>
-    <span><b>Vérification</b> {t("VERIFICATION_URL")}</span>
-    <span{opt("SECURITY_CODE")}><b>Code</b> {t("SECURITY_CODE")}</span>
-  </div>
-</footer>
 </article>"""
 
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500'
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,500;1,600'
          '&family=Cormorant+SC:wght@500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@400;500&display=swap">')
 
 DIPLOMA_CSS = """
-/* Grid: 297 × 210 mm, centre axis 148.5 mm; frame bands to 19.5 mm; every zone is placed in mm. */
+/* Grid: 297 × 210 mm full bleed, centre axis 148.5 mm; frame bands to 16.4 mm; every zone is placed in mm. */
 .diploma {
-  --paper: #fdfdf9; --ink: #15241b; --ink-soft: #3f5146; --muted: #66756b;
+  --paper: #fdfdf9; --ink: #0e1a12; --ink-soft: #22342a; --muted: #3c4d42;
   --green: #0b8a3e; --engrave: #0c5530; --red: #a5171b;
   --f-display: 'Cormorant SC', 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
   --f-serif: 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
@@ -433,75 +424,68 @@ DIPLOMA_CSS = """
 .diploma p, .diploma h1, .diploma dl, .diploma dd { margin: 0; }
 .diploma .layer { position: absolute; inset: 0; width: 297mm; height: 210mm; }
 .diploma .micro { font-family: var(--f-meta); font-weight: 500; fill: var(--engrave); letter-spacing: .02em; }
-.diploma .medallion { opacity: .13; }
+.diploma .medallion { opacity: .11; }
 .diploma .z { position: absolute; }
 .diploma [data-hidden] { display: none !important; }
 
-.z-logo { left: 33mm; top: 29.5mm; width: 50mm; height: 22.7mm; display: flex; align-items: center; }
+.z-logo { left: 28mm; top: 24.5mm; width: 54mm; height: 24.5mm; display: flex; align-items: center; }
 .z-logo img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: left center; }
 
-.z-number { right: 27mm; top: 24.5mm; text-align: right; font-family: var(--f-meta); color: var(--ink-soft); }
-.cert-no { font-size: 2.35mm; font-weight: 500; letter-spacing: .14em; font-variant-numeric: tabular-nums; }
+.z-number { right: 24mm; top: 21.3mm; text-align: right; font-family: var(--f-meta); color: var(--ink); }
+.cert-no { font-size: 2.9mm; font-weight: 500; letter-spacing: .12em; font-variant-numeric: tabular-nums; }
 .no-mark { color: var(--red); letter-spacing: .04em; }
-.serial { font-size: 1.6mm; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: .5mm; }
+.serial { font-size: 1.9mm; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: .5mm; }
 .diploma .microline { font-family: var(--f-meta); font-size: .82mm; line-height: 1; letter-spacing: .04em; color: var(--green);
   opacity: .6; white-space: nowrap; overflow: hidden; }
-.z-number .microline { width: 34mm; margin: .9mm 0 0 auto; }
+.z-number .microline { width: 38mm; margin: .9mm 0 0 auto; }
 
-.z-inst { left: 207mm; top: 33mm; width: 64mm; text-align: center; display: flex; flex-direction: column; align-items: center; gap: .9mm; }
-.inst-country { font-family: var(--f-display); font-weight: 600; font-size: 3.7mm; letter-spacing: .12em; line-height: 1.1; color: var(--ink); }
-.inst-rule { width: 22mm; height: 1.8mm; display: block; }
-.inst-authority { font-family: var(--f-serif); font-style: italic; font-size: 3mm; line-height: 1.2; text-wrap: balance; color: var(--ink-soft); }
-.inst-accred { font-family: var(--f-meta); font-size: 1.55mm; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
-.inst-school { font-family: var(--f-display); font-weight: 600; font-size: 3.1mm; letter-spacing: .32em; margin-right: -.32em; color: var(--engrave); margin-top: .4mm; }
+.z-inst { left: 199mm; top: 28mm; width: 74mm; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1mm; }
+.inst-country { font-family: var(--f-display); font-weight: 600; font-size: 4.4mm; letter-spacing: .1em; line-height: 1.1; color: var(--ink); }
+.inst-rule { width: 24mm; height: 2mm; display: block; }
+.inst-authority { font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: 3.6mm; line-height: 1.2; text-wrap: balance; color: var(--ink-soft); }
+.inst-accred { font-family: var(--f-meta); font-size: 1.9mm; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.inst-school { font-family: var(--f-display); font-weight: 600; font-size: 3.8mm; letter-spacing: .3em; margin-right: -.3em; color: var(--engrave); margin-top: .4mm; }
 
-.z-title { left: 48.5mm; width: 200mm; top: 51mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
-.doc-title { font-family: var(--f-display); font-weight: 600; font-size: 14mm; line-height: .95; letter-spacing: .17em; margin-right: -.17em;
+.z-title { left: 48.5mm; width: 200mm; top: 47mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.doc-title { font-family: var(--f-display); font-weight: 600; font-size: 15mm; line-height: .95; letter-spacing: .16em; margin-right: -.16em;
   color: var(--engrave); }
-.title-rule { width: 60mm; height: 3mm; display: block; margin: 1.4mm 0 1mm; }
-.qualification { font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: 5.8mm; line-height: 1.1; color: var(--green); }
+.title-rule { width: 62mm; height: 3mm; display: block; margin: 1.4mm 0 1mm; }
+.qualification { font-family: var(--f-serif); font-style: italic; font-weight: 600; font-size: 6.4mm; line-height: 1.1; color: var(--green); }
 
-.z-decl { left: 51.5mm; width: 194mm; top: 78.2mm; text-align: center; color: var(--ink-soft); }
-.decl-body { font-style: italic; font-size: 2.62mm; line-height: 1.45; text-align: center; text-wrap: pretty; hyphens: none; }
+.z-decl { left: 33.5mm; width: 230mm; top: 76.6mm; text-align: center; color: var(--ink-soft); }
+.decl-body { font-style: italic; font-size: 3.05mm; line-height: 1.42; text-align: center; hyphens: none; }
 .decl-body .nb { white-space: nowrap; }
 .decl-body .ref { font-style: normal; font-weight: 500; color: var(--ink); white-space: nowrap; font-variant-numeric: lining-nums; }
-.decl-lead { margin-top: 1mm !important; font-family: var(--f-meta); font-size: 1.85mm; letter-spacing: .28em; text-transform: uppercase; color: var(--engrave); }
+.decl-lead { margin-top: 1.3mm !important; font-family: var(--f-meta); font-weight: 500; font-size: 2.3mm; letter-spacing: .26em; text-transform: uppercase; color: var(--engrave); }
 
-.z-name { left: 28.5mm; width: 240mm; top: 94.6mm; height: 13mm; display: flex; align-items: center; justify-content: center; gap: 4mm; }
+.z-name { left: 23.5mm; width: 250mm; top: 95mm; height: 14mm; display: flex; align-items: center; justify-content: center; gap: 4mm; }
 .name-rule { width: 30mm; height: 4mm; flex: none; display: block; }
-.recipient { max-width: 168mm; white-space: nowrap; text-align: center; color: var(--ink); line-height: 1; }
-.honorific { font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: 5.6mm; color: var(--green); margin-right: 1.2mm; }
-.recipient-name { font-family: var(--f-display); font-weight: 600; font-size: 9.6mm; letter-spacing: .07em; }
+.recipient { max-width: 178mm; white-space: nowrap; text-align: center; color: var(--ink); line-height: 1; }
+.honorific { font-family: var(--f-serif); font-style: italic; font-weight: 600; font-size: 6.2mm; color: var(--green); margin-right: 1.4mm; }
+.recipient-name { font-family: var(--f-display); font-weight: 600; font-size: 10.6mm; letter-spacing: .06em; }
 
-.z-birth { left: 48.5mm; width: 200mm; top: 108.2mm; text-align: center; font-style: italic; font-size: 2.95mm; color: var(--ink-soft); }
-.z-award { left: 48.5mm; width: 200mm; top: 114.6mm; text-align: center; }
-.award-stmt { font-style: italic; font-size: 3.05mm; color: var(--ink-soft); }
-.program { font-family: var(--f-serif); font-weight: 600; font-size: 5.6mm; line-height: 1.2; color: var(--engrave); margin-top: .8mm !important; }
-.mention { margin-top: 1.1mm !important; font-family: var(--f-meta); font-size: 2.2mm; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--red); }
-.mention-label { color: var(--ink-soft); font-weight: 400; margin-right: 1.2mm; }
+.z-birth { left: 48.5mm; width: 200mm; top: 109.6mm; text-align: center; font-style: italic; font-size: 3.4mm; color: var(--ink-soft); }
+.z-award { left: 38.5mm; width: 220mm; top: 116mm; text-align: center; }
+.award-stmt { font-style: italic; font-size: 3.4mm; color: var(--ink-soft); }
+.program { font-family: var(--f-serif); font-weight: 700; font-size: 6.3mm; line-height: 1.2; color: var(--engrave); margin-top: .8mm !important; }
+.mention { margin-top: 1.2mm !important; font-family: var(--f-meta); font-size: 2.7mm; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--red); }
+.mention-label { color: var(--ink-soft); font-weight: 500; margin-right: 1.2mm; }
 .mention-label::after { content: " ·"; color: var(--red); }
 
-.z-meta { left: 46.5mm; width: 204mm; top: 132.6mm; display: grid; grid-template-columns: repeat(3, 1fr); row-gap: 1.4mm; }
-.meta-item { text-align: center; padding: 0 2mm; border-left: .15mm solid rgba(12,85,48,.28); min-width: 0; }
+.z-meta { left: 33.5mm; width: 230mm; top: 136mm; display: grid; grid-template-columns: repeat(3, 1fr); row-gap: 1.8mm; }
+.meta-item { text-align: center; padding: 0 2mm; border-left: .18mm solid rgba(12,85,48,.35); min-width: 0; }
 .meta-item:nth-child(3n+1) { border-left: 0; }
-.meta-item dt { font-family: var(--f-meta); font-size: 1.6mm; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); line-height: 1.3; }
-.meta-item dd { font-size: 2.75mm; line-height: 1.25; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: lining-nums; }
+.meta-item dt { font-family: var(--f-meta); font-weight: 500; font-size: 2mm; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); line-height: 1.3; }
+.meta-item dd { font-size: 3.35mm; line-height: 1.25; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: lining-nums; }
 
-.z-place { left: 48.5mm; width: 200mm; top: 146.6mm; text-align: center; font-style: italic; font-size: 3.05mm; color: var(--ink-soft); }
+.z-place { left: 48.5mm; width: 200mm; top: 152.6mm; text-align: center; font-style: italic; font-size: 3.4mm; color: var(--ink-soft); }
 
-.z-sigs { left: 62.5mm; width: 172mm; top: 154mm; display: grid; grid-template-columns: repeat(3, 54mm); column-gap: 5mm; }
+.z-sigs { left: 55.5mm; width: 186mm; top: 160.5mm; display: grid; grid-template-columns: repeat(3, 58mm); column-gap: 6mm; }
 .sig { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; }
-.sig-role { font-family: var(--f-meta); font-size: 1.8mm; letter-spacing: .18em; text-transform: uppercase; color: var(--engrave); line-height: 1.3; min-height: 2.4mm; }
-.sig-space { height: 12.5mm; }
-.sig-line { width: 42mm; border-top: .18mm solid var(--ink-soft); }
-.sig-name { margin-top: 1.1mm; font-family: var(--f-body); font-size: 2.8mm; font-variant: small-caps; letter-spacing: .06em; color: var(--ink); white-space: nowrap; }
-
-.z-verify { left: 30mm; width: 237mm; top: 182.6mm; text-align: center; }
-.z-verify .microline { margin-bottom: .9mm; }
-.verify-line { display: flex; justify-content: center; flex-wrap: wrap; column-gap: 3.2mm; font-family: var(--f-meta); font-size: 1.75mm;
-  letter-spacing: .06em; color: var(--ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.verify-line b { font-weight: 500; color: var(--engrave); letter-spacing: .16em; text-transform: uppercase; font-size: 1.5mm; margin-right: .8mm; }
-.verify-line span + span::before { content: "◆"; color: var(--red); font-size: 1mm; margin-right: 3.2mm; vertical-align: .25mm; }
+.sig-role { font-family: var(--f-meta); font-weight: 500; font-size: 2.3mm; letter-spacing: .14em; text-transform: uppercase; color: var(--engrave); line-height: 1.3; min-height: 3mm; }
+.sig-space { height: 14mm; }
+.sig-line { width: 46mm; border-top: .2mm solid var(--ink-soft); }
+.sig-name { margin-top: 1.2mm; font-family: var(--f-body); font-size: 3.4mm; font-variant: small-caps; letter-spacing: .05em; color: var(--ink); white-space: nowrap; }
 """
 
 FILL_JS = r"""
@@ -575,7 +559,7 @@ def data_uri(path, mime):
 PREVIEW_CSS = """
 :root { --desk: #18201b; --desk-2: #222c25; --chrome: #e8eee9; --chrome-dim: #9fb0a5; --line: #34413a; --accent: #3fbf73; --red: #d2454a; color-scheme: dark; }
 body { background: var(--desk); color: var(--chrome); font-family: 'Jost', system-ui, sans-serif; }
-.page { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 18px 40px; max-width: 1240px; margin: 0 auto; }
+.page { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 14px 32px; }
 .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; margin-bottom: 16px; }
 .bar h1 { margin: 0; font-family: 'Cormorant SC', serif; font-weight: 600; font-size: 22px; letter-spacing: .12em; line-height: 1.1; }
 .bar h1 small { display: block; font-family: 'Jost', sans-serif; font-weight: 400; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--chrome-dim); margin-top: 4px; }
@@ -584,8 +568,8 @@ body { background: var(--desk); color: var(--chrome); font-family: 'Jost', syste
 .seg button { appearance: none; border: 0; background: none; color: var(--chrome-dim); font: 500 12px/1 'Jost', sans-serif; letter-spacing: .08em; text-transform: uppercase; padding: 8px 13px; border-radius: 999px; cursor: pointer; }
 .seg button[aria-pressed="true"] { background: var(--chrome); color: var(--desk); }
 .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.viewport { border-radius: 4px; overflow: auto; background: radial-gradient(ellipse at 50% 30%, #2a362e, var(--desk) 70%); padding: clamp(10px, 3vw, 36px); }
-.sheet { position: relative; margin: 0 auto; box-shadow: 0 1px 2px rgba(0,0,0,.4), 0 18px 50px rgba(0,0,0,.45); }
+.viewport { overflow: auto; padding: 0; }
+.sheet { position: relative; margin: 0 auto; }
 .sheet .diploma { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
 .hint { color: var(--chrome-dim); font-size: 12px; letter-spacing: .04em; margin: 10px 2px 0; }
 details { margin-top: 22px; border-top: 1px solid var(--line); padding-top: 14px; }
@@ -609,15 +593,14 @@ summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 GRID_OVERLAY = (
     '<svg class="grid-overlay" viewBox="0 0 297 210" aria-hidden="true"><g fill="none" stroke="#e0218a" stroke-width=".2">'
-    '<path d="M148.5 17.5V192.5" stroke-dasharray="1 1"/><path d="M17.5 104H279.5" stroke-dasharray="1 1"/>'
-    '<rect x="28" y="22" width="241" height="166" stroke-dasharray="2 1"/>'
-    '<rect x="33" y="29.5" width="50" height="22.7"/><rect x="207" y="33" width="64" height="20"/>'
-    '<rect x="48.5" y="51" width="200" height="24"/><rect x="51.5" y="78.2" width="194" height="15"/>'
-    '<rect x="28.5" y="94.6" width="240" height="13"/><rect x="48.5" y="108.2" width="200" height="4.6"/>'
-    '<rect x="48.5" y="114.6" width="200" height="16"/>'
-    '<rect x="46.5" y="133" width="204" height="12"/><rect x="62.5" y="154" width="54" height="23"/>'
-    '<rect x="121.5" y="154" width="54" height="23"/><rect x="180.5" y="154" width="54" height="23"/>'
-    '<rect x="30" y="182.6" width="237" height="6"/></g></svg>'
+    '<path d="M148.5 14.4V195.6" stroke-dasharray="1 1"/><path d="M14.4 104H282.6" stroke-dasharray="1 1"/>'
+    '<rect x="23.5" y="20" width="250" height="168" stroke-dasharray="2 1"/>'
+    '<rect x="28" y="24.5" width="54" height="24.5"/><rect x="199" y="28" width="74" height="22"/>'
+    '<rect x="48.5" y="47" width="200" height="27"/><rect x="33.5" y="76.6" width="230" height="17"/>'
+    '<rect x="23.5" y="95" width="250" height="14"/><rect x="48.5" y="109.6" width="200" height="4.8"/>'
+    '<rect x="38.5" y="116" width="220" height="18"/><rect x="33.5" y="136" width="230" height="15"/>'
+    '<rect x="55.5" y="160.5" width="58" height="24"/><rect x="119.5" y="160.5" width="58" height="24"/>'
+    '<rect x="183.5" y="160.5" width="58" height="24"/></g></svg>'
 )
 
 
@@ -673,7 +656,7 @@ def preview_html():
   var VARS = {{}}; Object.keys(SAMPLE).forEach(function (k) {{ VARS[k] = k === 'SCHOOL_LOGO' ? SAMPLE[k] : '{{{{' + k + '}}}}'; }});
   function layout() {{
     var pad = parseFloat(getComputedStyle(vp).paddingLeft) * 2;
-    var s = zoom === 'fit' ? Math.min(1.6, (vp.clientWidth - pad) / DW) : zoom;
+    var s = zoom === 'fit' ? (vp.clientWidth - pad) / DW : zoom;
     sheet.style.width = DW * s + 'px'; sheet.style.height = DH * s + 'px';
     root.style.transform = 'scale(' + s + ')';
   }}

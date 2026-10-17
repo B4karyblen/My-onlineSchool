@@ -2,6 +2,8 @@
 
 Official diploma template for ERPIE. A4 landscape (297 × 210 mm), print-ready, and exports to vector PDF.
 
+The design is **full bleed**: the green border runs to the edge of the page. A print shop should print it on larger paper and trim to A4. A desktop printer will leave a thin white margin.
+
 ![Sample](exports/diploma-sample.jpg)
 
 ## Files
@@ -60,9 +62,6 @@ await page.pdf({ width: '297mm', height: '210mm', printBackground: true });
 | `DIRECTOR_TITLE`, `DIRECTOR_NAME` | Left signature |
 | `ACADEMIC_OFFICIAL_TITLE`, `ACADEMIC_OFFICIAL_NAME` | Centre signature |
 | `AUTHORIZED_SIGNATORY_TITLE`, `AUTHORIZED_SIGNATORY_NAME` | Right signature |
-| `VERIFICATION_URL` | |
-| `CREDENTIAL_ID` | |
-| `SECURITY_CODE` | *Optional* |
 
 ## Rebuilding
 
