@@ -52,7 +52,6 @@ The layout follows the French national diploma model:
 | `SCHOOL_NAME` | `ERPIE` |
 | `SCHOOL_STATUS` | *Optional.* e.g. `Établissement privé d’enseignement supérieur` |
 | `CERTIFICATE_NUMBER` | e.g. `00000001` |
-| `SERIAL_NUMBER` | *Optional* |
 | `DOCUMENT_TITLE` | `Diplôme` |
 | `QUALIFICATION` | `de Master` / `de Licence` |
 | `DECREE_CREATION` | `N° 2018-0001575/MESRS-SG du 3 septembre 2018` |

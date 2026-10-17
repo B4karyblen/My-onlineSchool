@@ -317,7 +317,6 @@ SAMPLE = {
     "SCHOOL_NAME": "École Rationnelle Privée d’Informatique et d’Électronique",
     "SCHOOL_STATUS": "",
     "CERTIFICATE_NUMBER": "RN-2022-0002",
-    "SERIAL_NUMBER": "A-2026",
     "DOCUMENT_TITLE": "Diplôme",
     "QUALIFICATION": "de Master",
     "DECREE_CREATION": "N° 2018-0001575/MESRS-SG du 3 septembre 2018",
@@ -347,7 +346,7 @@ SAMPLE = {
     "SCHOOL_STAMP": "assets/erpie-cachet.webp",
 }
 IMAGE_FIELDS = {"SCHOOL_LOGO", "STATE_EMBLEM", "SCHOOL_STAMP", "DIRECTOR_SIGNATURE", "AUTHORIZED_SIGNATORY_SIGNATURE"}
-OPTIONAL = {"AUTHORITY", "JURY_HONOURS", "STUDENT_ID", "MOTTO", "STATE_EMBLEM", "SCHOOL_STATUS", "SERIAL_NUMBER", "RECIPIENT_HONORIFIC", "SPECIALIZATION", "DISTINCTION",
+OPTIONAL = {"AUTHORITY", "JURY_HONOURS", "STUDENT_ID", "MOTTO", "STATE_EMBLEM", "SCHOOL_STATUS", "RECIPIENT_HONORIFIC", "SPECIALIZATION", "DISTINCTION",
             "SCHOOL_STAMP", "DIRECTOR_SIGNATURE", "AUTHORIZED_SIGNATORY_SIGNATURE"}
 
 
@@ -382,7 +381,6 @@ def diploma_markup(emblem_href):
 
 <div class="z z-number">
   <div class="cert-no"><span class="no-mark">N°</span> {t("CERTIFICATE_NUMBER")}</div>
-  <div class="serial"{opt("SERIAL_NUMBER")}>Série {t("SERIAL_NUMBER")}</div>
 </div>
 
 <section class="z z-title">
@@ -481,7 +479,6 @@ DIPLOMA_CSS = """
 .z-number { left: 26mm; top: 180.5mm; text-align: left; font-family: var(--f-meta); color: var(--ink); }
 .cert-no { font-size: 2.9mm; font-weight: 500; letter-spacing: .12em; font-variant-numeric: tabular-nums; }
 .no-mark { color: var(--red); letter-spacing: .04em; }
-.serial { font-size: 1.9mm; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: .5mm; }
 
 .z-title { left: 48.5mm; width: 200mm; top: 47mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
 .doc-title { font-family: var(--f-display); font-weight: 600; font-size: 12.5mm; line-height: .95; letter-spacing: .16em; margin-right: -.16em;

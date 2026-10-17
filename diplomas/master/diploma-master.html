@@ -51,7 +51,6 @@ html, body { margin: 0; padding: 0; background: #e9ece6; }
 .z-number { left: 26mm; top: 180.5mm; text-align: left; font-family: var(--f-meta); color: var(--ink); }
 .cert-no { font-size: 2.9mm; font-weight: 500; letter-spacing: .12em; font-variant-numeric: tabular-nums; }
 .no-mark { color: var(--red); letter-spacing: .04em; }
-.serial { font-size: 1.9mm; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: .5mm; }
 
 .z-title { left: 48.5mm; width: 200mm; top: 47mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
 .doc-title { font-family: var(--f-display); font-weight: 600; font-size: 12.5mm; line-height: .95; letter-spacing: .16em; margin-right: -.16em;
@@ -97,7 +96,7 @@ html, body { margin: 0; padding: 0; background: #e9ece6; }
 <!--
   Fields: replace every {{FIELD}} token server-side, or call ERPIE_DIPLOMA.fill(data) in the page.
   SCHOOL_LOGO takes a URL or data: URI.
-  Optional fields hide their row when set to "": AUTHORITY, AUTHORIZED_SIGNATORY_SIGNATURE, DIRECTOR_SIGNATURE, DISTINCTION, JURY_HONOURS, MOTTO, RECIPIENT_HONORIFIC, SCHOOL_STAMP, SCHOOL_STATUS, SERIAL_NUMBER, SPECIALIZATION, STATE_EMBLEM, STUDENT_ID.
+  Optional fields hide their row when set to "": AUTHORITY, AUTHORIZED_SIGNATORY_SIGNATURE, DIRECTOR_SIGNATURE, DISTINCTION, JURY_HONOURS, MOTTO, RECIPIENT_HONORIFIC, SCHOOL_STAMP, SCHOOL_STATUS, SPECIALIZATION, STATE_EMBLEM, STUDENT_ID.
   See README.md and sample-data.json.
 -->
 <article class="diploma" id="diploma" lang="fr" aria-label="Diplôme">
@@ -120,7 +119,6 @@ html, body { margin: 0; padding: 0; background: #e9ece6; }
 
 <div class="z z-number">
   <div class="cert-no"><span class="no-mark">N°</span> <span data-field="CERTIFICATE_NUMBER">{{CERTIFICATE_NUMBER}}</span></div>
-  <div class="serial" data-optional="SERIAL_NUMBER">Série <span data-field="SERIAL_NUMBER">{{SERIAL_NUMBER}}</span></div>
 </div>
 
 <section class="z z-title">
