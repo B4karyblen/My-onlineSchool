@@ -29,7 +29,7 @@ CONTENT = 14.4               # inner hairline / content box
 DECO = 16.4                  # concave-cornered decorative line
 DECO_R = 6.0
 BAND_C = (BAND0 + BAND1) / 2
-MED_CY = 104.0               # centre of the security medallion (under the name)
+MED_CY = 118.0               # centre of the security medallion (under the name)
 
 
 def f(v):
@@ -255,7 +255,7 @@ def background_svg(emblem_href):
         f'<g fill="none" stroke="var(--green)" stroke-width=".08">{outer}</g>'
         + ring_text("mtMed", cx, cy, 62.15, MICRO_MEDALLION, 1.25, 7)
         + f'<image href="{emblem_href}" x="{f(cx - 13)}" y="{f(cy - 9.8)}" width="26" height="19.6" opacity=".14"/>'
-        "</g>" + laurel_svg(cx, 107.5, 33) + "</g></svg>"
+        "</g>" + laurel_svg(cx, 123, 30) + "</g></svg>"
     )
 
 
@@ -471,36 +471,36 @@ DIPLOMA_CSS = """
 .diploma [data-hidden] { display: none !important; }
 
 /* Header: the school on the left, the State on the right, the title between them. */
-.z-school { left: 22mm; width: 82mm; top: 21mm; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.6mm; }
+.z-school { left: 22mm; width: 82mm; top: 19mm; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.6mm; }
 .school-logo { display: block; width: 44mm; height: 20mm; object-fit: contain; }
 .school-name { font-family: var(--f-display); font-weight: 700; font-size: 4.6mm; line-height: 1.15; letter-spacing: .03em; color: var(--red); text-wrap: balance; }
 .school-status { font-family: var(--f-meta); font-size: 2mm; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
-.z-state { left: 193mm; width: 82mm; top: 20mm; display: flex; flex-direction: column; align-items: center; text-align: center; gap: .9mm; }
-.state-emblem { display: block; width: 17mm; height: 17mm; object-fit: contain; margin-bottom: .4mm; }
+.z-state { left: 193mm; width: 82mm; top: 19mm; display: flex; flex-direction: column; align-items: center; text-align: center; gap: .9mm; }
+.state-emblem { display: block; width: 14mm; height: 14mm; object-fit: contain; margin-bottom: .4mm; }
 .inst-country { font-family: var(--f-display); font-weight: 700; font-size: 4.6mm; letter-spacing: .14em; margin-right: -.14em; line-height: 1.1; color: var(--ink); }
 .inst-motto { font-family: var(--f-serif); font-style: italic; font-weight: 600; font-size: 3.5mm; line-height: 1.1; color: var(--ink-soft); }
 .inst-rule { width: 24mm; height: 2mm; display: block; }
-.inst-authority { font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: 3.4mm; line-height: 1.2; color: var(--ink-soft); text-wrap: balance; }
+.inst-authority { font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: 3.2mm; line-height: 1.2; color: var(--ink-soft); text-wrap: balance; }
 
 /* Registration number, bottom left as on French national diplomas. */
-.z-number { left: 26mm; top: 182mm; text-align: left; font-family: var(--f-meta); color: var(--ink); }
+.z-number { left: 26mm; top: 180.5mm; text-align: left; font-family: var(--f-meta); color: var(--ink); }
 .cert-no { font-size: 2.9mm; font-weight: 500; letter-spacing: .12em; font-variant-numeric: tabular-nums; }
 .no-mark { color: var(--red); letter-spacing: .04em; }
 .serial { font-size: 1.9mm; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: .5mm; }
 
-.z-title { left: 104mm; width: 89mm; top: 27mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.z-title { left: 48.5mm; width: 200mm; top: 55mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
 .doc-title { font-family: var(--f-display); font-weight: 600; font-size: 12.5mm; line-height: .95; letter-spacing: .16em; margin-right: -.16em;
   color: var(--engrave); }
 .title-rule { width: 58mm; height: 3mm; display: block; margin: 1.1mm 0 .6mm; }
 .qualification { font-family: var(--f-serif); font-style: italic; font-weight: 600; font-size: 8mm; line-height: 1.1; color: var(--green); }
 
-.z-visas { left: 18.5mm; width: 260mm; top: 64mm; display: flex; justify-content: center; }
+.z-visas { left: 18.5mm; width: 260mm; top: 83mm; display: flex; justify-content: center; }
 .visas { list-style: none; margin: 0; padding: 0; font-size: 3.45mm; line-height: 1.42; color: var(--ink-soft); text-align: left; }
 .visas .ref { font-weight: 500; color: var(--ink); white-space: nowrap; font-variant-numeric: lining-nums; }
 .visas .sc { font-variant: small-caps; letter-spacing: .03em; }
 
-.z-deliver { left: 23.5mm; width: 250mm; top: 91.6mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.z-deliver { left: 23.5mm; width: 250mm; top: 109.6mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
 .deliver-lead { font-size: 4.5mm; line-height: 1.3; color: var(--ink); }
 .deliver-lead b { font-family: var(--f-serif); font-weight: 700; font-size: 5.6mm; color: var(--engrave); letter-spacing: .01em; }
 .name-row { width: 100%; height: 16mm; display: flex; align-items: center; justify-content: center; gap: 4mm; margin-top: .4mm; }
@@ -514,15 +514,15 @@ DIPLOMA_CSS = """
 .mention-label::after { content: " ·"; color: var(--red); }
 .deliver-close { margin-top: 1.4mm !important; font-style: italic; font-size: 3.9mm; color: var(--ink-soft); }
 
-.z-place { right: 55.5mm; top: 139mm; text-align: right; font-style: italic; font-size: 3.9mm; color: var(--ink-soft); white-space: nowrap; }
+.z-place { left: 63mm; top: 152.6mm; text-align: left; font-style: italic; font-size: 3.9mm; color: var(--ink-soft); white-space: nowrap; }
 
-.z-sigs { left: 55.5mm; width: 186mm; top: 149.5mm; display: grid; grid-template-columns: repeat(3, 58mm); column-gap: 6mm; }
+.z-sigs { left: 55.5mm; width: 186mm; top: 159mm; display: grid; grid-template-columns: repeat(3, 58mm); column-gap: 6mm; }
 .sig { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; }
 .sig-role { font-family: var(--f-meta); font-weight: 500; font-size: 2.8mm; letter-spacing: .12em; text-transform: uppercase; color: var(--engrave); line-height: 1.3; min-height: 3.6mm; }
-.sig-space { height: 17mm; width: 100%; position: relative; }
+.sig-space { height: 15mm; width: 100%; position: relative; }
 .sig-img { position: absolute; left: 50%; bottom: -2mm; transform: translateX(-50%); max-width: 44mm; max-height: 19mm; object-fit: contain; }
 /* School stamp, inked over the right half of the Director General block: "GÉNÉRAL" and the surname stay under it, the left half stays free to sign. */
-.z-stamp { left: 212mm; top: 145.5mm; width: 37mm; height: 37mm; transform: rotate(-11deg); opacity: .93; pointer-events: none; }
+.z-stamp { left: 212mm; top: 154mm; width: 37mm; height: 37mm; transform: rotate(-11deg); opacity: .93; pointer-events: none; }
 .z-stamp img { display: block; width: 100%; height: 100%; }
 .sig-line { width: 48mm; border-top: .2mm solid var(--ink-soft); }
 .sig-name { margin-top: 1.3mm; font-family: var(--f-body); font-weight: 500; font-size: 3.9mm; letter-spacing: .02em; color: var(--ink); white-space: nowrap; }
