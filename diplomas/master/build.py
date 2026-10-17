@@ -316,7 +316,7 @@ SAMPLE = {
     "AUTHORITY": "Ministère de l’Enseignement Supérieur et de la Recherche Scientifique",
     "SCHOOL_NAME": "École Rationnelle Privée d’Informatique et d’Électronique",
     "SCHOOL_STATUS": "",
-    "CERTIFICATE_NUMBER": "00000001",
+    "CERTIFICATE_NUMBER": "RN-2022-0002",
     "SERIAL_NUMBER": "A-2026",
     "DOCUMENT_TITLE": "Diplôme",
     "QUALIFICATION": "de Master",
@@ -325,6 +325,7 @@ SAMPLE = {
     "DECREE_HABILITATION": "N° 2024-3794/MESRS-SG du 8 octobre 2024",
     "RECIPIENT_HONORIFIC": "M.",
     "RECIPIENT_NAME": "Aboubacar Togola",
+    "STUDENT_ID": "ML-GL-2020-0001",
     "RECIPIENT_BORN": "né",
     "RECIPIENT_REF": "l’intéressé",
     "RECIPIENT_BIRTH_DATE": "15 juillet 1997",
@@ -334,6 +335,7 @@ SAMPLE = {
     "SPECIALIZATION": "Transformation numérique",
     "ACADEMIC_YEAR": "2020 – 2022",
     "DISTINCTION": "Très Bien",
+    "JURY_HONOURS": "avec les félicitations du jury",
     "ISSUE_CITY": "Bamako",
     "ISSUE_DATE": "16 novembre 2024",
     "DIRECTOR_TITLE": "Le Directeur des Études",
@@ -345,7 +347,7 @@ SAMPLE = {
     "SCHOOL_STAMP": "assets/erpie-cachet.webp",
 }
 IMAGE_FIELDS = {"SCHOOL_LOGO", "STATE_EMBLEM", "SCHOOL_STAMP", "DIRECTOR_SIGNATURE", "AUTHORIZED_SIGNATORY_SIGNATURE"}
-OPTIONAL = {"AUTHORITY", "MOTTO", "STATE_EMBLEM", "SCHOOL_STATUS", "SERIAL_NUMBER", "RECIPIENT_HONORIFIC", "SPECIALIZATION", "DISTINCTION",
+OPTIONAL = {"AUTHORITY", "JURY_HONOURS", "STUDENT_ID", "MOTTO", "STATE_EMBLEM", "SCHOOL_STATUS", "SERIAL_NUMBER", "RECIPIENT_HONORIFIC", "SPECIALIZATION", "DISTINCTION",
             "SCHOOL_STAMP", "DIRECTOR_SIGNATURE", "AUTHORIZED_SIGNATORY_SIGNATURE"}
 
 
@@ -394,7 +396,7 @@ def diploma_markup(emblem_href):
     <li>Vu la décision de création <span class="ref">{t("DECREE_CREATION")}</span> ;</li>
     <li>Vu l’arrêté d’ouverture <span class="ref">{t("DECREE_OPENING")}</span> ;</li>
     <li>Vu l’arrêté d’habilitation <span class="ref">{t("DECREE_HABILITATION")}</span> ;</li>
-    <li>Vu les pièces justificatives produites par <span{opt("RECIPIENT_HONORIFIC")}>{t("RECIPIENT_HONORIFIC")} </span><span class="ref sc">{t("RECIPIENT_NAME")}</span>,
+    <li>Vu les pièces justificatives produites par <span{opt("RECIPIENT_HONORIFIC")}>{t("RECIPIENT_HONORIFIC")} </span><span class="ref sc">{t("RECIPIENT_NAME")}</span>,<span{opt("STUDENT_ID")}> matricule <span class="ref">{t("STUDENT_ID")}</span>,</span>
       {t("RECIPIENT_BORN")} le <span class="ref">{t("RECIPIENT_BIRTH_DATE")}</span> à <span class="ref">{t("RECIPIENT_BIRTH_PLACE")}</span>, en vue de son inscription à la formation ;</li>
     <li>Vu les procès-verbaux du jury attestant que {t("RECIPIENT_REF")} a satisfait au contrôle des connaissances et des aptitudes prévu par les textes réglementaires ;</li>
   </ul>
@@ -408,7 +410,7 @@ def diploma_markup(emblem_href):
     {rule_svg(30)}
   </div>
   <p class="deliver-year">au titre de l’année universitaire {t("ACADEMIC_YEAR")}</p>
-  <p class="mention"{opt("DISTINCTION")}><span class="mention-label">Mention</span> {t("DISTINCTION")}</p>
+  <p class="mention"{opt("DISTINCTION")}><span class="mention-label">Mention</span> {t("DISTINCTION")}<span class="honours"{opt("JURY_HONOURS")}>, {t("JURY_HONOURS")}</span></p>
   <p class="deliver-close">pour en jouir avec les droits et prérogatives qui y sont attachés.</p>
 </section>
 

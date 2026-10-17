@@ -97,7 +97,7 @@ html, body { margin: 0; padding: 0; background: #e9ece6; }
 <!--
   Fields: replace every {{FIELD}} token server-side, or call ERPIE_DIPLOMA.fill(data) in the page.
   SCHOOL_LOGO takes a URL or data: URI.
-  Optional fields hide their row when set to "": AUTHORITY, AUTHORIZED_SIGNATORY_SIGNATURE, DIRECTOR_SIGNATURE, DISTINCTION, MOTTO, RECIPIENT_HONORIFIC, SCHOOL_STAMP, SCHOOL_STATUS, SERIAL_NUMBER, SPECIALIZATION, STATE_EMBLEM.
+  Optional fields hide their row when set to "": AUTHORITY, AUTHORIZED_SIGNATORY_SIGNATURE, DIRECTOR_SIGNATURE, DISTINCTION, JURY_HONOURS, MOTTO, RECIPIENT_HONORIFIC, SCHOOL_STAMP, SCHOOL_STATUS, SERIAL_NUMBER, SPECIALIZATION, STATE_EMBLEM, STUDENT_ID.
   See README.md and sample-data.json.
 -->
 <article class="diploma" id="diploma" lang="fr" aria-label="Diplôme">
@@ -134,7 +134,7 @@ html, body { margin: 0; padding: 0; background: #e9ece6; }
     <li>Vu la décision de création <span class="ref"><span data-field="DECREE_CREATION">{{DECREE_CREATION}}</span></span> ;</li>
     <li>Vu l’arrêté d’ouverture <span class="ref"><span data-field="DECREE_OPENING">{{DECREE_OPENING}}</span></span> ;</li>
     <li>Vu l’arrêté d’habilitation <span class="ref"><span data-field="DECREE_HABILITATION">{{DECREE_HABILITATION}}</span></span> ;</li>
-    <li>Vu les pièces justificatives produites par <span data-optional="RECIPIENT_HONORIFIC"><span data-field="RECIPIENT_HONORIFIC">{{RECIPIENT_HONORIFIC}}</span> </span><span class="ref sc"><span data-field="RECIPIENT_NAME">{{RECIPIENT_NAME}}</span></span>,
+    <li>Vu les pièces justificatives produites par <span data-optional="RECIPIENT_HONORIFIC"><span data-field="RECIPIENT_HONORIFIC">{{RECIPIENT_HONORIFIC}}</span> </span><span class="ref sc"><span data-field="RECIPIENT_NAME">{{RECIPIENT_NAME}}</span></span>,<span data-optional="STUDENT_ID"> matricule <span class="ref"><span data-field="STUDENT_ID">{{STUDENT_ID}}</span></span>,</span>
       <span data-field="RECIPIENT_BORN">{{RECIPIENT_BORN}}</span> le <span class="ref"><span data-field="RECIPIENT_BIRTH_DATE">{{RECIPIENT_BIRTH_DATE}}</span></span> à <span class="ref"><span data-field="RECIPIENT_BIRTH_PLACE">{{RECIPIENT_BIRTH_PLACE}}</span></span>, en vue de son inscription à la formation ;</li>
     <li>Vu les procès-verbaux du jury attestant que <span data-field="RECIPIENT_REF">{{RECIPIENT_REF}}</span> a satisfait au contrôle des connaissances et des aptitudes prévu par les textes réglementaires ;</li>
   </ul>
@@ -148,7 +148,7 @@ html, body { margin: 0; padding: 0; background: #e9ece6; }
     <svg class="name-rule" viewBox="0 0 30 4" aria-hidden="true"><g><path d="M0 2H26" stroke="var(--engrave)" stroke-width=".18"/><path d="M3 2.9H25" stroke="var(--green)" stroke-width=".08"/><path d="M26.8 2l1.2-1.2 1.2 1.2-1.2 1.2z" fill="var(--red)"/><circle cx="29.6" cy="2" r=".35" fill="var(--engrave)"/></g></svg>
   </div>
   <p class="deliver-year">au titre de l’année universitaire <span data-field="ACADEMIC_YEAR">{{ACADEMIC_YEAR}}</span></p>
-  <p class="mention" data-optional="DISTINCTION"><span class="mention-label">Mention</span> <span data-field="DISTINCTION">{{DISTINCTION}}</span></p>
+  <p class="mention" data-optional="DISTINCTION"><span class="mention-label">Mention</span> <span data-field="DISTINCTION">{{DISTINCTION}}</span><span class="honours" data-optional="JURY_HONOURS">, <span data-field="JURY_HONOURS">{{JURY_HONOURS}}</span></span></p>
   <p class="deliver-close">pour en jouir avec les droits et prérogatives qui y sont attachés.</p>
 </section>
 

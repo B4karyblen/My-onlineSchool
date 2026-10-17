@@ -60,6 +60,7 @@ The layout follows the French national diploma model:
 | `DECREE_HABILITATION` | `N° 2024-3794/MESRS-SG du 8 octobre 2024` (covers Licence and Master) |
 | `RECIPIENT_HONORIFIC` | *Optional.* `M.` / `Mme` |
 | `RECIPIENT_NAME` | |
+| `STUDENT_ID` | *Optional.* Matricule, shown in the supporting-documents visa, e.g. `ML-GL-2020-0001` |
 | `RECIPIENT_BORN` | `né` / `née` |
 | `RECIPIENT_REF` | `l’intéressé` / `l’intéressée` |
 | `RECIPIENT_BIRTH_DATE` | e.g. `12 mars 2001` |
@@ -69,6 +70,7 @@ The layout follows the French national diploma model:
 | `SPECIALIZATION` | *Optional.* Track (parcours), e.g. `Transformation numérique` |
 | `ACADEMIC_YEAR` | e.g. `2025 – 2026` |
 | `DISTINCTION` | *Optional.* e.g. `Très Bien` |
+| `JURY_HONOURS` | *Optional.* e.g. `avec les félicitations du jury`, shown after the mention |
 | `ISSUE_CITY` | |
 | `ISSUE_DATE` | |
 | `DIRECTOR_TITLE`, `DIRECTOR_NAME` | Centre signature |
