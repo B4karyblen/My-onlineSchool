@@ -41,9 +41,6 @@ html, body { margin: 0; padding: 0; background: #e9ece6; }
 .cert-no { font-size: 2.9mm; font-weight: 500; letter-spacing: .12em; font-variant-numeric: tabular-nums; }
 .no-mark { color: var(--red); letter-spacing: .04em; }
 .serial { font-size: 1.9mm; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: .5mm; }
-.diploma .microline { font-family: var(--f-meta); font-size: .82mm; line-height: 1; letter-spacing: .04em; color: var(--green);
-  opacity: .6; white-space: nowrap; overflow: hidden; }
-.z-number .microline { width: 38mm; margin: .9mm 0 0 auto; }
 
 .z-inst { left: 68.5mm; width: 160mm; top: 21mm; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1mm; }
 .inst-country { font-family: var(--f-display); font-weight: 600; font-size: 4.8mm; letter-spacing: .2em; margin-right: -.2em; line-height: 1.1; color: var(--ink); }
@@ -104,7 +101,6 @@ html, body { margin: 0; padding: 0; background: #e9ece6; }
 <div class="z z-number">
   <div class="cert-no"><span class="no-mark">N°</span> <span data-field="CERTIFICATE_NUMBER">{{CERTIFICATE_NUMBER}}</span></div>
   <div class="serial" data-optional="SERIAL_NUMBER">Série <span data-field="SERIAL_NUMBER">{{SERIAL_NUMBER}}</span></div>
-  <div class="microline" aria-hidden="true">ERPIE·AUTHENTIQUE·ERPIE·AUTHENTIQUE·ERPIE·AUTHENTIQUE·ERPIE·</div>
 </div>
 
 <header class="z z-inst">

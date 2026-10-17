@@ -329,23 +329,23 @@ SAMPLE = {
     "DECREE_CREATION": "N° 2018-0001575/MESRS-SG du 3 septembre 2018",
     "DECREE_OPENING": "N° 2022-4383/MESRS-SG du 21 septembre 2022",
     "DECREE_HABILITATION": "N° 2024-3794/MESRS-SG du 8 octobre 2024",
-    "RECIPIENT_HONORIFIC": "Mme",
-    "RECIPIENT_NAME": "Aïssata Diarra",
-    "RECIPIENT_BORN": "née",
-    "RECIPIENT_REF": "l’intéressée",
-    "RECIPIENT_BIRTH_DATE": "12 mars 2001",
+    "RECIPIENT_HONORIFIC": "M.",
+    "RECIPIENT_NAME": "Aboubacar Togola",
+    "RECIPIENT_BORN": "né",
+    "RECIPIENT_REF": "l’intéressé",
+    "RECIPIENT_BIRTH_DATE": "15 juillet 1997",
     "RECIPIENT_BIRTH_PLACE": "Bamako",
     "DEGREE": "Master",
     "PROGRAM_NAME": "Génie Logiciel",
     "SPECIALIZATION": "Transformation numérique",
-    "ACADEMIC_YEAR": "2025 – 2026",
+    "ACADEMIC_YEAR": "2020 – 2022",
     "DISTINCTION": "Très Bien",
     "ISSUE_CITY": "Bamako",
-    "ISSUE_DATE": "16 octobre 2026",
+    "ISSUE_DATE": "16 novembre 2024",
     "DIRECTOR_TITLE": "Le Directeur des Études",
-    "DIRECTOR_NAME": "[Nom et prénom]",
+    "DIRECTOR_NAME": "Dr Sekou TANGARA",
     "AUTHORIZED_SIGNATORY_TITLE": "Le Directeur Général",
-    "AUTHORIZED_SIGNATORY_NAME": "[Nom et prénom]",
+    "AUTHORIZED_SIGNATORY_NAME": "Ing. Lassana SISSOKO",
 }
 IMAGE_FIELDS = {"SCHOOL_LOGO"}
 OPTIONAL = {"AUTHORITY", "SCHOOL_STATUS", "SERIAL_NUMBER", "RECIPIENT_HONORIFIC", "SPECIALIZATION", "DISTINCTION"}
@@ -361,7 +361,6 @@ def opt(key):
 
 def diploma_markup(emblem_href):
     sigs = [("DIRECTOR_TITLE", "DIRECTOR_NAME"), ("AUTHORIZED_SIGNATORY_TITLE", "AUTHORIZED_SIGNATORY_NAME")]
-    micro = ("ERPIE·AUTHENTIQUE·" * 40)
     return f"""<article class="diploma" id="diploma" lang="fr" aria-label="Diplôme">
 {background_svg(emblem_href)}
 {frame_svg()}
@@ -371,7 +370,6 @@ def diploma_markup(emblem_href):
 <div class="z z-number">
   <div class="cert-no"><span class="no-mark">N°</span> {t("CERTIFICATE_NUMBER")}</div>
   <div class="serial"{opt("SERIAL_NUMBER")}>Série {t("SERIAL_NUMBER")}</div>
-  <div class="microline" aria-hidden="true">{micro[:60]}</div>
 </div>
 
 <header class="z z-inst">
@@ -465,9 +463,6 @@ DIPLOMA_CSS = """
 .cert-no { font-size: 2.9mm; font-weight: 500; letter-spacing: .12em; font-variant-numeric: tabular-nums; }
 .no-mark { color: var(--red); letter-spacing: .04em; }
 .serial { font-size: 1.9mm; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: .5mm; }
-.diploma .microline { font-family: var(--f-meta); font-size: .82mm; line-height: 1; letter-spacing: .04em; color: var(--green);
-  opacity: .6; white-space: nowrap; overflow: hidden; }
-.z-number .microline { width: 38mm; margin: .9mm 0 0 auto; }
 
 .z-inst { left: 68.5mm; width: 160mm; top: 21mm; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1mm; }
 .inst-country { font-family: var(--f-display); font-weight: 600; font-size: 4.8mm; letter-spacing: .2em; margin-right: -.2em; line-height: 1.1; color: var(--ink); }
@@ -662,7 +657,7 @@ def preview_html():
   <div class="viewport" id="viewport"><div class="sheet" id="sheet">
 {markup}
   </div></div>
-  <p class="hint">Zoomez à 300 % pour voir les micro-textes, la guilloche et le filigrane. Les noms des signataires restent entre crochets jusqu’à validation.</p>
+  <p class="hint">Exemple de présentation. Zoomez à 300 % pour voir les micro-textes, la guilloche et le filigrane.</p>
   <details>
     <summary>Champs du modèle ({len(SAMPLE)})</summary>
     <div class="fields"><table><thead><tr><th>Champ</th><th>Exemple</th></tr></thead><tbody>{rows}</tbody></table></div>
