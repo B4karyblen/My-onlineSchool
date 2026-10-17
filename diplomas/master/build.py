@@ -333,7 +333,7 @@ SAMPLE = {
     "DEGREE": "Master",
     "PROGRAM_NAME": "Génie Logiciel",
     "SPECIALIZATION": "Transformation numérique",
-    "ACADEMIC_YEAR": "2020 – 2022",
+    "ACADEMIC_YEAR": "2021 – 2022",
     "DISTINCTION": "Très Bien",
     "JURY_HONOURS": "avec les félicitations du jury",
     "ISSUE_CITY": "Bamako",

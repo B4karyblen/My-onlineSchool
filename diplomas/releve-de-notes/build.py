@@ -139,7 +139,7 @@ def render_page(d, logo, stamp):
         lv_ok = lv["acquired"] == lv["credits"]
         rows.append(f'<tr class="level"><td class="c-code"></td><td>{e(lv["title"])} — {e(lv["semesters"])}</td>'
                     f'<td class="c-ects">{lv["credits"]}</td><td class="c-note"></td>'
-                    f'<td class="c-res"></td><td class="c-app"></td></tr>')
+                    f'<td class="c-res"></td><td class="c-app">{f"Année universitaire {e(lv["year"])}" if lv.get("year") else ""}</td></tr>')
         for code, title, sub, ects, note, app in lv["modules"]:
             ok = note >= 10
             rows.append(f'<tr><td class="c-code">{e(code)}</td><td>{e(title)}{f"<span class=sub>{e(sub)}</span>" if sub else ""}</td>'
@@ -159,13 +159,13 @@ def render_page(d, logo, stamp):
 <div class="ttl">
   <h1>Relevé de notes</h1>
   <p>{e(d['degree'])}{f" — parcours {e(d['specialization'])}" if d.get('specialization') else ''}</p>
-  <p class="small">Bulletin {e(d.get('bulletin', 'annuel'))} {e(d['academic_year'])}</p>
+  <p class="small">Bulletin {e(d.get('bulletin', 'annuel'))} · {e(d.get('academic_year_label', 'Année universitaire'))} {e(d['academic_year'])}</p>
   <p class="small">N° {e(d['document_number'])}</p>
 </div>
 <div class="id">
   <div><span class="name">{e(d['recipient_name'].upper())}</span><br>Matricule : {e(d['student_id'])}<br>
     {e(d['recipient_born'])} le {e(d['recipient_birth_date'])} à {e(d['recipient_birth_place'])}</div>
-  <div>Programme : {e(d['degree'])}<br>Crédits du programme : {d['total_credits']} ECTS<br>Année académique : {e(d['academic_year'])}</div>
+  <div>Programme : {e(d['degree'])}<br>Crédits du programme : {d['total_credits']} ECTS<br>{e(d.get('period_label', 'Année académique'))} : {e(d['academic_year'])}</div>
 </div>
 <table class="notes">
   <thead><tr><th class="c-code">Code</th><th>Intitulé du module</th><th class="c-ects">ECTS</th><th class="c-note">Note / 20</th><th class="c-res">Résultat</th><th class="c-app">Appréciation</th></tr></thead>

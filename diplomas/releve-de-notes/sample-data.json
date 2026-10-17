@@ -118,7 +118,8 @@
           19.0,
           "Projet exceptionnel, architecture très solide"
         ]
-      ]
+      ],
+      "year": "2020 – 2021"
     },
     {
       "title": "Master 2 (M2)",
@@ -180,7 +181,8 @@
           18.5,
           "Remarquable présentation devant le jury"
         ]
-      ]
+      ],
+      "year": "2021 – 2022"
     }
   ],
   "jury_honours": "Avec les félicitations du jury",
@@ -190,5 +192,7 @@
   "director_name": "Dr Sékou TANGARA",
   "signatory_title": "Le Directeur Général",
   "signatory_name": "",
-  "bulletin": "récapitulatif"
+  "bulletin": "récapitulatif",
+  "academic_year_label": "Années universitaires",
+  "period_label": "Période de formation"
 }
