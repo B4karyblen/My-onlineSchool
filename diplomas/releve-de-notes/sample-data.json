@@ -1,0 +1,69 @@
+{
+  "school_logo": "../master/assets/erpie-logo.webp",
+  "school_stamp": "../master/assets/erpie-cachet.webp",
+  "school_name": "École Rationnelle Privée d’Informatique et d’Électronique",
+  "school_short": "ERPIE",
+  "school_address": "",
+  "school_contact": "",
+  "country": "République du Mali",
+  "motto": "Un Peuple – Un But – Une Foi",
+  "authority": "Ministère de l’Enseignement Supérieur et de la Recherche Scientifique",
+  "decrees": [
+    ["Décision de création", "N° 2018-0001575/MESRS-SG du 3 septembre 2018"],
+    ["Arrêté d’ouverture", "N° 2022-4383/MESRS-SG du 21 septembre 2022"],
+    ["Arrêté d’habilitation", "N° 2024-3794/MESRS-SG du 8 octobre 2024"]
+  ],
+  "document_number": "RN-2026-0042",
+  "verification_url": "https://erpie.example/verifier/RN-2026-0042",
+
+  "recipient_honorific": "M.",
+  "recipient_name": "Aboubacar Togola",
+  "recipient_born": "Né",
+  "recipient_birth_date": "15 juillet 1997",
+  "recipient_birth_place": "Bamako",
+  "student_id": "MS-GL-2026-0042",
+  "degree": "Master en Génie Logiciel",
+  "specialization": "Transformation numérique",
+  "total_credits": 120,
+  "academic_year": "2025 – 2026",
+
+  "levels": [
+    {
+      "title": "Master 1 (M1)",
+      "semesters": "Semestre 1 & Semestre 2",
+      "modules": [
+        ["GL-401", "Architecture Logicielle Avancée & Design Patterns", "", 6, 18.5, "Excellent sens de la conception modulaire"],
+        ["GL-402", "Bases de Données Avancées & NoSQL", "", 6, 17.5, "Très bonne maîtrise des bases distribuées"],
+        ["GL-403", "Algorithmique Avancée & Complexité", "", 6, 18.0, "Rigueur remarquable"],
+        ["GL-404", "Méthodologies Agiles & DevOps (CI/CD)", "", 6, 19.0, "Maîtrise parfaite des pipelines de déploiement"],
+        ["GL-405", "Développement Web Full-Stack (React, Node.js, Microservices)", "", 6, 18.0, "Code propre et très bien documenté"],
+        ["GL-406", "Sécurité Logicielle & Cryptographie Appliquée", "", 6, 17.0, "Bonnes pratiques d’audit et de sécurisation"],
+        ["GL-407", "Génie Logiciel Orienté Objet & Tests Unitaires (TDD)", "", 6, 18.5, "Excellente couverture de tests"],
+        ["GL-408", "Cloud Computing & Containerisation (Docker, Kubernetes)", "", 6, 18.0, "Déploiement cloud irréprochable"],
+        ["GL-409", "Anglais Technique & Communication Professionnelle", "", 3, 17.5, "Très bonne aisance rédactionnelle et orale"],
+        ["GL-410", "Projet M1 : Conception & Déploiement d’une Application SaaS", "", 9, 19.0, "Projet exceptionnel, architecture très solide"]
+      ]
+    },
+    {
+      "title": "Master 2 (M2)",
+      "semesters": "Semestre 3 & Semestre 4",
+      "modules": [
+        ["GL-501", "Microservices, API Gateway & Event-Driven Architecture", "", 6, 18.0, "Très bonne gestion de la montée en charge"],
+        ["GL-502", "Intelligence Artificielle & Machine Learning pour Développeurs", "", 6, 17.5, "Intégration efficace de modèles IA"],
+        ["GL-503", "Qualité du Code, Refactoring & Infrastructure as Code (Terraform)", "", 6, 18.5, "Code d’une très haute qualité opérationnelle"],
+        ["GL-504", "Management de Projets IT & Gestion d’Équipes Techniques", "", 6, 17.0, "Bonnes compétences en leadership technique"],
+        ["GL-505", "Systèmes Distribués & Informatique en Nuage Avancée", "", 6, 18.0, "Compréhension approfondie de la tolérance aux pannes"],
+        ["GL-506", "Projet Majeur de Fin d’Études (Capstone Project)", "Conception d’une plateforme cloud distribuée avec IA intégrée", 12, 19.0, "Travail de niveau professionnel, code prêt pour la production"],
+        ["GL-507", "Mémoire de Master & Soutenance Finale", "Sujet : « Optimisation des architectures microservices sous forte charge »", 18, 18.5, "Remarquable présentation devant le jury"]
+      ]
+    }
+  ],
+  "jury_honours": "Avec les félicitations du jury",
+
+  "issue_city": "Bamako",
+  "issue_date": "16 octobre 2026",
+  "director_title": "Le Directeur des Études",
+  "director_name": "Dr Sékou TANGARA",
+  "signatory_title": "Le Directeur Général",
+  "signatory_name": "Ing. Lassana SISSOKO"
+}

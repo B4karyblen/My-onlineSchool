@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relevé de notes · Aboubacar Togola</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@400;500;600&display=swap">
+<style>@page { size: 210mm 297mm; margin: 0; } html, body { margin: 0; background: #e8e9eb; }
+@media screen { body { padding: 10mm; } .releve { margin: 0 auto; box-shadow: 0 2mm 8mm rgba(0,0,0,.18); } }
+@media print { html, body { background: none; } }
+/* A4 portrait, 16 mm content margins inside a fine double rule. Monochrome: only the logo and the cachet carry colour. */
+.releve {
+  --paper: #ffffff; --ink: #14171a; --ink-2: #3a4047; --muted: #6b727a; --rule: #c9cdd2; --band: #f2f3f4; --head: #1d2125;
+  --f-display: 'Cormorant SC', Garamond, 'Times New Roman', serif;
+  --f-body: 'EB Garamond', Garamond, 'Times New Roman', serif;
+  --f-meta: 'Jost', 'Futura', 'Century Gothic', 'Helvetica Neue', Arial, sans-serif;
+  position: relative; width: 210mm; height: 297mm; overflow: hidden; box-sizing: border-box;
+  padding: 13.5mm 15mm 12mm; background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: 3.1mm; line-height: 1.3;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; font-kerning: normal;
+  display: flex; flex-direction: column;
+}
+.releve *, .releve *::before, .releve *::after { box-sizing: border-box; }
+.releve p, .releve h1, .releve h2, .releve table { margin: 0; }
+.releve::before, .releve::after { content: ""; position: absolute; pointer-events: none; }
+.releve::before { inset: 7mm; border: .45mm solid var(--head); }
+.releve::after { inset: 8.3mm; border: .15mm solid var(--head); }
+
+/* Header: school left, State right */
+.hd { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 6mm; }
+.hd-school { display: flex; align-items: center; gap: 3.2mm; }
+.hd-school img { width: 31mm; height: 14mm; object-fit: contain; object-position: left center; flex: none; }
+.hd-school-name { font-family: var(--f-display); font-weight: 700; font-size: 3.55mm; line-height: 1.15; letter-spacing: .02em; max-width: 54mm; }
+.hd-school-meta { font-family: var(--f-meta); font-size: 1.95mm; color: var(--muted); margin-top: .8mm; letter-spacing: .02em; }
+.hd-state { text-align: center; }
+.hd-country { font-family: var(--f-display); font-weight: 700; font-size: 3.7mm; letter-spacing: .14em; margin-right: -.14em; }
+.hd-motto { font-style: italic; font-size: 2.8mm; color: var(--ink-2); }
+.hd-rule { width: 18mm; height: .15mm; background: var(--ink); margin: 1mm auto; }
+.hd-authority { font-style: italic; font-size: 2.6mm; color: var(--ink-2); max-width: 74mm; line-height: 1.2; text-wrap: balance; }
+.decrees { margin-top: 2.4mm; padding-top: 1.3mm; border-top: .15mm solid var(--rule); font-family: var(--f-meta); font-size: 1.85mm;
+  letter-spacing: .01em; color: var(--muted); text-align: center; }
+.decrees b { font-weight: 500; color: var(--ink-2); }
+.decrees span + span::before { content: "·"; margin: 0 1.6mm; }
+
+/* Title */
+.ttl { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; margin-top: 3.4mm; }
+.ttl h1 { grid-column: 2; font-family: var(--f-display); font-weight: 700; font-size: 7.6mm; letter-spacing: .14em; margin-right: -.14em; line-height: 1; text-align: center; }
+.ttl-sub { grid-column: 2; text-align: center; font-style: italic; font-size: 3.5mm; color: var(--ink-2); margin-top: .8mm !important; }
+.ttl-no { grid-column: 3; grid-row: 1; justify-self: end; font-family: var(--f-meta); font-size: 2.2mm; letter-spacing: .1em; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+/* Student identification */
+.id { margin-top: 3mm; display: grid; grid-template-columns: repeat(3, 1fr); border: .2mm solid var(--ink); }
+.id > div { padding: 1.5mm 2.6mm; border-left: .15mm solid var(--rule); border-top: .15mm solid var(--rule); min-width: 0; }
+.id > div:nth-child(3n+1) { border-left: 0; }
+.id > div:nth-child(-n+3) { border-top: 0; }
+.id dt { font-family: var(--f-meta); font-size: 1.75mm; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.id dd { margin: .3mm 0 0; font-size: 3.2mm; line-height: 1.2; }
+.id dd.name { font-family: var(--f-display); font-weight: 700; font-size: 3.9mm; letter-spacing: .04em; }
+.id .wide { grid-column: span 2; }
+
+/* Grade tables */
+.lvl { margin-top: 3.4mm; }
+table.notes { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.notes caption { caption-side: top; text-align: left; background: var(--head); color: #fff; padding: 1mm 2.2mm; font-family: var(--f-meta);
+  font-size: 2.35mm; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.notes caption span { font-weight: 400; letter-spacing: .06em; text-transform: none; opacity: .8; margin-left: 2mm; }
+.notes th { font-family: var(--f-meta); font-size: 1.8mm; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2);
+  background: var(--band); padding: .8mm 2.2mm; border-bottom: .2mm solid var(--ink); text-align: left; white-space: nowrap; }
+.notes td { padding: .92mm 2.2mm; border-bottom: .12mm solid var(--rule); vertical-align: top; font-size: 2.85mm; line-height: 1.18; }
+.notes .c-code { width: 15mm; }
+.notes td.c-code { font-family: var(--f-meta); font-size: 2.1mm; letter-spacing: .03em; color: var(--ink-2); padding-top: 1.25mm; }
+.notes .c-ects, .notes .c-note { width: 13mm; text-align: center; font-variant-numeric: tabular-nums lining-nums; }
+.notes td.c-note { font-weight: 600; }
+.notes .c-app { width: 58mm; }
+.notes td.c-app { font-style: italic; color: var(--ink-2); font-size: 2.65mm; }
+.notes .sub { display: block; font-style: italic; font-size: 2.5mm; color: var(--muted); }
+.notes tfoot td { border-bottom: .2mm solid var(--ink); border-top: .2mm solid var(--ink); background: var(--band); padding: 1mm 2.2mm; font-size: 2.85mm; }
+.notes tfoot .lbl { font-family: var(--f-meta); font-size: 2.05mm; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.notes tfoot .c-note { font-size: 3.2mm; }
+
+/* Summary */
+.sum { margin-top: 3mm; display: grid; grid-template-columns: 1fr 1fr 1.5fr; border: .35mm solid var(--ink); }
+.sum > div { padding: 1.4mm 3mm; border-left: .15mm solid var(--rule); }
+.sum > div:first-child { border-left: 0; }
+.sum dt { font-family: var(--f-meta); font-size: 1.8mm; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.sum dd { margin: .5mm 0 0; font-family: var(--f-display); font-weight: 700; font-size: 4.6mm; line-height: 1.1; font-variant-numeric: lining-nums; }
+.sum dd small { font-family: var(--f-body); font-weight: 400; font-size: 3mm; color: var(--ink-2); }
+.sum .honours { display: block; font-family: var(--f-body); font-style: italic; font-weight: 400; font-size: 3mm; color: var(--ink-2); margin-top: .4mm; }
+
+/* Footer */
+.ft { margin-top: auto; padding-top: 3mm; display: grid; grid-template-columns: 30mm 1fr; gap: 6mm; align-items: end; }
+.verify { text-align: center; }
+.verify img { display: block; width: 19mm; height: 19mm; margin: 0 auto; }
+.verify p { font-family: var(--f-meta); font-size: 1.6mm; letter-spacing: .06em; color: var(--muted); margin-top: 1.2mm !important; line-height: 1.3; word-break: break-all; }
+.verify b { display: block; font-weight: 600; color: var(--ink-2); letter-spacing: .1em; }
+.place { font-style: italic; font-size: 3.1mm; color: var(--ink-2); text-align: left; padding-left: 2mm; }
+.sigs { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; margin-top: 2.2mm; }
+.sig { text-align: center; }
+.sig-role { font-family: var(--f-meta); font-size: 2.05mm; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.sig-space { height: 15mm; }
+.sig-line { width: 44mm; margin: 0 auto; border-top: .2mm solid var(--ink-2); }
+.sig-name { margin-top: 1mm; font-size: 3.2mm; font-weight: 500; }
+.stamp { position: absolute; width: 27mm; height: 27mm; right: 2mm; top: -4.2mm; transform: rotate(-10deg); opacity: .93; pointer-events: none; }
+.stamp img { width: 100%; height: 100%; display: block; }
+.legend { margin-top: 5.5mm; padding-top: 1.3mm; border-top: .15mm solid var(--rule); display: flex; justify-content: space-between; gap: 4mm;
+  font-family: var(--f-meta); font-size: 1.75mm; letter-spacing: .03em; color: var(--muted); }
+.legend b { font-weight: 600; color: var(--ink-2); }
+</style></head>
+<body><article class="releve" lang="fr" aria-label="Relevé de notes">
+<header class="hd">
+  <div class="hd-school"><img src="../master/assets/erpie-logo.webp" alt="ERPIE">
+    <div><div class="hd-school-name">École Rationnelle Privée d’Informatique et d’Électronique</div></div></div>
+  <div class="hd-state"><div class="hd-country">République du Mali</div><div class="hd-motto">Un Peuple – Un But – Une Foi</div>
+    <div class="hd-rule"></div><div class="hd-authority">Ministère de l’Enseignement Supérieur et de la Recherche Scientifique</div></div>
+</header>
+<p class="decrees"><span><b>Décision de création</b> N° 2018-0001575/MESRS-SG du 3 septembre 2018</span><span><b>Arrêté d’ouverture</b> N° 2022-4383/MESRS-SG du 21 septembre 2022</span><span><b>Arrêté d’habilitation</b> N° 2024-3794/MESRS-SG du 8 octobre 2024</span></p>
+<div class="ttl"><h1>Relevé de notes</h1><div class="ttl-no">N° RN-2026-0042</div>
+  <p class="ttl-sub">Master en Génie Logiciel, parcours Transformation numérique · 120 crédits ECTS</p></div>
+<dl class="id">
+  <div class="wide"><dt>Nom et prénom</dt><dd class="name">M. Aboubacar Togola</dd></div>
+  <div><dt>Matricule</dt><dd>MS-GL-2026-0042</dd></div>
+  <div class="wide"><dt>Né le / à</dt><dd>15 juillet 1997 à Bamako</dd></div>
+  <div><dt>Année académique</dt><dd>2025 – 2026</dd></div>
+</dl>
+<section class="lvl"><table class="notes">
+  <caption>Master 1 (M1)<span>Semestre 1 &amp; Semestre 2</span></caption>
+  <thead><tr><th class="c-code">Code</th><th>Intitulé du module</th><th class="c-ects">ECTS</th><th class="c-note">Note / 20</th><th class="c-app">Appréciation</th></tr></thead>
+  <tbody><tr><td class="c-code">GL-401</td><td>Architecture Logicielle Avancée &amp; Design Patterns</td><td class="c-ects">6</td><td class="c-note">18,50</td><td class="c-app">Excellent sens de la conception modulaire</td></tr><tr><td class="c-code">GL-402</td><td>Bases de Données Avancées &amp; NoSQL</td><td class="c-ects">6</td><td class="c-note">17,50</td><td class="c-app">Très bonne maîtrise des bases distribuées</td></tr><tr><td class="c-code">GL-403</td><td>Algorithmique Avancée &amp; Complexité</td><td class="c-ects">6</td><td class="c-note">18,00</td><td class="c-app">Rigueur remarquable</td></tr><tr><td class="c-code">GL-404</td><td>Méthodologies Agiles &amp; DevOps (CI/CD)</td><td class="c-ects">6</td><td class="c-note">19,00</td><td class="c-app">Maîtrise parfaite des pipelines de déploiement</td></tr><tr><td class="c-code">GL-405</td><td>Développement Web Full-Stack (React, Node.js, Microservices)</td><td class="c-ects">6</td><td class="c-note">18,00</td><td class="c-app">Code propre et très bien documenté</td></tr><tr><td class="c-code">GL-406</td><td>Sécurité Logicielle &amp; Cryptographie Appliquée</td><td class="c-ects">6</td><td class="c-note">17,00</td><td class="c-app">Bonnes pratiques d’audit et de sécurisation</td></tr><tr><td class="c-code">GL-407</td><td>Génie Logiciel Orienté Objet &amp; Tests Unitaires (TDD)</td><td class="c-ects">6</td><td class="c-note">18,50</td><td class="c-app">Excellente couverture de tests</td></tr><tr><td class="c-code">GL-408</td><td>Cloud Computing &amp; Containerisation (Docker, Kubernetes)</td><td class="c-ects">6</td><td class="c-note">18,00</td><td class="c-app">Déploiement cloud irréprochable</td></tr><tr><td class="c-code">GL-409</td><td>Anglais Technique &amp; Communication Professionnelle</td><td class="c-ects">3</td><td class="c-note">17,50</td><td class="c-app">Très bonne aisance rédactionnelle et orale</td></tr><tr><td class="c-code">GL-410</td><td>Projet M1 : Conception &amp; Déploiement d’une Application SaaS</td><td class="c-ects">9</td><td class="c-note">19,00</td><td class="c-app">Projet exceptionnel, architecture très solide</td></tr></tbody>
+  <tfoot><tr><td colspan="2" class="lbl">Moyenne M1 · pondérée par les crédits</td>
+    <td class="c-ects">60</td><td class="c-note">18,18</td><td>Mention <b>Très Bien</b> · 60 ECTS acquis</td></tr></tfoot>
+</table></section>
+<section class="lvl"><table class="notes">
+  <caption>Master 2 (M2)<span>Semestre 3 &amp; Semestre 4</span></caption>
+  <thead><tr><th class="c-code">Code</th><th>Intitulé du module</th><th class="c-ects">ECTS</th><th class="c-note">Note / 20</th><th class="c-app">Appréciation</th></tr></thead>
+  <tbody><tr><td class="c-code">GL-501</td><td>Microservices, API Gateway &amp; Event-Driven Architecture</td><td class="c-ects">6</td><td class="c-note">18,00</td><td class="c-app">Très bonne gestion de la montée en charge</td></tr><tr><td class="c-code">GL-502</td><td>Intelligence Artificielle &amp; Machine Learning pour Développeurs</td><td class="c-ects">6</td><td class="c-note">17,50</td><td class="c-app">Intégration efficace de modèles IA</td></tr><tr><td class="c-code">GL-503</td><td>Qualité du Code, Refactoring &amp; Infrastructure as Code (Terraform)</td><td class="c-ects">6</td><td class="c-note">18,50</td><td class="c-app">Code d’une très haute qualité opérationnelle</td></tr><tr><td class="c-code">GL-504</td><td>Management de Projets IT &amp; Gestion d’Équipes Techniques</td><td class="c-ects">6</td><td class="c-note">17,00</td><td class="c-app">Bonnes compétences en leadership technique</td></tr><tr><td class="c-code">GL-505</td><td>Systèmes Distribués &amp; Informatique en Nuage Avancée</td><td class="c-ects">6</td><td class="c-note">18,00</td><td class="c-app">Compréhension approfondie de la tolérance aux pannes</td></tr><tr><td class="c-code">GL-506</td><td>Projet Majeur de Fin d’Études (Capstone Project)<span class=sub>Conception d’une plateforme cloud distribuée avec IA intégrée</span></td><td class="c-ects">12</td><td class="c-note">19,00</td><td class="c-app">Travail de niveau professionnel, code prêt pour la production</td></tr><tr><td class="c-code">GL-507</td><td>Mémoire de Master &amp; Soutenance Finale<span class=sub>Sujet : « Optimisation des architectures microservices sous forte charge »</span></td><td class="c-ects">18</td><td class="c-note">18,50</td><td class="c-app">Remarquable présentation devant le jury</td></tr></tbody>
+  <tfoot><tr><td colspan="2" class="lbl">Moyenne M2 · pondérée par les crédits</td>
+    <td class="c-ects">60</td><td class="c-note">18,25</td><td>Mention <b>Très Bien</b> · 60 ECTS acquis</td></tr></tfoot>
+</table></section>
+<dl class="sum">
+  <div><dt>Crédits validés</dt><dd>120 <small>/ 120 ECTS</small></dd></div>
+  <div><dt>Moyenne générale</dt><dd>18,21 <small>/ 20</small></dd></div>
+  <div><dt>Mention</dt><dd>Très Bien<span class=honours>Avec les félicitations du jury</span></dd></div>
+</dl>
+<footer class="ft">
+  <div class="verify"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMyIgaGVpZ2h0PSIzMyIgY2xhc3M9InNlZ25vIj48cGF0aCBjbGFzcz0icXJsaW5lIiBzdHJva2U9IiMxNjE5MWQiIGQ9Ik0wIDAuNWg3bTIgMGgxbTEgMGgxbTMgMGg1bTEgMGgxbTEgMGgybTEgMGg3bS0zMyAxaDFtNSAwaDFtMSAwaDFtMiAwaDFtMSAwaDRtMSAwaDFtMiAwaDFtMSAwaDJtMSAwaDFtNSAwaDFtLTMzIDFoMW0xIDBoM20xIDBoMW0xIDBoM20xIDBoM20xIDBoMm0xIDBoMm0xIDBoMW0xIDBoMW0xIDBoMW0xIDBoM20xIDBoMW0tMzMgMWgxbTEgMGgzbTEgMGgxbTIgMGgybTEgMGgybTEgMGgybTkgMGgxbTEgMGgzbTEgMGgxbS0zMyAxaDFtMSAwaDNtMSAwaDFtMiAwaDJtMSAwaDFtMiAwaDFtNCAwaDNtMyAwaDFtMSAwaDNtMSAwaDFtLTMzIDFoMW01IDBoMW0yIDBoMW0xIDBoMW0yIDBoMm0xIDBoM20xIDBoMW00IDBoMW01IDBoMW0tMzMgMWg3bTEgMGgxbTEgMGgxbTEgMGgxbTEgMGgxbTEgMGgxbTEgMGgxbTEgMGgxbTEgMGgxbTEgMGgxbTEgMGg3bS0yMSAxaDFtMiAwaDFtMSAwaDJtMSAwaDFtMiAwaDFtLTIzIDFoM20xIDBoMm00IDBoOW0xIDBoMW04IDBoMm0tMzIgMWgzbTggMGgxbTIgMGgxbTEgMGgxbTIgMGgzbTEgMGgxbTIgMGgybTEgMGgybTEgMGgxbS0zMCAxaDFtMSAwaDVtMSAwaDNtMiAwaDJtMiAwaDZtMSAwaDNtMSAwaDJtLTMzIDFoMm0yIDBoMW01IDBoMW01IDBoMW0xIDBoM20xIDBoMW0zIDBoMm0xIDBoMW0xIDBoMm0tMzMgMWgxbTIgMGg0bTEgMGgxbTUgMGgxbTEgMGgxbTEgMGgybTMgMGgxbTEgMGgxbTEgMGgzbS0zMCAxaDFtMSAwaDFtNSAwaDJtMSAwaDJtMSAwaDFtMiAwaDJtMSAwaDFtNCAwaDJtMiAwaDNtLTMyIDFoMm0yIDBoMW0xIDBoMW0yIDBoMW0yIDBoMm0yIDBoNG02IDBoMW0yIDBoMW0tMjkgMWg1bTEgMGg0bTMgMGgybTEgMGgxbTEgMGgxbTEgMGg3bTEgMGgybS0zMSAxaDFtMiAwaDRtMyAwaDFtMSAwaDFtMiAwaDJtMyAwaDRtMSAwaDJtMSAwaDNtLTMwIDFoMW05IDBoMW0xIDBoMW0xIDBoMm0xIDBoMW0xIDBoMm0xIDBoNG0xIDBoMm0yIDBoMW0tMzMgMWgzbTEgMGgxbTEgMGgybTEgMGgybTIgMGgxbTEgMGgzbTMgMGgybTEgMGgxbTIgMGgybTEgMGgybS0zMSAxaDFtMiAwaDFtMiAwaDFtMiAwaDJtMyAwaDFtMSAwaDFtMiAwaDFtMSAwaDJtNCAwaDFtMiAwaDJtLTMwIDFoNW0zIDBoMW0zIDBoMW0yIDBoNW0xIDBoMW0yIDBoMW0xIDBoMm0tMzEgMWgybTEgMGgxbTMgMGg0bTEgMGgybTIgMGgxbTIgMGgxbTIgMGgzbTQgMGgybTEgMGgxbS0zMSAxaDNtMSAwaDFtNSAwaDJtMSAwaDFtMiAwaDFtMSAwaDFtMiAwaDVtMSAwaDRtLTMyIDFoMW0yIDBoMm0yIDBoMW0yIDBoMW0yIDBoMW0xIDBoMW0xIDBoM20xIDBoMW0xIDBoMW0yIDBoM20yIDBoMW0tMzMgMWgxbTEgMGgxbTEgMGgxbTEgMGgxbTIgMGgybTQgMGgxbTEgMGgxbTIgMGgxbTEgMGg3bTMgMGgxbS0yNSAxaDJtMSAwaDFtMiAwaDNtMiAwaDFtNCAwaDFtMyAwaDJtLTMwIDFoN200IDBoMW0xIDBoMW0xIDBoNm0xIDBoM20xIDBoMW0xIDBoMW0tMjkgMWgxbTUgMGgxbTEgMGgxbTIgMGgxbTEgMGgxbTEgMGgxbTEgMGgxbTIgMGgybTEgMGgybTMgMGgzbTEgMGgxbS0zMyAxaDFtMSAwaDNtMSAwaDFtMiAwaDFtMiAwaDFtMSAwaDFtNCAwaDFtMSAwaDFtMSAwaDZtMSAwaDNtLTMzIDFoMW0xIDBoM20xIDBoMW0xIDBoMm0xIDBoNm0xIDBoMW01IDBoMW0yIDBoMW0yIDBoM20tMzMgMWgxbTEgMGgzbTEgMGgxbTEgMGg5bTQgMGgxbTIgMGg0bTEgMGgybS0zMSAxaDFtNSAwaDFtMSAwaDNtMSAwaDFtMSAwaDFtMiAwaDFtMiAwaDFtMSAwaDRtMSAwaDJtMyAwaDFtLTMzIDFoN201IDBoMW0yIDBoMm0xIDBoMm0xIDBoMW0zIDBoMm0xIDBoMW0xIDBoMSIvPjwvc3ZnPg==" alt="QR code de vérification"><p><b>Vérification</b>erpie.example/verifier/RN-2026-0042</p></div>
+  <div>
+    <p class="place">Fait à Bamako, le 16 octobre 2026</p>
+    <div class="sigs">
+      <div class="sig"><div class="sig-role">Le Directeur des Études</div><div class="sig-space"></div><div class="sig-line"></div><div class="sig-name">Dr Sékou TANGARA</div></div>
+      <div class="sig"><div class="sig-role">Le Directeur Général</div><div class="sig-space"></div><div class="sig-line"></div><div class="sig-name">Ing. Lassana SISSOKO</div></div>
+      <div class="stamp"><img src="../master/assets/erpie-cachet.webp" alt="Cachet de l’établissement"></div>
+    </div>
+  </div>
+</footer>
+<p class="legend"><span><b>Mentions</b> Très Bien ≥ 16 · Bien 14–15,99 · Assez Bien 12–13,99 · Passable 10–11,99</span>
+  <span>Moyennes pondérées par les crédits ECTS · Document délivré en un seul exemplaire · Toute rature ou surcharge l’annule</span></p>
+</article></body></html>
