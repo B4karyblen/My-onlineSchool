@@ -1,9 +1,11 @@
 {
   "SCHOOL_LOGO": "assets/erpie-logo.webp",
   "COUNTRY": "République du Mali",
+  "MOTTO": "Un Peuple – Un But – Une Foi",
+  "STATE_EMBLEM": "assets/mali-armoiries.png",
   "AUTHORITY": "Ministère de l’Enseignement Supérieur et de la Recherche Scientifique",
-  "SCHOOL_NAME": "ERPIE",
-  "SCHOOL_STATUS": "Établissement privé d’enseignement supérieur",
+  "SCHOOL_NAME": "École Rationnelle Privée d’Informatique et d’Électronique",
+  "SCHOOL_STATUS": "",
   "CERTIFICATE_NUMBER": "00000001",
   "SERIAL_NUMBER": "A-2026",
   "DOCUMENT_TITLE": "Diplôme",
@@ -27,5 +29,8 @@
   "DIRECTOR_TITLE": "Le Directeur des Études",
   "DIRECTOR_NAME": "Dr Sekou TANGARA",
   "AUTHORIZED_SIGNATORY_TITLE": "Le Directeur Général",
-  "AUTHORIZED_SIGNATORY_NAME": "Ing. Lassana SISSOKO"
+  "AUTHORIZED_SIGNATORY_NAME": "Ing. Lassana SISSOKO",
+  "DIRECTOR_SIGNATURE": "",
+  "AUTHORIZED_SIGNATORY_SIGNATURE": "",
+  "SCHOOL_STAMP": "assets/erpie-cachet.webp"
 }

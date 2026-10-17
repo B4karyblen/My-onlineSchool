@@ -73,6 +73,8 @@ The layout follows the French national diploma model:
 | `ISSUE_DATE` | |
 | `DIRECTOR_TITLE`, `DIRECTOR_NAME` | Centre signature |
 | `AUTHORIZED_SIGNATORY_TITLE`, `AUTHORIZED_SIGNATORY_NAME` | Right signature |
+| `DIRECTOR_SIGNATURE`, `AUTHORIZED_SIGNATORY_SIGNATURE` | *Optional.* Transparent PNG of the signature, placed above the signature line |
+| `SCHOOL_STAMP` | *Optional.* School cachet image, stamped over the right half of the Director General block. Leave empty to print without it. |
 
 The holder's signature block on the left is fixed and has no field.
 

@@ -255,7 +255,7 @@ def background_svg(emblem_href):
         f'<g fill="none" stroke="var(--green)" stroke-width=".08">{outer}</g>'
         + ring_text("mtMed", cx, cy, 62.15, MICRO_MEDALLION, 1.25, 7)
         + f'<image href="{emblem_href}" x="{f(cx - 13)}" y="{f(cy - 9.8)}" width="26" height="19.6" opacity=".14"/>'
-        "</g>" + laurel_svg(cx, 113, 33) + "</g></svg>"
+        "</g>" + laurel_svg(cx, 107.5, 33) + "</g></svg>"
     )
 
 
@@ -319,9 +319,11 @@ TITLE_RULE = (
 SAMPLE = {
     "SCHOOL_LOGO": "assets/erpie-logo.webp",
     "COUNTRY": "République du Mali",
+    "MOTTO": "Un Peuple – Un But – Une Foi",
+    "STATE_EMBLEM": "assets/mali-armoiries.png",
     "AUTHORITY": "Ministère de l’Enseignement Supérieur et de la Recherche Scientifique",
-    "SCHOOL_NAME": "ERPIE",
-    "SCHOOL_STATUS": "Établissement privé d’enseignement supérieur",
+    "SCHOOL_NAME": "École Rationnelle Privée d’Informatique et d’Électronique",
+    "SCHOOL_STATUS": "",
     "CERTIFICATE_NUMBER": "00000001",
     "SERIAL_NUMBER": "A-2026",
     "DOCUMENT_TITLE": "Diplôme",
@@ -346,9 +348,13 @@ SAMPLE = {
     "DIRECTOR_NAME": "Dr Sekou TANGARA",
     "AUTHORIZED_SIGNATORY_TITLE": "Le Directeur Général",
     "AUTHORIZED_SIGNATORY_NAME": "Ing. Lassana SISSOKO",
+    "DIRECTOR_SIGNATURE": "",
+    "AUTHORIZED_SIGNATORY_SIGNATURE": "",
+    "SCHOOL_STAMP": "assets/erpie-cachet.webp",
 }
-IMAGE_FIELDS = {"SCHOOL_LOGO"}
-OPTIONAL = {"AUTHORITY", "SCHOOL_STATUS", "SERIAL_NUMBER", "RECIPIENT_HONORIFIC", "SPECIALIZATION", "DISTINCTION"}
+IMAGE_FIELDS = {"SCHOOL_LOGO", "STATE_EMBLEM", "SCHOOL_STAMP", "DIRECTOR_SIGNATURE", "AUTHORIZED_SIGNATORY_SIGNATURE"}
+OPTIONAL = {"AUTHORITY", "MOTTO", "STATE_EMBLEM", "SCHOOL_STATUS", "SERIAL_NUMBER", "RECIPIENT_HONORIFIC", "SPECIALIZATION", "DISTINCTION",
+            "SCHOOL_STAMP", "DIRECTOR_SIGNATURE", "AUTHORIZED_SIGNATORY_SIGNATURE"}
 
 
 def t(key):
@@ -360,24 +366,30 @@ def opt(key):
 
 
 def diploma_markup(emblem_href):
-    sigs = [("DIRECTOR_TITLE", "DIRECTOR_NAME"), ("AUTHORIZED_SIGNATORY_TITLE", "AUTHORIZED_SIGNATORY_NAME")]
+    sigs = [("DIRECTOR_TITLE", "DIRECTOR_NAME", "DIRECTOR_SIGNATURE"),
+            ("AUTHORIZED_SIGNATORY_TITLE", "AUTHORIZED_SIGNATORY_NAME", "AUTHORIZED_SIGNATORY_SIGNATURE")]
     return f"""<article class="diploma" id="diploma" lang="fr" aria-label="Diplôme">
 {background_svg(emblem_href)}
 {frame_svg()}
 
-<div class="z z-logo"><img data-field="SCHOOL_LOGO" src="{{{{SCHOOL_LOGO}}}}" alt="Logo de l’établissement"></div>
+<header class="z z-school">
+  <img class="school-logo" data-field="SCHOOL_LOGO" src="{{{{SCHOOL_LOGO}}}}" alt="Logo de l’établissement">
+  <div class="school-name">{t("SCHOOL_NAME")}</div>
+  <div class="school-status"{opt("SCHOOL_STATUS")}>{t("SCHOOL_STATUS")}</div>
+</header>
+
+<header class="z z-state">
+  <img class="state-emblem" data-field="STATE_EMBLEM" data-optional="STATE_EMBLEM" src="{{{{STATE_EMBLEM}}}}" alt="Armoiries">
+  <div class="inst-country">{t("COUNTRY")}</div>
+  <div class="inst-motto"{opt("MOTTO")}>{t("MOTTO")}</div>
+  <svg class="inst-rule" viewBox="0 0 24 2" aria-hidden="true"><path d="M0 1H10M14 1H24" stroke="var(--engrave)" stroke-width=".15"/><path d="M12 .2l.8.8-.8.8-.8-.8z" fill="var(--red)"/></svg>
+  <div class="inst-authority"{opt("AUTHORITY")}>{t("AUTHORITY")}</div>
+</header>
 
 <div class="z z-number">
   <div class="cert-no"><span class="no-mark">N°</span> {t("CERTIFICATE_NUMBER")}</div>
   <div class="serial"{opt("SERIAL_NUMBER")}>Série {t("SERIAL_NUMBER")}</div>
 </div>
-
-<header class="z z-inst">
-  <div class="inst-country">{t("COUNTRY")}</div>
-  <svg class="inst-rule" viewBox="0 0 24 2" aria-hidden="true"><path d="M0 1H10M14 1H24" stroke="var(--engrave)" stroke-width=".15"/><path d="M12 .2l.8.8-.8.8-.8-.8z" fill="var(--red)"/></svg>
-  <div class="inst-authority"{opt("AUTHORITY")}>{t("AUTHORITY")}</div>
-  <div class="inst-school"><span class="inst-name">{t("SCHOOL_NAME")}</span><span class="inst-status"{opt("SCHOOL_STATUS")}> · {t("SCHOOL_STATUS")}</span></div>
-</header>
 
 <section class="z z-title">
   <h1 class="doc-title">{t("DOCUMENT_TITLE")}</h1>
@@ -419,11 +431,13 @@ def diploma_markup(emblem_href):
   </div>
 {"".join(f'''  <div class="sig">
     <div class="sig-role">{t(role)}</div>
-    <div class="sig-space"></div>
+    <div class="sig-space"><img class="sig-img" data-field="{sign}" data-optional="{sign}" src="{{{{{sign}}}}}" alt=""></div>
     <div class="sig-line"></div>
     <div class="sig-name">{t(name)}</div>
   </div>
-''' for role, name in sigs)}</section>
+''' for role, name, sign in sigs)}</section>
+
+<div class="z z-stamp"{opt("SCHOOL_STAMP")}><img data-field="SCHOOL_STAMP" src="{{{{SCHOOL_STAMP}}}}" alt="Cachet de l’établissement"></div>
 </article>"""
 
 
@@ -456,33 +470,37 @@ DIPLOMA_CSS = """
 .diploma .z { position: absolute; }
 .diploma [data-hidden] { display: none !important; }
 
-.z-logo { left: 26mm; top: 21.5mm; width: 46mm; height: 20.9mm; display: flex; align-items: center; }
-.z-logo img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: left center; }
+/* Header: the school on the left, the State on the right, the title between them. */
+.z-school { left: 22mm; width: 82mm; top: 21mm; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.6mm; }
+.school-logo { display: block; width: 44mm; height: 20mm; object-fit: contain; }
+.school-name { font-family: var(--f-display); font-weight: 700; font-size: 4.6mm; line-height: 1.15; letter-spacing: .03em; color: var(--red); text-wrap: balance; }
+.school-status { font-family: var(--f-meta); font-size: 2mm; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
-.z-number { right: 24mm; top: 21.3mm; text-align: right; font-family: var(--f-meta); color: var(--ink); }
+.z-state { left: 193mm; width: 82mm; top: 20mm; display: flex; flex-direction: column; align-items: center; text-align: center; gap: .9mm; }
+.state-emblem { display: block; width: 17mm; height: 17mm; object-fit: contain; margin-bottom: .4mm; }
+.inst-country { font-family: var(--f-display); font-weight: 700; font-size: 4.6mm; letter-spacing: .14em; margin-right: -.14em; line-height: 1.1; color: var(--ink); }
+.inst-motto { font-family: var(--f-serif); font-style: italic; font-weight: 600; font-size: 3.5mm; line-height: 1.1; color: var(--ink-soft); }
+.inst-rule { width: 24mm; height: 2mm; display: block; }
+.inst-authority { font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: 3.4mm; line-height: 1.2; color: var(--ink-soft); text-wrap: balance; }
+
+/* Registration number, bottom left as on French national diplomas. */
+.z-number { left: 26mm; top: 182mm; text-align: left; font-family: var(--f-meta); color: var(--ink); }
 .cert-no { font-size: 2.9mm; font-weight: 500; letter-spacing: .12em; font-variant-numeric: tabular-nums; }
 .no-mark { color: var(--red); letter-spacing: .04em; }
 .serial { font-size: 1.9mm; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: .5mm; }
 
-.z-inst { left: 68.5mm; width: 160mm; top: 21mm; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1mm; }
-.inst-country { font-family: var(--f-display); font-weight: 600; font-size: 4.8mm; letter-spacing: .2em; margin-right: -.2em; line-height: 1.1; color: var(--ink); }
-.inst-rule { width: 26mm; height: 2mm; display: block; }
-.inst-authority { font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: 3.7mm; line-height: 1.2; color: var(--ink-soft); }
-.inst-school { font-family: var(--f-meta); font-size: 2.1mm; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: .3mm; }
-.inst-name { font-weight: 500; color: var(--engrave); letter-spacing: .28em; }
-
-.z-title { left: 48.5mm; width: 200mm; top: 41mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.z-title { left: 104mm; width: 89mm; top: 27mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
 .doc-title { font-family: var(--f-display); font-weight: 600; font-size: 12.5mm; line-height: .95; letter-spacing: .16em; margin-right: -.16em;
   color: var(--engrave); }
 .title-rule { width: 58mm; height: 3mm; display: block; margin: 1.1mm 0 .6mm; }
 .qualification { font-family: var(--f-serif); font-style: italic; font-weight: 600; font-size: 8mm; line-height: 1.1; color: var(--green); }
 
-.z-visas { left: 18.5mm; width: 260mm; top: 70mm; display: flex; justify-content: center; }
+.z-visas { left: 18.5mm; width: 260mm; top: 64mm; display: flex; justify-content: center; }
 .visas { list-style: none; margin: 0; padding: 0; font-size: 3.45mm; line-height: 1.42; color: var(--ink-soft); text-align: left; }
 .visas .ref { font-weight: 500; color: var(--ink); white-space: nowrap; font-variant-numeric: lining-nums; }
 .visas .sc { font-variant: small-caps; letter-spacing: .03em; }
 
-.z-deliver { left: 23.5mm; width: 250mm; top: 97.4mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.z-deliver { left: 23.5mm; width: 250mm; top: 91.6mm; text-align: center; display: flex; flex-direction: column; align-items: center; }
 .deliver-lead { font-size: 4.5mm; line-height: 1.3; color: var(--ink); }
 .deliver-lead b { font-family: var(--f-serif); font-weight: 700; font-size: 5.6mm; color: var(--engrave); letter-spacing: .01em; }
 .name-row { width: 100%; height: 16mm; display: flex; align-items: center; justify-content: center; gap: 4mm; margin-top: .4mm; }
@@ -496,12 +514,16 @@ DIPLOMA_CSS = """
 .mention-label::after { content: " ·"; color: var(--red); }
 .deliver-close { margin-top: 1.4mm !important; font-style: italic; font-size: 3.9mm; color: var(--ink-soft); }
 
-.z-place { right: 55.5mm; top: 141.6mm; text-align: right; font-style: italic; font-size: 3.9mm; color: var(--ink-soft); white-space: nowrap; }
+.z-place { right: 55.5mm; top: 139mm; text-align: right; font-style: italic; font-size: 3.9mm; color: var(--ink-soft); white-space: nowrap; }
 
-.z-sigs { left: 55.5mm; width: 186mm; top: 151.5mm; display: grid; grid-template-columns: repeat(3, 58mm); column-gap: 6mm; }
+.z-sigs { left: 55.5mm; width: 186mm; top: 149.5mm; display: grid; grid-template-columns: repeat(3, 58mm); column-gap: 6mm; }
 .sig { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; }
 .sig-role { font-family: var(--f-meta); font-weight: 500; font-size: 2.8mm; letter-spacing: .12em; text-transform: uppercase; color: var(--engrave); line-height: 1.3; min-height: 3.6mm; }
-.sig-space { height: 17mm; }
+.sig-space { height: 17mm; width: 100%; position: relative; }
+.sig-img { position: absolute; left: 50%; bottom: -2mm; transform: translateX(-50%); max-width: 44mm; max-height: 19mm; object-fit: contain; }
+/* School stamp, inked over the right half of the Director General block: "GÉNÉRAL" and the surname stay under it, the left half stays free to sign. */
+.z-stamp { left: 212mm; top: 145.5mm; width: 37mm; height: 37mm; transform: rotate(-11deg); opacity: .93; pointer-events: none; }
+.z-stamp img { display: block; width: 100%; height: 100%; }
 .sig-line { width: 48mm; border-top: .2mm solid var(--ink-soft); }
 .sig-name { margin-top: 1.3mm; font-family: var(--f-body); font-weight: 500; font-size: 3.9mm; letter-spacing: .02em; color: var(--ink); white-space: nowrap; }
 """
@@ -602,8 +624,6 @@ summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 /* variable mode: outline every live field */
 .show-vars [data-field], .show-vars [data-optional] { outline: .25mm dashed rgba(165,23,27,.75); outline-offset: .3mm; }
 .show-vars img[data-field] { background: rgba(165,23,27,.06); }
-.show-vars .z-logo::after { position: absolute; left: 50%; transform: translateX(-50%); font: 500 1.6mm/1 ui-monospace, Menlo, monospace; color: #a5171b; background: #fff; padding: .4mm .8mm; white-space: nowrap; }
-.show-vars .z-logo::after { content: "{{SCHOOL_LOGO}}"; bottom: -2.6mm; left: 25mm; }
 .show-grid .grid-overlay { display: block; }
 .grid-overlay { display: none; position: absolute; inset: 0; width: 297mm; height: 210mm; pointer-events: none; }
 @media (prefers-reduced-motion: no-preference) { .sheet { transition: width .25s ease, height .25s ease; } }
@@ -612,7 +632,7 @@ summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 GRID_OVERLAY = (
     '<svg class="grid-overlay" viewBox="0 0 297 210" aria-hidden="true"><g fill="none" stroke="#e0218a" stroke-width=".2">'
     '<path d="M148.5 14.4V195.6" stroke-dasharray="1 1"/><path d="M14.4 104H282.6" stroke-dasharray="1 1"/>'
-    '<rect x="26" y="21.5" width="46" height="20.9"/><rect x="68.5" y="21" width="160" height="18"/>'
+    '<rect x="22" y="21" width="82" height="36"/><rect x="193" y="20" width="82" height="40"/>'
     '<rect x="48.5" y="41" width="200" height="26"/><rect x="18.5" y="70" width="260" height="25"/>'
     '<rect x="23.5" y="97.4" width="250" height="41"/><rect x="171.5" y="141.6" width="70" height="5"/>'
     '<rect x="55.5" y="151.5" width="58" height="26"/><rect x="119.5" y="151.5" width="58" height="26"/>'
@@ -620,13 +640,22 @@ GRID_OVERLAY = (
 )
 
 
+BLANK = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+
+
 def preview_html():
     assets = HERE / "assets"
     emblem = data_uri(assets / "erpie-emblem.webp", "image/webp")
     sample = dict(SAMPLE)
     sample["SCHOOL_LOGO"] = data_uri(assets / "erpie-logo.webp", "image/webp")
+    sample["SCHOOL_STAMP"] = data_uri(assets / "erpie-cachet.webp", "image/webp")
+    sample["STATE_EMBLEM"] = data_uri(assets / "mali-armoiries.png", "image/png")
     markup = (diploma_markup(emblem).replace("</article>", GRID_OVERLAY + "</article>", 1)
-              .replace('src="{{SCHOOL_LOGO}}"', f'src="{sample["SCHOOL_LOGO"]}"'))
+              .replace('src="{{SCHOOL_LOGO}}"', f'src="{sample["SCHOOL_LOGO"]}"')
+              .replace('src="{{SCHOOL_STAMP}}"', f'src="{sample["SCHOOL_STAMP"]}"')
+              .replace('src="{{STATE_EMBLEM}}"', f'src="{sample["STATE_EMBLEM"]}"')
+              .replace('src="{{DIRECTOR_SIGNATURE}}"', f'src="{BLANK}"')
+              .replace('src="{{AUTHORIZED_SIGNATORY_SIGNATURE}}"', f'src="{BLANK}"'))
     rows = "".join(
         f'<tr><td><code>{{{{{k}}}}}</code>{" <span class=opt>optionnel</span>" if k in OPTIONAL else ""}</td>'
         f'<td>{"image (URL ou data:)" if k in IMAGE_FIELDS else (v or "—")}</td></tr>'
@@ -669,7 +698,8 @@ def preview_html():
   var SAMPLE = {json.dumps(sample, ensure_ascii=False)};
   var root = document.getElementById('diploma'), sheet = document.getElementById('sheet'), vp = document.getElementById('viewport');
   var MM = 96 / 25.4, DW = 297 * MM, DH = 210 * MM, zoom = 'fit';
-  var VARS = {{}}; Object.keys(SAMPLE).forEach(function (k) {{ VARS[k] = k === 'SCHOOL_LOGO' ? SAMPLE[k] : '{{{{' + k + '}}}}'; }});
+  var IMAGES = {json.dumps(sorted(IMAGE_FIELDS))};
+  var VARS = {{}}; Object.keys(SAMPLE).forEach(function (k) {{ VARS[k] = IMAGES.indexOf(k) >= 0 ? SAMPLE[k] : '{{{{' + k + '}}}}'; }});
   function layout() {{
     var pad = parseFloat(getComputedStyle(vp).paddingLeft) * 2;
     var s = zoom === 'fit' ? (vp.clientWidth - pad) / DW : zoom;
